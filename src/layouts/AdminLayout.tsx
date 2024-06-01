@@ -1,9 +1,7 @@
-import useAuth from "../lib/hooks/useAuth"
+import useAuth from "@/lib/hooks/useAuth"
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { isLoading, session } = useAuth();
-
-  if (isLoading) return <h1>Loading...</h1>
+  const { session } = useAuth();
 
   if (session === "unauthenticated") return <h1>Unauthorized</h1>
 
