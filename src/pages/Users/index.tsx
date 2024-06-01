@@ -60,7 +60,7 @@ export default function index() {
   const navigate = useNavigate();
 
   return (
-    <section className="mt-[90px] ms-[240px] bg-[#EDEDED] px-5 py-7 h-[calc(100vh-90px)] grid">
+    <section className=" bg-[#EDEDED] px-5 py-7 h-[calc(100vh-90px)] grid">
       <div className="bg-white py-6 relative rounded-[7px]">
         <div className="flex justify-between items-center px-8">
           <div className="flex gap-4 items-center">
@@ -153,7 +153,7 @@ export default function index() {
                         >
                           Hapus
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="text-xs font-semibold">
+                        <DropdownMenuItem className="text-xs font-semibold" onClick={() => navigate(`/users?user_id=${item.id}&action=edit`)}>
                           Edit
                         </DropdownMenuItem>
                       </DropdownMenuContent>

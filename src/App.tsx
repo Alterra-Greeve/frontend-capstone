@@ -7,26 +7,8 @@ import Products from "./pages/Products/index";
 import Users from "./pages/Users/index";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
-import useFetch from "./lib/useFetch";
 
 function App() {
-  let body = JSON.stringify({
-    email: "admin@greeve.store",
-    password: "admin",
-  });
-
-  let config = {
-    method: "post",
-    maxBodyLength: Infinity,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: body,
-  };
-
-  const { data, error, loading } = useFetch("/admin/login", config);
-  console.log(data);
-
   return (
     <div className="flex flex-row">
       <div>

@@ -16,7 +16,7 @@ const ModalDeleteUser = ({ isShow = false }: { isShow: any }) => {
       <DialogContent className="px-9 py-[30px] rounded-3xl grid  justify-center">
         <DialogHeader className="flex flex-col items-center justify-center w-full gap-7">
           <div className="flex justify-center items-center">
-            <img src={hapus} />
+            <img src={hapus} alt="delete-icon"/>
           </div>
           <p className="text-2xl font-medium max-w-[292px] text-center">Yakin ingin menghapus data ini?</p>
         </DialogHeader>
