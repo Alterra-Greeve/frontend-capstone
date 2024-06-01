@@ -1,28 +1,25 @@
-import "./App.css";
-// import { Button } from "@/components/ui/button";
 import { Routes, Route } from "react-router-dom";
-import Challenges from "./pages/Challenges/index"
-import Dashboard from "./pages/Dashboard/index"
-import Products from "./pages/Products/index"
-import Users from "./pages/Users/index"
+import Challenges from "./pages/Challenges";
+import Dashboard from "./pages/Dashboard";
+import Products from "./pages/Products";
+import Users from "./pages/Users";
 import Navbar from "./components/Navbar";
+import LoginPage from "./pages/auth/login";
 
-function App() {
+export default function App() {
   return (
     <>
-      <Navbar/>
-      <Routes>
-        <Route path="/" element={<Dashboard/>}/>
-        <Route path="/users" element={<Users/>}/>
-        <Route path="/products" element={<Products/>}/>
-        <Route path="/challenges" element={<Challenges/>}/>
-      </Routes>
-      {/* <h1 className="text-[100px] bg-blue-700 rounded-lg text-white">
-        test tailwind css
-      </h1>
-      <Button>test shadcn ui</Button> */}
-    </>
-  );
-}
+      <Navbar />
 
-export default App;
+      <Routes>
+        <Route path="/dashboard">
+          <Route index element={<Dashboard />} />
+          <Route path="users" element={<Users />} />
+          <Route path="products" element={<Products />} />
+          <Route path="challenges" element={<Challenges />} />
+        </Route>
+        <Route path="/auth/login" element={<LoginPage />} />
+      </Routes>
+    </>
+  )
+}

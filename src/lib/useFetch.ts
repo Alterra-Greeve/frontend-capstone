@@ -1,27 +1,40 @@
-import axios from "axios";
+import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
+import { GreeveApi } from "@/lib/axios";
 
 interface FetchState<T> {
-  data: T | string;
+  data: T | null;
   loading: boolean;
   error: Error | null;
 }
 
-const useFetch = <T>(params: string, options: any): FetchState<T> => {
-  const [data, setData] = useState<T | string>("");
+/**
+ * 
+ * Hooks for fetching data from the API
+ * Cara Pakai:
+ * di component cukup panggil seperti ini:
+ * const { loading, error, data } = useFetch("products", { method: 'get' });
+ * ndak perlu lagi masukin headers authorization karena sudah dihandle di axios interceptor
+ * 
+ */
+
+const useFetch = <T>(params: string, options: unknown): FetchState<T> => {
+  const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<Error | any>(null);
+  const [error, setError] = useState<Error | null>(null);
 
   const fetchData = async () => {
     setLoading(true);
+    setError(null);
     try {
-      const response = await axios(
-        `https://api.greeve.store/api/v1${params}`,
-        options || {}
-      );
-      setData(JSON.stringify(response.data));
+      const response = await GreeveApi(params, options || {});
+      setData(response.data);
     } catch (error) {
-      setError(error);
+      if (error instanceof AxiosError) {
+        setError(error);
+      } else {
+        setError(new Error("An unknown error occurred"));
+      }
     } finally {
       setLoading(false);
     }
@@ -29,41 +42,11 @@ const useFetch = <T>(params: string, options: any): FetchState<T> => {
 
   useEffect(() => {
     fetchData();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return { data, loading, error };
 };
 
 export default useFetch;
-
-// example
-
-// let token =
-//     "eJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFkbWluQGdyZWV2ZS5zdG9yZSIsImV4cCI6MTcxOTc1MDQ0NSwiaWF0IjoxNzE3MDcyMDQ1LCJpZCI6IjE2OTMwYzA3LWJkYjUtNDlkMi04YTgxLTMyNTkxODMzMjQxYiIsIm5hbWUiOiJLYXplIFVzZXIiLCJyb2xlIjoiQWRtaW4iLCJ1c2VybmFtZSI6ImFkbWluIn0.bk9ZGJSbunUeR3zYeds2WLWSLGJSslvWIkJktItnsxc";
-
-//   let config = {
-//     method: "get",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
-
-//   const { data, error, loading } = useFetch("/admin", config);
-//   console.log(error?.message);
-
-// -----------------------------------------------------------------------------------
-
-// let config = {
-//     method: "post",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     data: {
-//       email: "users@kzquandary.my.id",
-//       password: "admin",
-//     },
-//   };
-
-//   const { data, error, loading } = useFetch("/admin/login", config);
-//   console.log(data);

@@ -1,7 +1,7 @@
 export default function index() {
-    return (
-        <>
-            dashboard
-        </>
-    )
+  return (
+    <>
+      dashboard
+    </>
+  )
 };
