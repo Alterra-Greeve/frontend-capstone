@@ -7,6 +7,7 @@ import Products from "./pages/Products/index";
 import Users from "./pages/Users/index";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
+import DataImpact from "./pages/DataImpact";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/users" element={<Users />} />
           <Route path="/products" element={<Products />} />
           <Route path="/challenges" element={<Challenges />} />
+          <Route path="/data-impact" element={<DataImpact />} />
         </Routes>
       </div>
     </div>
