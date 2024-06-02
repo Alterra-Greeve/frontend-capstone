@@ -10,6 +10,7 @@ module.exports = {
   prefix: "",
   theme: {
     colors: {
+      "transparent" : "transparent",
       "white" : "#ffffff",
       "black" : "#000000",
       "primary": {
@@ -107,6 +108,9 @@ module.exports = {
       },
     },
     extend: {
+      boxShadow: {
+        custom: '0px 2px 4px 0px rgba(0, 0, 0, 0.25), 0px 2px 4px 2px rgba(0, 0, 0, 0.15)',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
