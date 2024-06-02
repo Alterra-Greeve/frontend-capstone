@@ -14,7 +14,7 @@ const Sidebar = () => {
       <Link to={"/"} className="bg-[#FAFAFA] h-[90px] w-[240px] flex justify-center items-center">
         <img src={logo} alt="logo" />
       </Link>
-      <div className="flex flex-col justify-between pt-[16px]" style={{ minHeight: "calc(100vh - 90px)" }}>
+      <div className="flex flex-col justify-between py-[16px]" style={{ minHeight: "calc(100vh - 90px)" }}>
         <div className="flex flex-col gap-y-[16px]">
           <NavLink
             to={"/"}
