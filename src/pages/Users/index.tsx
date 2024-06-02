@@ -80,7 +80,7 @@ export default function index() {
             <button className="p-[10px] rounded-[7px] border-[1px] border-black">
               Export
             </button>
-            <button className="p-[10px] rounded-[7px] border-[1px] border-black bg-[#404040] text-white">
+            <button className="p-[10px] rounded-[7px] border-[1px] border-black bg-primary-300 text-white">
               Add New User
             </button>
           </div>
@@ -103,7 +103,7 @@ export default function index() {
             </TableHeader>
             <TableBody className="bg-[#F4F4F4]">
               {user_dummy.map((item, i) => (
-                <TableRow className="text-start cursor-pointer">
+                <TableRow className="text-start cursor-pointer" key={i}>
                   <TableCell className="px-1 py-3 text-start ps-10 ">
                     {item.id}
                   </TableCell>
