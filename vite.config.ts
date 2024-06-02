@@ -9,12 +9,12 @@ export default defineConfig({
   preview: {
     port: 8080,
     strictPort: true,
-    host: '0.0.0.0', 
+    host: '0.0.0.0',
   },
   server: {
     port: 8080,
     strictPort: true,
-    host: '0.0.0.0', 
+    host: '0.0.0.0',
   },
   resolve: {
     alias: {

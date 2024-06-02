@@ -1,9 +1,9 @@
 import AdminLayout from "@/layouts/AdminLayout";
 
-export default function UsersPage() {
+export default function DataImpactPage() {
   return (
     <AdminLayout>
-      users
+      data impact
     </AdminLayout>
   )
 }
