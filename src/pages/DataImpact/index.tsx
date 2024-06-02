@@ -1,5 +1,9 @@
-const DataImpact = () => {
-  return <div>Data Impact</div>;
-};
+import AdminLayout from "@/layouts/AdminLayout";
 
-export default DataImpact;
+export default function DataImpactPage() {
+  return (
+    <AdminLayout>
+      data impact
+    </AdminLayout>
+  )
+}

@@ -1,32 +1,30 @@
-import "./App.css";
-// import { Button } from "@/components/ui/button";
 import { Routes, Route } from "react-router-dom";
 import Challenges from "./pages/Challenges/index";
 import Dashboard from "./pages/Dashboard/index";
 import Products from "./pages/Products/index";
 import Users from "./pages/Users/index";
-import Header from "./components/Header";
-import Sidebar from "./components/Sidebar";
 import DataImpact from "./pages/DataImpact";
+import ProtectedRoutes from "./pages/ProtectedRoutes";
+import LoginPage from "./pages/auth/login";
 
-function App() {
+export default function App() {
   return (
-    <div className="flex flex-row">
-      <div>
-        <Sidebar />
-      </div>
-      <div className="flex flex-col w-full">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/users" element={<Users />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/challenges" element={<Challenges />} />
-          <Route path="/data-impact" element={<DataImpact />} />
-        </Routes>
-      </div>
-    </div>
-  );
-}
+    <Routes>
+      {/**
+       * Semua route yang ada di app nanti di protect 
+       * dengan component ProtectedRoutes
+       * jadi kalau ada penambahan route baru, yang memerlukan authorization
+       * pastiin tambahin di dalam prefix /dashboard
+      */}
+      <Route path="/dashboard" element={<ProtectedRoutes />}>
+        <Route index element={<Dashboard />} />
+        <Route path="users" element={<Users />} />
+        <Route path="products" element={<Products />} />
+        <Route path="challenges" element={<Challenges />} />
+        <Route path="data-impact" element={<DataImpact />} />
+      </Route>
 
-export default App;
+      <Route path="/auth/login" element={<LoginPage />} />
+    </Routes>
+  )
+}

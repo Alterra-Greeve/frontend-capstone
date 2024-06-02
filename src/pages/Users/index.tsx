@@ -1,7 +1,9 @@
-export default function index() {
-    return(
-        <>
-            users
-        </>
-    )
-};
+import AdminLayout from "@/layouts/AdminLayout";
+
+export default function UsersPage() {
+  return (
+    <AdminLayout>
+      users
+    </AdminLayout>
+  )
+}

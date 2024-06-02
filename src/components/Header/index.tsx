@@ -6,15 +6,18 @@ import { useLocation } from "react-router-dom";
 const Header = () => {
   const [path, pathSet] = useState("Dashboard");
   const location = useLocation();
-  const pathName = location.pathname;
+
   useEffect(() => {
-    const firstPathSegment = pathName.split("/")[1].replace(/-/g, " ");
-    if (firstPathSegment == "") {
+    const pathSegments = location.pathname.split("/").filter(segment => segment);
+    if (pathSegments.length === 0) {
       pathSet("dashboard");
-    } else {
-      pathSet(firstPathSegment);
+    } else if (pathSegments.length === 1) {
+      pathSet(pathSegments[0].replace(/-/g, " "));
+    } else if (pathSegments.length >= 2) {
+      pathSet(pathSegments[1].replace(/-/g, " "));
     }
-  }, [pathName]);
+  }, [location.pathname]);
+
   return (
     <div className="sticky top-0 bg-[#FAFAFA] h-[90px] flex justify-between items-center w-full pl-[16px] pr-[22px]">
       <h1 className="font-bold text-[#1C6758] text-[24px] capitalize">{path}</h1>
