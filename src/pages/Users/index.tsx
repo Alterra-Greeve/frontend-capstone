@@ -1,3 +1,5 @@
+import AdminLayout from "@/layouts/AdminLayout";
+
 import {
   Table,
   TableBody,
@@ -58,9 +60,10 @@ export default function index() {
   ];
 
   const navigate = useNavigate();
-
-  return (
-    <section className=" bg-[#EDEDED] px-5 py-7 h-[calc(100vh-90px)] grid">
+  
+   return (
+    <AdminLayout>
+      <section className=" bg-[#EDEDED] px-5 py-7 h-[calc(100vh-90px)] grid">
       <div className="bg-white py-6 relative rounded-[7px]">
         <div className="flex justify-between items-center px-8">
           <div className="flex gap-4 items-center">
@@ -201,5 +204,8 @@ export default function index() {
 
       <Modal />
     </section>
-  );
+    </AdminLayout>
+  )
+
+
 }

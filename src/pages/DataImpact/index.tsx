@@ -1,9 +1,9 @@
 import AdminLayout from "@/layouts/AdminLayout";
 
-export default function ChallengesPage() {
+export default function DataImpactPage() {
   return (
     <AdminLayout>
-      challenges
+      data impact
     </AdminLayout>
   )
 }
