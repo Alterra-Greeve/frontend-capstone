@@ -4,6 +4,7 @@ import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { signIn } from "@/lib/redux/api/auth";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 
 export default function LoginPage() {
   const dispatch = useAppDispatch();
@@ -21,6 +22,8 @@ export default function LoginPage() {
   }
 
   if (isError) return <div>{error}</div>
+
+  if (token) return <Navigate to="/dashboard" />
 
   return (
     <div className="max-w-md mx-auto flex flex-col gap-5">

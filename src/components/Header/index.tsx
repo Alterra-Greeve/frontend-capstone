@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import notif from "../../assets/icons/Notification.svg";
-import user from "../../assets/images/ellipse.png";
 import { useLocation } from "react-router-dom";
+import notif from "@/assets/icons/Notification.svg";
+import user from "@/assets/images/ellipse.png";
 
 const Header = () => {
   const [path, pathSet] = useState("Dashboard");
