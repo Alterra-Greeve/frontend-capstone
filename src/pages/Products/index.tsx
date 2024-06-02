@@ -1,4 +1,4 @@
-import useFetch from "@/lib/useFetch";
+import useFetch from "@/lib/hooks/useFetch";
 
 export default function ProductsPage() {
   const { loading, error } = useFetch("products", { method: 'get' });
