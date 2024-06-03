@@ -7,9 +7,9 @@ type ButtonProps = {
 export default function Button({variant, icon, children} : ButtonProps) {
     let style: any;
     if(variant === 'primary'){
-        style = 'bg-primary-500 text-neutral-100 border-primary-500 hover:bg-primary-600 hover:shadow-custom'
+        style = 'bg-primary-500 text-neutral-100 border-primary-500 hover:bg-primary-600 hover:shadow-custom active:bg-primary-700'
     }else{
-        style = 'bg-transparent text-primary-500 border-primary-500 hover:shadow-custom'
+        style = 'bg-transparent text-primary-500 border-primary-500 hover:shadow-custom active:bg-primary-50'
     }
     return (
         <button className={`${style}
