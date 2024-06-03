@@ -1,4 +1,5 @@
 import AdminLayout from "@/layouts/AdminLayout";
+import tambah from "@/assets/icons/plus.svg"
 
 import {
   Table,
@@ -81,7 +82,8 @@ export default function index() {
               <button className="p-[10px] rounded-[7px] border-[1px] border-black">
                 Export
               </button>
-              <button className="p-[10px] rounded-[7px] border-[1px] border-black bg-primary-300 text-white">
+              <button className="p-[10px] rounded-[7px] border-[1px] border-black bg-primary-300 text-white flex items-center">
+                <img src={tambah} alt=""  />
                 Add New User
               </button>
             </div>
@@ -102,9 +104,14 @@ export default function index() {
                   ))}
                 </TableRow>
               </TableHeader>
-              <TableBody className="bg-[#F4F4F4]">
+              <TableBody className="bg-neutral-100">
                 {user_dummy.map((item, i) => (
-                  <TableRow className="text-start cursor-pointer" key={i}>
+                  <TableRow
+                    className={`text-start cursor-pointer ${
+                      i % 2 != 0 ? "bg-neutral-300 " : ""
+                    }`}
+                    key={i}
+                  >
                     <TableCell className="px-1 py-3 text-start ps-10 ">
                       {item.id}
                     </TableCell>
@@ -178,7 +185,7 @@ export default function index() {
             </Table>
           </div>
           <Paging
-            dataLength={41}
+            dataLength={19}
             amouthDataDisplayed={10}
             className={"absolute bottom-0"}
             setDataShow={(event: { start: number; end: number }) => {
