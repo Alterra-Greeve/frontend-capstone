@@ -19,7 +19,7 @@ export default function ProductsPage() {
           <AddProducts/>
         </div>
         <hr />
-        <MainProducts/>
+        <MainProducts data={data}/>
         <PaginationProducts/>
       </div>
     </AdminLayout>
