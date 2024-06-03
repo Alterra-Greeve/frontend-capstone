@@ -1,20 +1,20 @@
 import "./App.css";
 // import { Button } from "@/components/ui/button";
 import { Routes, Route } from "react-router-dom";
-import Challenges from "./pages/Challenges/index";
-import Dashboard from "./pages/Dashboard/index";
-import Products from "./pages/Products/index";
-import Users from "./pages/Users/index";
+import Home from "./pages/Home";
+import AboutUs from "./pages/AboutUs";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <div>
+      <Navbar />
       <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/products" element={<Users />} />
-        <Route path="/about us" element={<Products />} />
-        <Route path="/feature" element={<Challenges />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about-us" element={<AboutUs />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
