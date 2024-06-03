@@ -84,7 +84,7 @@ const ModalUserDetail = ({ isShow = false }: { isShow: any }) => {
           <div className="w-full flex justify-end mt-14">
             <button
               className="p-[10px] rounded-[7px] border-[1px] border-black bg-[#404040] text-white min-w-[173px]"
-              onClick={() => navigate("/users")}
+              onClick={() => navigate("")}
             >
               Kembali
             </button>

@@ -23,13 +23,13 @@ const ModalDeleteUser = ({ isShow = false }: { isShow: any }) => {
         <div className="w-full flex justify-end mt-14 gap-5">
           <button
             className="p-4 rounded-[7px] border-[1px] border-[#7e7e7e] bg-[#7e7e7e] text-white min-w-[173px]"
-            onClick={() => navigate("/users")}
+            onClick={() => navigate("")}
           >
             Hapus
           </button>
           <button
             className="p-4 rounded-[7px] border-[1px] border-black bg-[#404040] text-white min-w-[173px]"
-            onClick={() => navigate("/users")}
+            onClick={() => navigate("")}
           >
             Kembali
           </button>
