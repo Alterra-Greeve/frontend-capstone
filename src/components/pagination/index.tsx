@@ -50,7 +50,9 @@ const Paging = ({
     <section className={`w-full ${className}`}>
       <div className="flex justify-between items-center m-5">
         <p className="text-[10px] font-medium text-neutral-500">
-          Menampilkan {"1"} hingga {amouthDataDisplayed} dari {dataLength} entri
+          Menampilkan {showedData.start} hingga{" "}
+          {showedData.end >= dataLength ? dataLength : showedData.end} dari{" "}
+          {dataLength} entri
         </p>
         <div
           className={`min-w-[158px] flex items-center gap-4 ${
@@ -66,7 +68,10 @@ const Paging = ({
             onClick={() => setPangingIndex(pagingIndex - 1)}
             disabled={pagingIndex <= 1 ? true : false}
           >
-            <img srcSet={arrowRight} className={`-rotate-180 ${pagingIndex <= 1 ? "hidden" : ""}`} />
+            <img
+              srcSet={arrowRight}
+              className={`-rotate-180 ${pagingIndex <= 1 ? "hidden" : ""}`}
+            />
           </button>
           <div className="w-[78px] rounded-[8px] border-[0.5px] border-neutral-400 px-3 py-2 flex gap-1 justify-center text-base leading-5 font-extrabold">
             <p className="text-primary-500">{pagingIndex}</p>

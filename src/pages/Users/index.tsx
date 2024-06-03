@@ -178,7 +178,7 @@ export default function index() {
             </Table>
           </div>
           <Paging
-            dataLength={100}
+            dataLength={41}
             amouthDataDisplayed={10}
             className={"absolute bottom-0"}
             setDataShow={(event: { start: number; end: number }) => {
