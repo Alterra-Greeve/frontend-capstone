@@ -7,11 +7,14 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import more from '@/assets/icons/More.svg'
-import avatar from './Dummy/avatar.svg'
-import helps from './Dummy/helps.svg'
+import avatar from '@/assets/icons/avatar.svg'
+import catEarth from '@/assets/icons/catEarth.svg'
+import catMoney from '@/assets/icons/catMoney.svg'
+import catBrain from '@/assets/icons/catBrains.svg'
+import catRecycle from '@/assets/icons/catRecycle.svg'
 
 export default function TableProducts({data}) {
-    console.log(data)
+    console.log(data.data[0])
     return (
         <div className=" ">
             <Table>
@@ -30,58 +33,35 @@ export default function TableProducts({data}) {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow className="bg-neutral-50">
-                        <TableCell className="p-[12px]">#STRW-01-BLK</TableCell>
-                        <TableCell className="p-[12px]">
-                            <img src={avatar} alt="" className="w-[24px] h-[24px]"/>
-                        </TableCell>
-                        <TableCell className="p-[12px]">Sedotan Besi</TableCell>
-                        <TableCell className="p-[12px]">Rp20.000,-</TableCell>
-                        <TableCell className="p-[12px]">200</TableCell>
-                        <TableCell className="p-[12px]">100</TableCell>
-                        <TableCell className="p-[12px]">Sedotan besi adalah..</TableCell>
-                        <TableCell className="py-[12px]">
-                            <div className="flex gap-[4px]">
-                                <img src={helps} alt="" className="w-[24px] h-[24px]"/>
-                                <img src={helps} alt="" className="w-[24px] h-[24px]"/>
-                                <img src={helps} alt="" className="w-[24px] h-[24px]"/>
-                                <img src={helps} alt="" className="w-[24px] h-[24px]"/>
-                            </div>
-                        </TableCell>
-                        <TableCell className="p-[12px]">09/05/24</TableCell>
-                        <TableCell className="p-[12px]">
-                            <div className="flex gap-[12px]">
-                                <span>12/05/24</span>
-                                <img src={more} alt="" className="w-[24px] h-[24px]"/>
-                            </div>
-                        </TableCell>
-                    </TableRow>
-                    <TableRow className="bg-neutral-200">
-                        <TableCell className="p-[12px]">#STRW-01-BLK</TableCell>
-                        <TableCell className="p-[12px]">
-                            <img src={avatar} alt="" className="w-[24px] h-[24px]"/>
-                        </TableCell>
-                        <TableCell className="p-[12px]">Sedotan Besi</TableCell>
-                        <TableCell className="p-[12px]">Rp20.000,-</TableCell>
-                        <TableCell className="p-[12px]">200</TableCell>
-                        <TableCell className="p-[12px]">100</TableCell>
-                        <TableCell className="p-[12px]">Sedotan besi adalah..</TableCell>
-                        <TableCell className="py-[12px]">
-                            <div className="flex gap-[4px]">
-                                <img src={helps} alt="" className="w-[24px] h-[24px]"/>
-                                <img src={helps} alt="" className="w-[24px] h-[24px]"/>
-                                <img src={helps} alt="" className="w-[24px] h-[24px]"/>
-                                <img src={helps} alt="" className="w-[24px] h-[24px]"/>
-                            </div>
-                        </TableCell>
-                        <TableCell className="p-[12px]">09/05/24</TableCell>
-                        <TableCell className="p-[12px]">
-                            <div className="flex gap-[12px]">
-                                <span>12/05/24</span>
-                                <img src={more} alt="" className="w-[24px] h-[24px]"/>
-                            </div>
-                        </TableCell>
-                    </TableRow>
+                    {data.data[0].map((item, i) =>
+                        <TableRow className={i%2 === 0? 'bg-neutral-50' : 'bg-neutral-200'} key={i}>
+                            <TableCell className="p-[12px]">{item.product_id}</TableCell>
+                            <TableCell className="p-[12px]">
+                                <img src={avatar} alt="" className="w-[24px] h-[24px]"/>
+                            </TableCell>
+                            <TableCell className="p-[12px]">{item.name}</TableCell>
+                            <TableCell className="p-[12px]">{item.price}</TableCell>
+                            <TableCell className="p-[12px]">200</TableCell>
+                            <TableCell className="p-[12px]">{item.coin}</TableCell>
+                            <TableCell className="p-[12px]">{item.description}</TableCell>
+                            <TableCell className="py-[12px]">
+                                <div className="flex gap-[4px]">
+                                    <img src={catEarth} alt="" className="w-[24px] h-[24px]"/>
+                                    <img src={catMoney} alt="" className="w-[24px] h-[24px]"/>
+                                    <img src={catBrain} alt="" className="w-[24px] h-[24px]"/>
+                                    <img src={catRecycle} alt="" className="w-[24px] h-[24px]"/>
+                                </div>
+                            </TableCell>
+                            <TableCell className="p-[12px]">09/05/24</TableCell>
+                            <TableCell className="p-[12px]">
+                                <div className="flex gap-[12px]">
+                                    <span>12/05/24</span>
+                                    <img src={more} alt="" className="w-[24px] h-[24px] cursor-pointer"
+                                    />
+                                </div>
+                            </TableCell>
+                        </TableRow>
+                    )}
                 </TableBody>
             </Table>
         </div>

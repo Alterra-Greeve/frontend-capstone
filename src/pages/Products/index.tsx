@@ -2,8 +2,11 @@ import AdminLayout from "@/layouts/AdminLayout";
 import useFetch from "@/lib/hooks/useFetch";
 import MainProducts from "./MainProducts";
 import SearchProducts from "./SearchProducts";
-import AddProducts from "./AddProducts";
 import PaginationProducts from "./PaginationProducts";
+import download from "@/assets/icons/Export.svg"
+import plus from "@/assets/icons/plus.svg"
+import Button from "@/components/Button/Button"
+import { Link } from "react-router-dom";
 
 export default function ProductsPage() {
   const { loading, error, data } = useFetch("products", { method: 'get' });
@@ -16,7 +19,12 @@ export default function ProductsPage() {
       <div className="bg-[#F5F5F5] p-[24px] flex flex-col gap-[16px]">
         <div className="flex justify-between">
           <SearchProducts/>
-          <AddProducts/>
+          <div className="flex gap-[8px]">
+            <Button variant="secondary" icon={download}>Export</Button>
+            <Link to={"add-products"}>
+              <Button variant="primary" icon={plus}>Tambahkan Produk Baru</Button>
+            </Link>
+        </div>
         </div>
         <hr />
         <MainProducts data={data}/>
