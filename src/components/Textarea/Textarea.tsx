@@ -4,14 +4,16 @@ type TextAreaProps = {
     style: string;
     id: string;
     name: string;
+    onChange: (e: string) => void;
 };
-export default function Textarea({style, id, name}: TextAreaProps) {
+export default function Textarea({style, id, name, onChange}: TextAreaProps) {
     const [result, setResult] = useState("")
     const [isFocus, setIsFocus] = useState(false)
     function handleInput(e:any) {
         const {value} = e.target
         setResult(value)
         setIsFocus(true)
+        onChange(e)
         if(!result){
             handleBlur()
         }

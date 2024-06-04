@@ -5,15 +5,17 @@ type InputProps = {
     style: string;
     id: string;
     name: string;
+    onChange: (e: string) => void;
 };
 
-export default function Input({type, style, id, name}:InputProps) {
+export default function Input({type, style, id, name, onChange}:InputProps) {
     const [result, setResult] = useState("")
     const [isFocus, setIsFocus] = useState(false)
     function handleInput(e:any) {
         const {value} = e.target
         setResult(value)
         setIsFocus(true)
+        onChange(e)
         if(!result){
             handleBlur()
         }
@@ -25,7 +27,7 @@ export default function Input({type, style, id, name}:InputProps) {
         setIsFocus(false)
     }
     return (
-        <input type={type} className={`rounded-[7px] p-[8px] border-[0.5px] border-solid 
+        <input type={type} className={` rounded-[7px] p-[8px] border-[0.5px] border-solid 
         ${isFocus? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`} 
         onFocus={handleFocus} onBlur={handleInput} onChange={handleInput} id={id} name={name}/>
     )

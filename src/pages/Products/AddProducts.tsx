@@ -12,9 +12,22 @@ import checkBox from '@/assets/icons/Checkbox.svg'
 import { Link } from "react-router-dom";
 import Input from "@/components/Input/Input";
 import Textarea from "@/components/Textarea/Textarea";
+import useFetch from "@/lib/hooks/useFetch";
+import { useState } from "react";
 
 
 export default function AddProducts() {
+    const [newData, setNewData] = useState({})
+    function handleInput(e: any){
+        const {value,name} = e.target
+        setNewData({...newData, [name]: value})
+    }
+    function handleSubmit(){
+        const { loading, error } = useFetch("products", { method: 'post', body: {newData}});
+        if (loading) return <AdminLayout>Loading...</AdminLayout>;
+        if (error) return <AdminLayout>{error.message}</AdminLayout>;
+        console.log(newData)
+    }
     return(
         <AdminLayout>
             <div className="flex flex-col gap-[16px] bg-neutral-100 p-[24px]">
@@ -28,7 +41,7 @@ export default function AddProducts() {
                     </Link>
                     <div className="flex gap-[8px]">
                         <Button variant="secondary">Hapus Data</Button>
-                        <Button variant="primary">Simpan Data</Button>
+                        <Button variant="primary" onClick={handleSubmit}>Simpan Data</Button>
                     </div>
                 </div>
                 <hr />
@@ -65,26 +78,31 @@ export default function AddProducts() {
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="namaProduk">Nama Produk</label>
-                                <Input type="text" style="w-[288px]" id="namaProduk" name="namaProduk"/>
+                                <Input type="text" style="w-[288px]" id="namaProduk" 
+                                name="namaProduk" onChange={handleInput}/>
                             </div>
                         </div>
                         <div className="flex gap-[10px]">
                             <div className="flex flex-col">
                                 <label htmlFor="harga">Harga</label>
-                                <Input type="number" style="w-[189px]" id="harga" name="harga"/>
+                                <Input type="number" style="w-[189px]" id="harga" 
+                                name="harga" onChange={handleInput}/>
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="stok">Stok</label>
-                                <Input type="number" style="w-[189px]" id="stok" name="stok"/>
+                                <Input type="number" style="w-[189px]" id="stok" 
+                                name="stok" onChange={handleInput}/>
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="koin">Koin</label>
-                                <Input type="number" style="w-[189px]" id="koin" name="koin"/>
+                                <Input type="number" style="w-[189px]" id="koin" 
+                                name="koin" onChange={handleInput}/>
                             </div>
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="deskripsi">Deskripsi</label>
-                            <Textarea style="w-[587px] h-[121px]" id="deskripsi" name="deskripsi"/>
+                            <Textarea style="w-[587px] h-[121px]" id="deskripsi" 
+                            name="deskripsi" onChange={handleInput}/>
                         </div>
                         <label htmlFor="">Membantu</label>
                         <ul className="flex flex-col">
