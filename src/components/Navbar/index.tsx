@@ -10,13 +10,14 @@ interface NavItemProps {
 
 const navItems: NavItemProps[] = [
   { link: "/", label: "Home" },
-  { link: "/about-us", label: "About Us" },
+  { link: "/", label: "About Us" },
   { link: "/", label: "Features" },
   { link: "/", label: "Download" },
 ];
 
 export default function Navbar() {
   const location = useLocation();
+
   return (
     <nav className="py-[34px] bg-transparent px-[64px] sticky top-0 w-full h-[124px] flex flex-row justify-between">
       <Link className="flex justify-center items-center" to={"/"}>

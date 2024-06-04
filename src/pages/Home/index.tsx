@@ -8,7 +8,7 @@ import PaketSection from "./PaketSection";
 
 const Home = () => {
   return (
-    <div className="container realtive">
+    <div className="realtive">
       <HeroSection />
       <AboutUsSection />
       <FeaturesSection />
