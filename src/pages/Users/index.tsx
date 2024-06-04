@@ -1,4 +1,8 @@
 import AdminLayout from "@/layouts/AdminLayout";
+import plusIcon from "@/assets/icons/plus.svg";
+import exportIcon from "@/assets/icons/Export.svg"
+import searchIcon from "@/assets/icons/Search.svg"
+import moreIcon from "@/assets/icons/More.svg"
 
 import {
   Table,
@@ -8,18 +12,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
+  // DropdownMenuLabel,
+  // DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Modal from "./modal";
 import Paging from "@/components/pagination";
+import Button from "@/components/Button/Button";
+import SearchBar from "@/components/SearchBar/SearchBar";
+import useFetch from "@/lib/hooks/useFetch";
 
 export default function index() {
   const tableHeader = [
@@ -62,31 +69,35 @@ export default function index() {
 
   const navigate = useNavigate();
 
+  // const { data , error ,loading } = useFetch("admin/users/5f2f3a2f-dcb4-42ff-9d5e-c636a3aa25f0" , {method: "get"})
+
+  // console.log(data);
+  // console.log(error);
+  
+
   return (
     <AdminLayout>
       <section className=" bg-[#EDEDED] px-5 py-7 h-[calc(100vh-90px)] grid">
         <div className="bg-white py-6 relative rounded-[7px]">
           <div className="flex justify-between items-center px-8">
             <div className="flex gap-4 items-center">
-              <input
+              <SearchBar/>
+              <Button children="Filter" icon={searchIcon} variant="secondary" />
+              {/* <input
                 type="text"
                 placeholder="Search"
                 className="border-[1px] border-black rounded-3xl px-6 py-3 min-w-72"
-              />
-              <button className="p-[10px] rounded-[7px] border-[1px] border-black">
+              /> */}
+              {/* <button className="p-[10px] rounded-[7px] border-[1px] border-black">
                 Filter
-              </button>
+              </button> */}
             </div>
-            <div className="flex gap-[10px] items-center border-s-[1px] border-[#00000038] ps-[18px] py-1">
-              <button className="p-[10px] rounded-[7px] border-[1px] border-black">
-                Export
-              </button>
-              <button className="p-[10px] rounded-[7px] border-[1px] border-black bg-primary-300 text-white">
-                Add New User
-              </button>
+            <div className="flex gap-[10px] items-center border-s-[1px] border-[#00000038] ps-[18px] py-1 ">
+             <Button children="Export" icon={exportIcon} variant="secondary" />
+              <Button children="Add New User" icon={plusIcon} variant="primary" />
             </div>
           </div>
-          <div className="mt-[22px] mx-5 bg-[#C9C9C9] rounded-t-[7px] grid">
+          <div className="mt-[22px] mx-5 bg-primary-100 rounded-t-[7px] grid border-[1px] border-neutral-300">
             <Table>
               <TableHeader>
                 <TableRow className="text-start py-[10px]">
@@ -102,16 +113,21 @@ export default function index() {
                   ))}
                 </TableRow>
               </TableHeader>
-              <TableBody className="bg-[#F4F4F4]">
+              <TableBody className="bg-neutral-50">
                 {user_dummy.map((item, i) => (
-                  <TableRow className="text-start cursor-pointer" key={i}>
+                  <TableRow
+                    className={`text-start cursor-pointer ${
+                      i % 2 != 0 ? "bg-neutral-200 " : ""
+                    }`}
+                    key={i}
+                  >
                     <TableCell className="px-1 py-3 text-start ps-10 ">
                       {item.id}
                     </TableCell>
                     <TableCell
                       className="px-1 py-3 text-start flex items-center gap-[10px]"
                       onClick={() => {
-                        navigate(`/users?user_id=${item.id}`);
+                        navigate(`?user_id=${item.id}`);
                       }}
                       key={i}
                     >
@@ -148,14 +164,14 @@ export default function index() {
                     <TableCell className="px-1 py-3 text-center pe-4">
                       <DropdownMenu>
                         <DropdownMenuTrigger className="hover:bg-slate-300 min-w-6">
-                          :
+                          <img src={moreIcon} alt="more-icon" />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="absolute -right-3 ">
                           <DropdownMenuItem
                             className="text-xs font-semibold"
                             onClick={() =>
                               navigate(
-                                `/users?user_id=${item.id}&action=delete`
+                                `?user_id=${item.id}&action=delete`
                               )
                             }
                           >
@@ -164,7 +180,7 @@ export default function index() {
                           <DropdownMenuItem
                             className="text-xs font-semibold"
                             onClick={() =>
-                              navigate(`/users?user_id=${item.id}&action=edit`)
+                              navigate(`?user_id=${item.id}&action=edit`)
                             }
                           >
                             Edit
@@ -178,7 +194,7 @@ export default function index() {
             </Table>
           </div>
           <Paging
-            dataLength={41}
+            dataLength={19}
             amouthDataDisplayed={10}
             className={"absolute bottom-0"}
             setDataShow={(event: { start: number; end: number }) => {
