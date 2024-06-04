@@ -23,9 +23,9 @@ export default function AddProducts() {
         setNewData({...newData, [name]: value})
     }
     function handleSubmit(){
-        const { loading, error } = useFetch("products", { method: 'post', body: {newData}});
-        if (loading) return <AdminLayout>Loading...</AdminLayout>;
-        if (error) return <AdminLayout>{error.message}</AdminLayout>;
+        // const { loading, error } = useFetch("products", { method: 'post', body: {newData}});
+        // if (loading) return <AdminLayout>Loading...</AdminLayout>;
+        // if (error) return <AdminLayout>{error.message}</AdminLayout>;
         console.log(newData)
     }
     return(

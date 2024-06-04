@@ -5,7 +5,7 @@ type InputProps = {
     style: string;
     id: string;
     name: string;
-    onChange: (e: string) => void;
+    onChange: (e: string | number) => void;
 };
 
 export default function Input({type, style, id, name, onChange}:InputProps) {
