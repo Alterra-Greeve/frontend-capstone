@@ -6,6 +6,8 @@ import Users from "./pages/Users/index";
 import DataImpact from "./pages/DataImpact";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import LoginPage from "./pages/auth/login";
+import AddProducts from "./pages/Products/AddProducts";
+import EditProducts from "./pages/Products/EditProducts";
 
 export default function App() {
   return (
@@ -20,6 +22,8 @@ export default function App() {
         <Route index element={<Dashboard />} />
         <Route path="users" element={<Users />} />
         <Route path="products" element={<Products />} />
+        <Route path="products/add-products" element={<AddProducts />} />
+        <Route path="products/edit-products" element={<EditProducts />} />
         <Route path="challenges" element={<Challenges />} />
         <Route path="data-impact" element={<DataImpact />} />
       </Route>
