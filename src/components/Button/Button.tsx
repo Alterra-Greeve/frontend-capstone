@@ -12,13 +12,10 @@ export default function Button({variant, icon, children, onClick} : ButtonProps)
     }else{
         style = 'bg-transparent text-primary-500 border-primary-500 hover:shadow-custom active:bg-primary-50'
     }
-    function handleClick(e:any){
-        onClick(e)
-    }
     return (
         <button className={`${style}
             flex gap-[4px] justify-center items-center border-solid border-[1px] 
-            p-[8px] font-[500] text-[14px] rounded-[8px]`} onClick={handleClick}>
+            p-[8px] font-[500] text-[14px] rounded-[8px]`} onClick={onClick}>
                 <img src={icon} alt="" className={icon? "w-[24px] h-[24px]" : ""}/>
                 {children}
         </button>
