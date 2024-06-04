@@ -26,7 +26,7 @@ export default function Input({type, width, height, id, name}:InputProps) {
         setIsFocus(false)
     }
     return (
-        <input type={type} className={`w-[${width}] h-[${height}] rounded-[7px] p-[8px] border-[0.5px] 
+        <input type={type} className={`${width} ${height} rounded-[7px] p-[8px] border-[0.5px] 
         border-solid ${isFocus? 'border-neutral-800' : 'border-neutral-400'} outline-none`} 
         onFocus={handleFocus} onBlur={handleInput} onChange={handleInput} id={id} name={name}/>
     )
