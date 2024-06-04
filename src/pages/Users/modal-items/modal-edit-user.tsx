@@ -116,13 +116,13 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
         <div className="w-full flex justify-end mt-7 gap-[10px] text-xs leading-6">
           <button
             className="py-1 px-2  rounded-[7px] border-[1px] border-[#7e7e7e]"
-            onClick={() => navigate("/users")}
+            onClick={() => navigate("")}
           >
             Cancle
           </button>
           <button
             className="py-1 px-2  rounded-[7px] border-[1px] border-black bg-[#404040] text-white "
-            onClick={() => navigate("/users")}
+            onClick={() => navigate("")}
           >
             Save Change
           </button>

@@ -13,7 +13,7 @@ import catMoney from '@/assets/icons/catMoney.svg'
 import catBrain from '@/assets/icons/catBrains.svg'
 import catRecycle from '@/assets/icons/catRecycle.svg'
 
-export default function TableProducts({data}) {
+export default function TableProducts({data}:any) {
     console.log(data.data[0])
     return (
         <div className=" ">
@@ -33,7 +33,7 @@ export default function TableProducts({data}) {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {data.data[0].map((item, i) =>
+                    {data.data[0].map((item:any, i:any) =>
                         <TableRow className={i%2 === 0? 'bg-neutral-50' : 'bg-neutral-200'} key={i}>
                             <TableCell className="p-[12px]">{item.product_id}</TableCell>
                             <TableCell className="p-[12px]">
