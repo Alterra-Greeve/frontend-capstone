@@ -2,7 +2,7 @@ import AdminLayout from "@/layouts/AdminLayout";
 import useFetch from "@/lib/hooks/useFetch";
 import MainProducts from "./MainProducts";
 import SearchProducts from "./SearchProducts";
-import PaginationProducts from "./PaginationProducts";
+import Pagination from "@/components/pagination";
 import download from "@/assets/icons/Export.svg"
 import plus from "@/assets/icons/plus.svg"
 import Button from "@/components/Button/Button"
@@ -16,7 +16,8 @@ export default function ProductsPage() {
   // console.log(data.data[0])
   return (
     <AdminLayout>
-      <div className="bg-[#F5F5F5] p-[24px] flex flex-col gap-[16px]">
+      <div className="bg-[#F5F5F5] p-[24px] flex flex-col gap-[16px] h-[calc(100vh-90px)]
+      relative">
         <div className="flex justify-between">
           <SearchProducts/>
           <div className="flex gap-[8px]">
@@ -28,7 +29,13 @@ export default function ProductsPage() {
         </div>
         <hr />
         <MainProducts data={data}/>
-        <PaginationProducts/>
+        <Pagination 
+          dataLength={41}
+          amouthDataDisplayed={10}
+          className={"absolute bottom-0"}
+          setDataShow={(event: { start: number; end: number }) => {
+          console.log(`Start : ${event.start} , end : ${event.end}`);
+        }}/>
       </div>
     </AdminLayout>
   )
