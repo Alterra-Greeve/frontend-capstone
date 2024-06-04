@@ -65,26 +65,26 @@ export default function AddProducts() {
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="namaProduk">Nama Produk</label>
-                                <Input type="text" width="w-[288px]" id="namaProduk" name="namaProduk"/>
+                                <Input type="text" style="w-[288px]" id="namaProduk" name="namaProduk"/>
                             </div>
                         </div>
                         <div className="flex gap-[10px]">
                             <div className="flex flex-col">
                                 <label htmlFor="harga">Harga</label>
-                                <Input type="number" width="w-[189px]" id="harga" name="harga"/>
+                                <Input type="number" style="w-[189px]" id="harga" name="harga"/>
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="stok">Stok</label>
-                                <Input type="number" width="w-[189px]" id="stok" name="stok"/>
+                                <Input type="number" style="w-[189px]" id="stok" name="stok"/>
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="koin">Koin</label>
-                                <Input type="number" width="w-[189px]" id="koin" name="koin"/>
+                                <Input type="number" style="w-[189px]" id="koin" name="koin"/>
                             </div>
                         </div>
                         <div className="flex flex-col">
                             <label htmlFor="deskripsi">Deskripsi</label>
-                            <Textarea height="121px" width="w-[587px]" id="deskripsi" name="deskripsi"/>
+                            <Textarea style="w-[587px] h-[121px]" id="deskripsi" name="deskripsi"/>
                         </div>
                         <label htmlFor="">Membantu</label>
                         <ul className="flex flex-col">
