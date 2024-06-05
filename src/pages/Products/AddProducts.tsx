@@ -14,7 +14,7 @@ import Input from "@/components/Input/Input";
 import Textarea from "@/components/Textarea/Textarea";
 import useFetch from "@/lib/hooks/useFetch";
 import { useState } from "react";
-// import { Checkbox } from "@/components/ui/checkbox"
+import { Checkbox } from "@/components/ui/checkbox"
 
 export default function AddProducts() {
     const [newData, setNewData] = useState({});
@@ -216,9 +216,9 @@ export default function AddProducts() {
                                         Mengurangi Limbah
                                     </span>
                                 </div>
-                                {/* <Checkbox className="border-[2px] w-[16px] h-[16px] m-[4px] bg-neutral-50 border-primary-500
+                                <Checkbox className="border-[2px] w-[16px] h-[16px] m-[4px] bg-neutral-50 border-primary-500
                                 data-[state=checked]:bg-neutral-50 data-[state=checked]:text-primary-500" 
-                                onChange={handleCheck}/> */}
+                                onChange={handleCheck}/>
                             </li>
                         </ul>
                     </form>

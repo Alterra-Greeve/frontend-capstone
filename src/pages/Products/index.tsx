@@ -8,9 +8,11 @@ import Button from "@/components/Button/Button"
 import { Link } from "react-router-dom";
 import Modal from "./modal";
 import TableProducts from "./TableProducts";
+import { useState } from "react";
 
 export default function ProductsPage() {
   const { loading, error, data } = useFetch("products", { method: 'get' });
+  const [dataShow, setDataShow] = useState({})
   if (loading) return <AdminLayout>Loading...</AdminLayout>;
   if (error) return <AdminLayout>{error.message}</AdminLayout>;
   return (
@@ -28,13 +30,12 @@ export default function ProductsPage() {
           </div>
           </div>
           {/* <hr /> */}
-          <TableProducts data={data}/>
+          <TableProducts data={data} dataShow={dataShow}/>
           <Pagination 
-            dataLength={41}
+            dataLength={data.data.length}
             amouthDataDisplayed={10}
-            className={"absolute bottom-0"}
             setDataShow={(event: { start: number; end: number }) => {
-            console.log(`Start : ${event.start} , end : ${event.end}`);
+            setDataShow({Start : event.start , end : event.end});
           }}/>
         </div>
       </AdminLayout>
