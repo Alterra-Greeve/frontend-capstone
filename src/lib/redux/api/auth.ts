@@ -22,7 +22,7 @@ export const signIn = createAsyncThunk(
 
     } catch (error) {
       if (error instanceof AxiosError) {
-        throw error.response ? error.response.data : error.message;
+        throw error.response ? error.response.status : error.message;
       }
       throw error;
     }

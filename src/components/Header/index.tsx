@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import notif from "@/assets/icons/Notification.svg";
-import user from "@/assets/images/ellipse.png";
+import Notif from "@/assets/icons/Notification.svg";
+import User from "@/assets/images/ellipse.png";
 
 const Header = () => {
   const [path, pathSet] = useState("Dashboard");
@@ -23,10 +23,10 @@ const Header = () => {
       <h1 className="font-bold text-[#1C6758] text-[24px] capitalize">{path}</h1>
       <div className="flex items-center justify-center gap-[24px]">
         <div className="w-[48px] h-[48px] flex justify-center cursor-pointer">
-          <img src={notif} alt="notification" />
+          <Notif />
         </div>
         <div className="w-[53px] h-[53px] flex justify-center cursor-pointer">
-          <img src={user} alt="ellipse" />
+          <img src={User} alt="ellipse" />
         </div>
       </div>
     </div>

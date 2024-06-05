@@ -1,8 +1,8 @@
 import AdminLayout from "@/layouts/AdminLayout";
-import plusIcon from "@/assets/icons/plus.svg";
-import exportIcon from "@/assets/icons/Export.svg"
-import searchIcon from "@/assets/icons/Search.svg"
-import moreIcon from "@/assets/icons/More.svg"
+import PlusIcon from "@/assets/icons/plus.svg";
+import ExportIcon from "@/assets/icons/Export.svg"
+import SearchIcon from "@/assets/icons/Search.svg"
+import MoreIcon from "@/assets/icons/More.svg"
 
 import {
   Table,
@@ -24,11 +24,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Modal from "./modal";
 import Paging from "@/components/pagination";
-import Button from "@/components/Button/Button";
 import SearchBar from "@/components/SearchBar/SearchBar";
-import useFetch from "@/lib/hooks/useFetch";
+import { Button } from "@/components/ui/button";
 
-export default function index() {
+export default function UsersPage() {
   const tableHeader = [
     "User ID",
     "Name",
@@ -73,7 +72,7 @@ export default function index() {
 
   // console.log(data);
   // console.log(error);
-  
+
 
   return (
     <AdminLayout>
@@ -81,8 +80,14 @@ export default function index() {
         <div className="bg-white py-6 relative rounded-[7px]">
           <div className="flex justify-between items-center px-8">
             <div className="flex gap-4 items-center">
-              <SearchBar/>
-              <Button children="Filter" icon={searchIcon} variant="secondary" />
+              <SearchBar />
+              <Button variant="outline_primary">
+                <div className="flex items-center gap-3">
+                  <SearchIcon />
+                  Filter
+                </div>
+              </Button>
+              {/* <Button children="Filter" icon={searchIcon} variant="secondary" /> */}
               {/* <input
                 type="text"
                 placeholder="Search"
@@ -93,8 +98,12 @@ export default function index() {
               </button> */}
             </div>
             <div className="flex gap-[10px] items-center border-s-[1px] border-[#00000038] ps-[18px] py-1 ">
-             <Button children="Export" icon={exportIcon} variant="secondary" />
-              <Button children="Add New User" icon={plusIcon} variant="primary" />
+              <Button variant="outline_primary">
+                <ExportIcon />
+              </Button>
+              <Button>
+                <PlusIcon />
+              </Button>
             </div>
           </div>
           <div className="mt-[22px] mx-5 bg-primary-100 rounded-t-[7px] grid border-[1px] border-neutral-300">
@@ -103,9 +112,8 @@ export default function index() {
                 <TableRow className="text-start py-[10px]">
                   {tableHeader.map((item, i) => (
                     <TableHead
-                      className={`text-black font-bold p-1 ${
-                        i == 0 ? "ps-10" : ""
-                      }`}
+                      className={`text-black font-bold p-1 ${i == 0 ? "ps-10" : ""
+                        }`}
                       key={i}
                     >
                       {item}
@@ -116,9 +124,8 @@ export default function index() {
               <TableBody className="bg-neutral-50">
                 {user_dummy.map((item, i) => (
                   <TableRow
-                    className={`text-start cursor-pointer ${
-                      i % 2 != 0 ? "bg-neutral-200 " : ""
-                    }`}
+                    className={`text-start cursor-pointer ${i % 2 != 0 ? "bg-neutral-200 " : ""
+                      }`}
                     key={i}
                   >
                     <TableCell className="px-1 py-3 text-start ps-10 ">
@@ -153,18 +160,17 @@ export default function index() {
                       {item.create_at}
                     </TableCell>
                     <TableCell
-                      className={`px-1 py-3 text-start  ${
-                        item.membership.toLocaleLowerCase() == "no"
-                          ? "text-[#C33030]"
-                          : "text-[#2FB31D]"
-                      }`}
+                      className={`px-1 py-3 text-start  ${item.membership.toLocaleLowerCase() == "no"
+                        ? "text-[#C33030]"
+                        : "text-[#2FB31D]"
+                        }`}
                     >
                       {item.membership}
                     </TableCell>
                     <TableCell className="px-1 py-3 text-center pe-4">
                       <DropdownMenu>
                         <DropdownMenuTrigger className="hover:bg-slate-300 min-w-6">
-                          <img src={moreIcon} alt="more-icon" />
+                          <MoreIcon />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="absolute -right-3 ">
                           <DropdownMenuItem

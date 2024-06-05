@@ -1,6 +1,6 @@
-import user from "../../assets/icons/Profile.svg";
-import arrowDown from "../../assets/icons/arrowDown.svg";
-import arrowUp from "../../assets/icons/arrowUp.svg";
+import User from "@/assets/icons/Profile.svg";
+import ArrowDown from "@/assets/icons/arrowDown.svg";
+import ArrowUp from "@/assets/icons/arrowUp.svg";
 
 const DataStatistic = () => {
   return (
@@ -11,7 +11,9 @@ const DataStatistic = () => {
           <h3 className="font-bold text-[28px] text-neutral-900">200</h3>
           <p className="text-[12px] text-neutral-600 font-normal mb-[4px]">items</p>
           <div className="flex items-center gap-[6px]">
-            <img className="w-[24px] h-[24px]" src={arrowUp} alt="arrow up" />
+            <div className="w-[24px] h-[24px]">
+              <ArrowUp />
+            </div>
             <p className="font-normal text-[12px]">0% dari bulan lalu</p>
           </div>
         </div>
@@ -25,7 +27,9 @@ const DataStatistic = () => {
             <p className="text-[12px] text-neutral-600 font-normal mb-[4px]">items</p>
           </div>
           <div className="flex items-center gap-[6px]">
-            <img className="w-[24px] h-[24px]" src={arrowDown} alt="arrow down" />
+            <div className="w-[24px] h-[24px]">
+              <ArrowDown />
+            </div>
             <p className="font-normal text-[12px]">0% dari bulan lalu</p>
           </div>
         </div>
@@ -39,7 +43,7 @@ const DataStatistic = () => {
           </div>
           <div className="w-[200px] h-[56px] bg-primary-50 border rounded-md border-[#1C6758] flex items-center gap-[12px] px-[8px]">
             <div className=" w-[24px] h-[24px] flex justify-center items-center">
-              <img src={user} alt="user" />
+              <User />
             </div>
             <div className="flex flex-col">
               <p className="text-primary-500 font-bold">45</p>
@@ -48,7 +52,9 @@ const DataStatistic = () => {
           </div>
         </div>
         <div className="flex items-center gap-[6px]">
-          <img className="w-[24px] h-[24px]" src={arrowUp} alt="arrow up" />
+          <div className="w-[24px] h-[24px]">
+            <ArrowUp />
+          </div>
           <p className="font-normal text-[12px]">0% dari bulan lalu</p>
         </div>
       </div>
