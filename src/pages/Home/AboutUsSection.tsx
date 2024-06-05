@@ -8,7 +8,7 @@ import Helps from "@/components/HelpsBatch";
 
 const AboutUsSection = () => {
   return (
-    <section id="about-us" className="flex px-[64px] py-[56px] items-center justify-between gap-[50px] relative">
+    <section id="About Us" className="flex px-[64px] py-[56px] items-center justify-between gap-[50px] relative">
       <img className="absolute -top-1 right-0 -z-50" src={ornamen} alt="ornamen" />
       <div className="relative">
         <div className="bg-primary-50 w-[515px] h-[700px] rounded-[30px]">

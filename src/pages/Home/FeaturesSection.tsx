@@ -5,7 +5,7 @@ import mockup4 from "../../assets/images/Mockup 1.2.png";
 
 const FeaturesSection = () => {
   return (
-    <section className="px-[64px] pt-[32px] pb-[64px] flex flex-col items-center gap-[56px]">
+    <section id="Features" className="px-[64px] pt-[32px] pb-[64px] flex flex-col items-center gap-[56px]">
       <h3 className="text-neutral-900 text-[60px] font-semibold max-w-[1095px] text-center">Feel the best experience with our features</h3>
       <div className="flex justify-between gap-[42px]">
         <div className="relative w-[635px] h-[1075px] rounded-[30px] bg-primary-50">
