@@ -16,9 +16,9 @@ export default function ProductsPage() {
   return (
     <>
       <AdminLayout>
-        <div className="bg-[#F5F5F5] p-[24px] flex flex-col gap-[16px] h-[calc(100vh-90px)]
-        relative">
-          <div className="flex justify-between">
+        <div className="bg-[#F5F5F5] flex flex-col gap-[16px] h-[calc(100vh-90px)]
+        relative overflow-auto">
+          <div className="flex justify-between pt-[24px] mx-[24px] border-b-[0.5px] pb-[16px]">
             <SearchProducts/>
             <div className="flex gap-[8px]">
               <Button variant="secondary" icon={download}>Export</Button>
@@ -27,18 +27,18 @@ export default function ProductsPage() {
               </Link>
           </div>
           </div>
-          <hr />
+          {/* <hr /> */}
           <TableProducts data={data}/>
-          {/* <Pagination 
+          <Pagination 
             dataLength={41}
             amouthDataDisplayed={10}
             className={"absolute bottom-0"}
             setDataShow={(event: { start: number; end: number }) => {
             console.log(`Start : ${event.start} , end : ${event.end}`);
-          }}/> */}
+          }}/>
         </div>
       </AdminLayout>
-      <Modal/>
+      {/* <Modal/> */}
     </>
   )
 }
