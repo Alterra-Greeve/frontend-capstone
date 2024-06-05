@@ -7,32 +7,38 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useNavigate } from "react-router-dom";
-import hapus from "./Vector.png";
+import yesornoIcon from "./Yes_or_no_icon.svg";
+import Button from "@/components/Button/Button";
 
 const ModalDeleteUser = ({ isShow = false }: { isShow: any }) => {
   const navigate = useNavigate();
   return (
     <Dialog open={isShow}>
-      <DialogContent className="px-9 py-[30px] rounded-3xl grid  justify-center">
-        <DialogHeader className="flex flex-col items-center justify-center w-full gap-7">
+      <DialogContent className="w-[500px] max-w-full p-8 sm:rounded-[20px] grid  justify-center">
+        <DialogHeader className="flex flex-col items-center justify-center w-full gap-8">
           <div className="flex justify-center items-center">
-            <img src={hapus} alt="delete-icon"/>
+            <img src={yesornoIcon} alt="delete-icon" />
           </div>
-          <p className="text-2xl font-medium max-w-[292px] text-center">Yakin ingin menghapus data ini?</p>
+          <div className="flex flex-col gap-3 items-center justify-center text-neutral-900">
+            <p className="text-2xl font-bold max-w-auto text-center">
+              Yakin ingin menghapus data ini?
+            </p>
+            <p className="text-lg leading-5 font-normal text-center w-auto tracking-tighter">
+              Penghapusan bersifat permanen dan tidak bisa dibatalkan
+            </p>
+          </div>
         </DialogHeader>
-        <div className="w-full flex justify-end mt-14 gap-5">
-          <button
-            className="p-4 rounded-[7px] border-[1px] border-[#7e7e7e] bg-[#7e7e7e] text-white min-w-[173px]"
+        <div className="w-full flex justify-end mt-14 gap-5 text-sm leading-6 font-medium">
+          <Button
+            children="Tidak"
+            variant="secondary"
             onClick={() => navigate("")}
-          >
-            Hapus
-          </button>
-          <button
-            className="p-4 rounded-[7px] border-[1px] border-black bg-[#404040] text-white min-w-[173px]"
+          />
+          <Button
+            children="Ya , Hapus"
+            variant="primary"
             onClick={() => navigate("")}
-          >
-            Kembali
-          </button>
+          />
         </div>
       </DialogContent>
     </Dialog>
