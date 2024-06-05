@@ -48,7 +48,7 @@ const Paging = ({
 
   return (
     <section className={`w-full ${className}`}>
-      <div className="flex justify-between items-center m-5">
+      <div className="flex justify-between items-center mx-6">
         <p className="text-[10px] font-medium text-neutral-500">
           Menampilkan {showedData.start} hingga{" "}
           {showedData.end >= dataLength ? dataLength : showedData.end} dari{" "}
