@@ -6,15 +6,22 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import more from '@/assets/icons/More.svg'
+import seeMore from '@/assets/icons/More.svg'
 import avatar from '@/assets/icons/avatar.svg'
 import catEarth from '@/assets/icons/catEarth.svg'
 import catMoney from '@/assets/icons/catMoney.svg'
 import catBrain from '@/assets/icons/catBrains.svg'
 import catRecycle from '@/assets/icons/catRecycle.svg'
+import ManageProducts from "./ManageProducts";
+import { useState } from "react";
 
 export default function TableProducts({data}:any) {
-    console.log(data.data[0])
+    const [isOpen, setIsOpen] = useState(false)
+    const [selectedDropDown, setSelectedDropDown] = useState("");
+    function handleOpen(e: any) {
+        setIsOpen(!isOpen);
+        setSelectedDropDown(e.target.id);
+    }
     return (
         <div className=" ">
             <Table>
@@ -33,7 +40,7 @@ export default function TableProducts({data}:any) {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    {data.data[0].map((item:any, i:any) =>
+                    {data.data.map((item:any, i:any) =>
                         <TableRow className={i%2 === 0? 'bg-neutral-50' : 'bg-neutral-200'} key={i}>
                             <TableCell className="p-[12px]">{item.product_id}</TableCell>
                             <TableCell className="p-[12px]">
@@ -53,12 +60,14 @@ export default function TableProducts({data}:any) {
                                 </div>
                             </TableCell>
                             <TableCell className="p-[12px]">09/05/24</TableCell>
-                            <TableCell className="p-[12px]">
+                            <TableCell className="p-[12px] relative">
                                 <div className="flex gap-[12px]">
                                     <span>12/05/24</span>
-                                    <img src={more} alt="" className="w-[24px] h-[24px] cursor-pointer"
-                                    />
+                                    <img src={seeMore} id={item.product_id} alt="" className="w-[24px] h-[24px] cursor-pointer" onClick={handleOpen}/>
                                 </div>
+                                {selectedDropDown === item.product_id && (
+                                    <ManageProducts isOpen={isOpen} id={item.product_id}/>
+                                )}
                             </TableCell>
                         </TableRow>
                     )}

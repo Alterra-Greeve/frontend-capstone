@@ -24,7 +24,7 @@ export default function AddProducts() {
         setNewData({ ...newData, [name]: value });
     }
     function handleCheck(e: any) {
-        const { checked, value, name } = e.target;
+        const { checked, value} = e.target;
         if (checked) {
             if (!arrCategory.includes(value)) {
                 setArrCategory([...arrCategory, value]);
