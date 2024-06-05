@@ -15,7 +15,7 @@ import Helps from "@/components/HelpsBatch";
 
 const GetMobileAppSection = () => {
   return (
-    <section className="relative bg-primary-50 pt-[48px] pb-[882px] h-[1177px] flex flex-col justify-center items-center gap-[35px]">
+    <section id="Download" className="relative bg-primary-50 pt-[48px] pb-[882px] h-[1177px] flex flex-col justify-center items-center gap-[35px]">
       <div className="flex flex-col justify-center items-center">
         <h3 className="text-neutral-900 text-[60px] font-semibold text-center">Get The Greeve Mobile App</h3>
         <p className="text-neutral-600 text-[25px] font-normal text-center max-w-[588px]">Mari wujudkan masa depan yang lebih hijau dan berkelanjutan!</p>

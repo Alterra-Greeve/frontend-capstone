@@ -30,6 +30,13 @@ const socialItems: SocialItemProps[] = [
   { link: "/", image: gmail },
 ];
 
+const scrollToSection = (id: string) => {
+  const element = document.getElementById(id);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
 export default function Footer() {
   return (
     <footer className="py-[34px] px-[64px] sticky top-0 bg-primary-500 w-full h-[200px] flex flex-row justify-between">
@@ -38,7 +45,7 @@ export default function Footer() {
       </Link>
       <div className="flex justify-end items-center gap-[23px]">
         {navItems.map((item, index) => (
-          <NavLink key={index} to={item.link}>
+          <NavLink key={index} to={item.link} onClick={() => scrollToSection(`${item.label}`)}>
             <h3 className="text-neutral-50 text-[16px] font-semibold">{item.label}</h3>
           </NavLink>
         ))}

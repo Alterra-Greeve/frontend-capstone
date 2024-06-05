@@ -23,6 +23,12 @@ interface featureItemProps {
 const featureItem: featureItemProps[] = [{ feature: "Tolak hingga 5 kartu challenge" }, { feature: "Ambil 5 kartu challenge" }, { feature: "Tiga kesempatan shuffle gratis!" }, { feature: "Nikmati voucher diskon lebih besar" }];
 
 const PaketCard = ({ name, price, waktuAkses, isHemat, waktuHemat }: PaketItemProps) => {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <Card className="w-[352px] shadow-lg border-0">
       <CardHeader className="flex flex-col gap-[17px]">
@@ -40,7 +46,7 @@ const PaketCard = ({ name, price, waktuAkses, isHemat, waktuHemat }: PaketItemPr
             <p className="text-neutral-600 text-[16px] font-normal mt-[17px] mb-[24px]">Dapatkan akses penuh selama {waktuAkses} bulan.</p>
           )}
         </CardDescription>
-        <Button variant="outline" className="hover:bg-primary-500 border-primary-500 rounded-[40px] mb-[27px] p-[8px] hover:text-neutral-100 text-primary-500 text-[14px] font-medium">
+        <Button onClick={() => scrollToSection("Download")} variant="outline" className="hover:bg-primary-500 border-primary-500 rounded-[40px] mb-[27px] p-[8px] hover:text-neutral-100 text-primary-500 text-[14px] font-medium">
           Mulai Sekarang
         </Button>
         <hr />
