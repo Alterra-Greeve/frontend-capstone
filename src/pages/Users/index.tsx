@@ -26,7 +26,8 @@ import Modal from "./modal";
 import Paging from "@/components/pagination";
 import Button from "@/components/Button/Button";
 import SearchBar from "@/components/SearchBar/SearchBar";
-import useFetch from "@/lib/hooks/useFetch";
+// import useFetch from "@/lib/hooks/useFetch";
+
 
 export default function index() {
   const tableHeader = [
