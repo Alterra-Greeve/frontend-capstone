@@ -17,6 +17,18 @@ import Mail from "@/assets/icons/mail.svg";
 import Lock from "@/assets/icons/lock.svg";
 import Danger from "@/assets/icons/danger.svg";
 
+const AlertError = ({ error }: { error: string }) => (
+  <div className="flex items-center gap-2 bg-danger-100 border border-danger-500 p-2 rounded-lg mb-4">
+    <Danger />
+    <small className="text-neutral-900 font-medium">
+      {error === "404"
+        ? "Email atau password salah! Silakan cek kembali."
+        : "Terjadi kesalahan saat login. Silakan coba lagi."
+      }
+    </small>
+  </div>
+)
+
 export default function FormLogin() {
   const dispatch = useAppDispatch();
   const { isLoading, error, isError } = useAppSelector((state: RootState) => state.auth);
@@ -43,19 +55,12 @@ export default function FormLogin() {
 
   return (
     <Form {...form}>
-      {isError && (
-        <div className="flex items-center gap-2 bg-danger-100 border border-danger-500 p-2 rounded-lg mb-4">
-          <Danger />
-          <small className="text-neutral-900 font-medium">
-            {error === "404"
-              ? "Email atau password salah! Silakan cek kembali."
-              : "Terjadi kesalahan saat login. Silakan coba lagi."
-            }
-          </small>
-        </div>
-      )}
+      {isError && <AlertError error={error!} />}
 
-      <form onSubmit={form.handleSubmit(data => onLogin(data))} className="flex flex-col gap-10">
+      <form
+        onSubmit={form.handleSubmit(data => onLogin(data))}
+        className="flex flex-col gap-10"
+      >
         <div className="space-y-5">
           <FormField
             control={form.control}
