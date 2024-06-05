@@ -6,7 +6,7 @@ import PartnersSection from "./PartnersSection";
 
 const AboutUs = () => {
   return (
-    <div className="container">
+    <div>
       <AboutUsSectionPrimary />
       <OurMissionSection />
       <MeetOurBrainSection />
