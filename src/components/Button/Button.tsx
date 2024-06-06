@@ -2,7 +2,7 @@ type ButtonProps = {
     variant: 'primary' | 'secondary';
     icon?: string;
     children: React.ReactNode;
-    onClick?: (e: any) => void
+    onClick?: () => void
 };
 
 export default function Button({variant, icon, children, onClick} : ButtonProps) {

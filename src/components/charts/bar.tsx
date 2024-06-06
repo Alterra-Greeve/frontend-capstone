@@ -1,12 +1,10 @@
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartOptions } from "chart.js";
 import { Bar } from "react-chartjs-2";
 import { faker } from "@faker-js/faker";
-import { Button } from "@/components/ui/button";
-import ArrowDown from "../../assets/icons/Arrow-Right.svg";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const options: ChartOptions<"bar"> = {
+const options: ChartOptions<'bar'> = {
   indexAxis: "x" as const,
   elements: {
     bar: {
@@ -15,16 +13,18 @@ const options: ChartOptions<"bar"> = {
   },
   scales: {
     x: {
-      grid: { display: false },
+      grid: {
+        display: false,
+      },
     },
     y: {
-      grid: { display: false },
+      grid: {
+        display: false,
+      },
     },
   },
   layout: {
-    padding: {
-      top: 20,
-    },
+    padding: { top: 50 },
   },
   responsive: true,
   plugins: {
@@ -34,15 +34,6 @@ const options: ChartOptions<"bar"> = {
       labels: {
         usePointStyle: true,
         pointStyle: "circle",
-      },
-    },
-    title: {
-      display: true,
-      text: "Grafik Dampak",
-      align: "start",
-      font: {
-        size: 24,
-        weight: "bold"
       },
     },
   },
@@ -80,20 +71,18 @@ const data = {
   ],
 };
 
-const Chart = () => {
-  return (
-    <section className="bg-neutral-50 h-[462px] w-full mt-[16px] p-[20px] relative">
-      <div>
-        <Bar options={options} data={data} height={80} />
-      </div>
-      <Button variant="outline" className="border-neutral-900 gap-[12px] text-neutral-900 absolute top-12 right-5">
-        Option
-        <div className="rotate-90">
-          <ArrowDown />
-        </div>
-      </Button>
-    </section>
-  );
-};
+interface BarChartProps {
+  height?: number;
+  width?: number;
+}
 
-export default Chart;
+export default function BarChart({ height = 80, width }: BarChartProps) {
+  return (
+    <Bar
+      options={options}
+      data={data}
+      height={height}
+      width={width}
+    />
+  )
+}
