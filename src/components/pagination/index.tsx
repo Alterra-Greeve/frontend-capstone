@@ -78,7 +78,7 @@ const Paging = ({
             <p className="text-primary-200">{pagingLength}</p>
           </div>
           <button
-            className={`min-w-6`}
+            className={`min-w-6 ${showedData.start == pagingLength ? "hidden" : ""}`}
             onClick={() => setPangingIndex(pagingIndex + 1)}
             disabled={pagingIndex >= pagingLength ? true : false}
           >
