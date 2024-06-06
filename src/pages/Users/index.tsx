@@ -32,6 +32,7 @@ import Button from "@/components/Button/Button";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import useFetch from "@/lib/hooks/useFetch";
 import UsersFilter from "./filter";
+import newUseFetch from "@/lib/hooks/newUseFetch";
 
 interface dataUser {
   length: number;
@@ -65,10 +66,12 @@ export default function index() {
     "",
   ];
   const navigate = useNavigate();
-  const { data, loading } = useFetch<{ data: dataUser }>("admin/users", {
-    method: "get",
-  });
+  const { data, loading, fetchData } = newUseFetch<{ data: dataUser }>();
   const [dataProduct, setDataProduct] = useState([] as unknown as dataUser);
+
+  useEffect(() => {
+    fetchData("admin/users", { method: "get" });
+  }, []);
 
   const [filter, setFilter] = useState({
     name: "",
@@ -182,7 +185,7 @@ export default function index() {
                       <TableCell className="p-3 text-center pe-4">
                         <DropdownMenu>
                           <DropdownMenuTrigger className="hover:bg-slate-300 min-w-6">
-                            <MoreIcon/>
+                            <MoreIcon />
                           </DropdownMenuTrigger>
                           <DropdownMenuContent className="absolute right-5 -top-7 w-[106px] text-neutral-900">
                             <DropdownMenuItem
@@ -191,7 +194,7 @@ export default function index() {
                                 navigate(`?user_id=${item.id}&action=edit`)
                               }
                             >
-                              <EditIcon/>
+                              <EditIcon />
                               Edit
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -200,7 +203,7 @@ export default function index() {
                                 navigate(`?user_id=${item.id}`);
                               }}
                             >
-                              <ShowProfileIcon/>
+                              <ShowProfileIcon />
                               Lihat
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -209,7 +212,7 @@ export default function index() {
                                 navigate(`?user_id=${item.id}&action=delete`)
                               }
                             >
-                              <DeleteIcon/>
+                              <DeleteIcon />
                               Hapus
                             </DropdownMenuItem>
                           </DropdownMenuContent>

@@ -12,6 +12,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Button from "@/components/Button/Button";
 import useFetch from "@/lib/hooks/useFetch";
 import { useEffect, useState } from "react";
+import newUseFetch from "@/lib/hooks/newUseFetch";
 
 interface dataUsers {
   id: string;
@@ -32,22 +33,18 @@ const ModalUserDetail = ({ isShow = false }: { isShow: any }) => {
   const searchParams = new URLSearchParams(location.search);
   const user_id = searchParams.get("user_id");
   const [userDetailed, setUserDetailed] = useState<dataUsers>();
+  const navigate = useNavigate();
 
-  const { data, loading, error, fetchData } = useFetch<{ data: any }>(
-    `admin/users/${user_id}`,
-    {
-      method: "get",
-    }
-  );
+  const { data, loading, error, fetchData } = newUseFetch<{ data: any }>();
 
   useEffect(() => {
-    fetchData();
+    fetchData(`admin/users/${user_id}`, {
+      method: "get",
+    });
   }, [user_id]);
   useEffect(() => {
-    data ? setUserDetailed(data.data) : "";
+    setUserDetailed(data?.data);
   }, [data]);
-
-  const navigate = useNavigate();
 
   return (
     <Dialog open={isShow}>
