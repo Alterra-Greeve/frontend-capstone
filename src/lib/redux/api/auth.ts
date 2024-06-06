@@ -51,6 +51,9 @@ export const authSlice = createSlice({
   reducers: {
     signOut: (state) => {
       state.token = null;
+      state.isLoading = false;
+      state.isError = false;
+      state.error = null;
       state.session = "unauthenticated";
 
       deleteCookie("greeve-token");
@@ -65,6 +68,8 @@ export const authSlice = createSlice({
 
       state.isLoading = false;
       state.token = data.token;
+      state.isError = false;
+      state.error = null;
       state.session = "authenticated";
 
       setCookie("greeve-token", data.token, {

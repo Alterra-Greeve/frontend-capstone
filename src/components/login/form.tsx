@@ -21,7 +21,7 @@ const AlertError = ({ error }: { error: string }) => (
   <div className="flex items-center gap-2 bg-danger-100 border border-danger-500 p-2 rounded-lg mb-4">
     <Danger />
     <small className="text-neutral-900 font-medium">
-      {error === "404"
+      {error === "401"
         ? "Email atau password salah! Silakan cek kembali."
         : "Terjadi kesalahan saat login. Silakan coba lagi."
       }
