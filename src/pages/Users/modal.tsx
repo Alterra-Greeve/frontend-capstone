@@ -4,6 +4,7 @@ import ModalEditUser from "./modal-items/modal-edit-user";
 import ModalDialog from "./modal-items/modal-dialog";
 import Button from "@/components/Button/Button";
 import { useNavigate } from "react-router-dom";
+import { Dialog } from "@/components/ui/dialog";
 
 const Modal = () => {
   const location = useLocation();
@@ -15,25 +16,27 @@ const Modal = () => {
 
   if (user_id && action == "delete") {
     return (
-      <ModalDialog
-        headText="Yakin ingin menghapus data ini?"
-        bodyText="Penghapusan bersifat permanen dan tidak bisa dibatalkan"
-        isShow={user_id && action == "delete" ? true : false}
-        fasleButton={
-          <Button
-            children="Tidak"
-            variant="secondary"
-            onClick={() => navigate("")}
-          />
-        }
-        trueButton={
-          <Button
-            children="Ya , Hapus"
-            variant="primary"
-            onClick={() => navigate("")}
-          />
-        }
-      />
+      <Dialog open={true}>
+        <ModalDialog
+          headText="Yakin ingin menghapus data ini?"
+          bodyText="Penghapusan bersifat permanen dan tidak bisa dibatalkan"
+          isShow={user_id && action == "delete" ? true : false}
+          fasleButton={
+            <Button
+              children="Tidak"
+              variant="secondary"
+              onClick={() => navigate("")}
+            />
+          }
+          trueButton={
+            <Button
+              children="Ya , Hapus"
+              variant="primary"
+              onClick={() => navigate("")}
+            />
+          }
+        />
+      </Dialog>
     );
   } else if (user_id && action == "edit") {
     return (

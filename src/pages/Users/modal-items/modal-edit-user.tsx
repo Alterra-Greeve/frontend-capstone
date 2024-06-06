@@ -18,15 +18,14 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
   const [action, setAction] = useState("");
   const navigate = useNavigate();
 
-
-  function handleEditUsers(){
-    alert("data edited")
-    navigate("")
+  function handleEditUsers() {
+    alert("data edited");
+    navigate("");
   }
 
-  if (action !== "") {
-    if (action == "cancleEdit") {
-      return (
+  return (
+    <Dialog open={isShow}>
+      {action == "cancleEdit" ? (
         <ModalDialog
           headText="Perubahan belum disimpan!"
           bodyText="Anda telah mengubah beberapa informasi. Pastikan untuk menyimpan agar tidak kehilangan perubahan ini"
@@ -48,9 +47,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
             />
           }
         />
-      );
-    } else if (action == "edit") {
-      return (
+      ) : action == "edit" ? (
         <ModalDialog
           headText="Ingin menyimpan data ini?"
           bodyText="Perubahan dari data sebelumnya akan tersimpan"
@@ -72,11 +69,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
             />
           }
         />
-      );
-    }
-  } else {
-    return (
-      <Dialog open={isShow}>
+      ) : (
         <DialogContent className="w-auto max-w-full  flex flex-col gap-5">
           <div className="grid grid-cols-1">
             <div className="flex flex-col gap-5">
@@ -210,9 +203,9 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
             </div>
           </div>
         </DialogContent>
-      </Dialog>
-    );
-  }
+      )}
+    </Dialog>
+  );
 };
 
 export default ModalEditUser;

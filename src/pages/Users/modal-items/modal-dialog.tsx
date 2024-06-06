@@ -24,7 +24,6 @@ const ModalDialog = ({
   fasleButton,
 }: modalDialog) => {
   return (
-    <Dialog open={isShow}>
       <DialogContent className="w-[500px] max-w-full p-8 sm:rounded-[20px] grid  justify-center">
         <DialogHeader className="flex flex-col items-center justify-center w-full gap-8">
           <div className="flex justify-center items-center">
@@ -44,7 +43,8 @@ const ModalDialog = ({
           {trueButton}
         </div>
       </DialogContent>
-    </Dialog>
+    // <Dialog open={isShow}>
+    // </Dialog>
   );
 };
 
