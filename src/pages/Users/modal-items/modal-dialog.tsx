@@ -6,12 +6,24 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useNavigate } from "react-router-dom";
 import yesornoIcon from "./Yes_or_no_icon.svg";
 import Button from "@/components/Button/Button";
 
-const ModalDeleteUser = ({ isShow = false }: { isShow: any }) => {
-  const navigate = useNavigate();
+interface modalDialog {
+  isShow: boolean;
+  headText: string;
+  bodyText: string;
+  trueButton: any;
+  fasleButton: any;
+}
+
+const ModalDialog = ({
+  isShow = false,
+  headText,
+  bodyText,
+  trueButton,
+  fasleButton,
+}: modalDialog) => {
   return (
     <Dialog open={isShow}>
       <DialogContent className="w-[500px] max-w-full p-8 sm:rounded-[20px] grid  justify-center">
@@ -21,28 +33,20 @@ const ModalDeleteUser = ({ isShow = false }: { isShow: any }) => {
           </div>
           <div className="flex flex-col gap-3 items-center justify-center text-neutral-900">
             <p className="text-2xl font-bold max-w-auto text-center">
-              Yakin ingin menghapus data ini?
+              {headText}
             </p>
             <p className="text-lg leading-5 font-normal text-center w-auto tracking-tighter">
-              Penghapusan bersifat permanen dan tidak bisa dibatalkan
+              {bodyText}
             </p>
           </div>
         </DialogHeader>
         <div className="w-full flex justify-end mt-14 gap-5 text-sm leading-6 font-medium">
-          <Button
-            children="Tidak"
-            variant="secondary"
-            onClick={() => navigate("")}
-          />
-          <Button
-            children="Ya , Hapus"
-            variant="primary"
-            onClick={() => navigate("")}
-          />
+          {fasleButton}
+          {trueButton}
         </div>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default ModalDeleteUser;
+export default ModalDialog;

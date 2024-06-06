@@ -9,6 +9,7 @@ interface FetchState<T> {
   loading: boolean;
   error: Error | null;
   postData: (dataProduct: object) => Promise<void>;
+  fetchData: () => Promise<void>;
 }
 
 /**
@@ -48,12 +49,14 @@ const useFetch = <T>(params: string, options: object): FetchState<T> => {
     setError(null);
 
     // dataProduct = JSON.stringify(dataProduct)
-    console.log({ ...options, data: dataProduct});
-    
+    console.log({ ...options, data: dataProduct });
+
     try {
-      const responses =  await GreeveApi(params, { ...options, data: {...dataProduct} } || {});
+      const responses = await GreeveApi(
+        params,
+        { ...options, data: { ...dataProduct } } || {}
+      );
       console.log(responses);
-      
     } catch (error) {
       if (error instanceof AxiosError) {
         setError(error);
@@ -70,7 +73,7 @@ const useFetch = <T>(params: string, options: object): FetchState<T> => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return { data, loading, error, postData };
+  return { data, loading, error, postData, fetchData };
 };
 
 export default useFetch;
