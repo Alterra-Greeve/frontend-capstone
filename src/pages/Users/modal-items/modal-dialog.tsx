@@ -6,8 +6,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import yesornoIcon from "./Yes_or_no_icon.svg";
-import Button from "@/components/Button/Button";
+import YesornoIcon from "./Yes_or_no_icon.svg";
 
 interface modalDialog {
   isShow: boolean;
@@ -29,7 +28,7 @@ const ModalDialog = ({
       <DialogContent className="w-[500px] max-w-full p-8 sm:rounded-[20px] grid  justify-center">
         <DialogHeader className="flex flex-col items-center justify-center w-full gap-8">
           <div className="flex justify-center items-center">
-            <img src={yesornoIcon} alt="delete-icon" />
+            <YesornoIcon/>
           </div>
           <div className="flex flex-col gap-3 items-center justify-center text-neutral-900">
             <p className="text-2xl font-bold max-w-auto text-center">

@@ -3,7 +3,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import filterIcon from "@/assets/icons/Filter.svg";
+import FilterIcon from "@/assets/icons/Filter.svg";
 import Button from "@/components/Button/Button";
 import { useState } from "react";
 import { Formik, Field, Form } from "formik";
@@ -23,7 +23,7 @@ const UsersFilter = ({
         className="hover:bg-slate-300 min-w-6"
         onClick={() => setIsOpen(true)}
       >
-        <img src={filterIcon} alt="more-icon" />
+        <FilterIcon/>
       </PopoverTrigger>
       <PopoverContent className="w-auto absolute left-6 -top-10 text-neutral-900 p-3 rounded-[8px]">
         <Formik

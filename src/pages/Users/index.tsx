@@ -1,11 +1,11 @@
 import AdminLayout from "@/layouts/AdminLayout";
 // import plusIcon from "@/assets/icons/plus.svg";
-import exportIcon from "@/assets/icons/Export.svg";
-import filterIcon from "@/assets/icons/Filter.svg";
-import moreIcon from "@/assets/icons/More.svg";
-import deleteIcon from "@/assets/icons/Iconly/Union-1.svg";
-import showProfileIcon from "@/assets/icons/Iconly/Show.svg";
-import editIcon from "@/assets/icons/Iconly/Union.svg";
+import ExportIcon from "@/assets/icons/Export.svg";
+import FilterIcon from "@/assets/icons/Filter.svg";
+import MoreIcon from "@/assets/icons/More.svg";
+import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
+import ShowProfileIcon from "@/assets/icons/Iconly/Show.svg";
+import EditIcon from "@/assets/icons/Iconly/Union.svg";
 import { SetStateAction, useEffect, useState } from "react";
 
 import {
@@ -120,7 +120,7 @@ export default function index() {
               <div className="flex gap-[10px] items-center ps-[18px] py-1 ">
                 <Button
                   children="Export"
-                  icon={exportIcon}
+                  icon={ExportIcon}
                   variant="secondary"
                 />
               </div>
@@ -182,7 +182,7 @@ export default function index() {
                       <TableCell className="p-3 text-center pe-4">
                         <DropdownMenu>
                           <DropdownMenuTrigger className="hover:bg-slate-300 min-w-6">
-                            <img src={moreIcon} alt="more-icon" />
+                            <MoreIcon/>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent className="absolute right-5 -top-7 w-[106px] text-neutral-900">
                             <DropdownMenuItem
@@ -191,7 +191,7 @@ export default function index() {
                                 navigate(`?user_id=${item.id}&action=edit`)
                               }
                             >
-                              <img src={editIcon} className="w-5 h-5" />
+                              <EditIcon/>
                               Edit
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -200,7 +200,7 @@ export default function index() {
                                 navigate(`?user_id=${item.id}`);
                               }}
                             >
-                              <img src={showProfileIcon} className="w-5 h-5" />
+                              <ShowProfileIcon/>
                               Lihat
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -209,7 +209,7 @@ export default function index() {
                                 navigate(`?user_id=${item.id}&action=delete`)
                               }
                             >
-                              <img src={deleteIcon} className="w-5 h-5" />
+                              <DeleteIcon/>
                               Hapus
                             </DropdownMenuItem>
                           </DropdownMenuContent>

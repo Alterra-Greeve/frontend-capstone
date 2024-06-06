@@ -1,4 +1,4 @@
-import arrowRight from "@/assets/icons/Arrow - Right Circle.svg";
+import ArrowRight from "@/assets/icons/Arrow - Right Circle.svg";
 import { useEffect, useState } from "react";
 
 const Paging = ({
@@ -68,10 +68,9 @@ const Paging = ({
             onClick={() => setPangingIndex(pagingIndex - 1)}
             disabled={pagingIndex <= 1 ? true : false}
           >
-            <img
-              srcSet={arrowRight}
-              className={`-rotate-180 ${pagingIndex <= 1 ? "hidden" : ""}`}
-            />
+            <div className={`-rotate-180 ${pagingIndex <= 1 ? "hidden" : ""}`}>
+              <ArrowRight />
+            </div>
           </button>
           <div className="w-[78px] rounded-[8px] border-[0.5px] border-neutral-400 px-3 py-2 flex gap-1 justify-center text-base leading-5 font-extrabold">
             <p className="text-primary-500">{pagingIndex}</p>
@@ -83,10 +82,9 @@ const Paging = ({
             onClick={() => setPangingIndex(pagingIndex + 1)}
             disabled={pagingIndex >= pagingLength ? true : false}
           >
-            <img
-              srcSet={arrowRight}
-              className={pagingIndex >= pagingLength ? "hidden" : ""}
-            />
+            <div className={pagingIndex >= pagingLength ? "hidden" : ""}>
+              <ArrowRight />
+            </div>
           </button>
         </div>
       </div>
