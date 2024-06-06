@@ -8,16 +8,18 @@ import ProtectedRoutes from "./pages/ProtectedRoutes";
 import LoginPage from "./pages/auth/login";
 import AddProducts from "./pages/Products/AddProducts";
 import EditProducts from "./pages/Products/EditProducts";
+import DataImpactOrder from "./pages/DataImpactOrder";
+import DataImpactChallenge from "./pages/DataImpactChallenge";
 
 export default function App() {
   return (
     <Routes>
       {/**
-       * Semua route yang ada di app nanti di protect 
+       * Semua route yang ada di app nanti di protect
        * dengan component ProtectedRoutes
        * jadi kalau ada penambahan route baru, yang memerlukan authorization
        * pastiin tambahin di dalam prefix /dashboard
-      */}
+       */}
       <Route path="/dashboard" element={<ProtectedRoutes />}>
         <Route index element={<Dashboard />} />
         <Route path="users" element={<Users />} />
@@ -26,8 +28,10 @@ export default function App() {
         <Route path="products/edit-products/:id" element={<EditProducts />} />
         <Route path="challenges" element={<Challenges />} />
         <Route path="data-impact" element={<DataImpact />} />
+        <Route path="data-impact/order" element={<DataImpactOrder />} />
+        <Route path="data-impact/challenge" element={<DataImpactChallenge />} />
       </Route>
       <Route path="/auth/login" element={<LoginPage />} />
     </Routes>
-  )
+  );
 }
