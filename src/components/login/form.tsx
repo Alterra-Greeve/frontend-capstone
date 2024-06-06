@@ -35,10 +35,7 @@ export default function FormLogin() {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
+  const toggleShowPassword = () => setShowPassword(!showPassword);
 
   const form = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
