@@ -1,8 +1,8 @@
 import Button from "@/components/Button/Button";
 import AdminLayout from "@/layouts/AdminLayout";
 import ArrowLeft from "@/assets/icons/Arrow - Left.svg";
-import defaultPict from "@/assets/icons/default-pic.svg";
-import subDefault from "@/assets/icons/sub-default-pic.svg";
+import DefaultBigPict from "@/assets/icons/default-pic.svg";
+import SubDefault from "@/assets/icons/sub-default-pic.svg";
 import upload from "@/assets/icons/Upload.svg";
 import catEarth from "@/assets/icons/catEarth.svg";
 import catMoney from "@/assets/icons/catMoney.svg";
@@ -66,7 +66,7 @@ export default function AddProducts() {
                     <button
                         className="p-[8px] flex gap-[4px] items-center text-neutral-900 
                     text-[14px] font-[500]" onClick={() => navigate("/dashboard/products")}>
-                        <img src={ArrowLeft} alt="" className="w-[24px] h-[24px]" />
+                        <div className="w-[24px] h-[24px]">{<ArrowLeft/>}</div>
                         Informasi Produk
                     </button>
                     <div className="flex gap-[8px]">
@@ -93,13 +93,13 @@ export default function AddProducts() {
                     rounded-[8px]"
                     >
                         <div className="flex flex-col gap-[5px]">
-                            <img src={defaultPict} alt="" />
+                            <div>{<DefaultBigPict/>}</div>
                             <div className="flex gap-[4px]">
-                                <img src={subDefault} alt="" />
-                                <img src={subDefault} alt="" />
-                                <img src={subDefault} alt="" />
-                                <img src={subDefault} alt="" />
-                                <img src={subDefault} alt="" />
+                                <div>{<SubDefault/>}</div>
+                                <div>{<SubDefault/>}</div>
+                                <div>{<SubDefault/>}</div>
+                                <div>{<SubDefault/>}</div>
+                                <div>{<SubDefault/>}</div>
                             </div>
                             <div
                                 className="bg-primary-100 border-[1px] border-primary-400 border-dashed w-[531px]
