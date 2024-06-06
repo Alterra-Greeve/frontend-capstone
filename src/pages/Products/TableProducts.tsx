@@ -47,7 +47,7 @@ export default function TableProducts({data, dataShow}:any) {
                                     <TableRow className={i%2 === 0? 'bg-neutral-50' : 'bg-neutral-200'} key={i}>
                                         <TableCell className="p-[12px]">{item.product_id}</TableCell>
                                         <TableCell className="p-[12px]">
-                                            <div className="w-[24px] h-[24px]">{<Avatar/>}</div>
+                                            <Avatar/>
                                         </TableCell>
                                         <TableCell className="p-[12px]">{item.name}</TableCell>
                                         <TableCell className="p-[12px]">{item.price}</TableCell>
@@ -56,18 +56,19 @@ export default function TableProducts({data, dataShow}:any) {
                                         <TableCell className="p-[12px]">{item.description}</TableCell>
                                         <TableCell className="py-[12px]">
                                             <div className="flex gap-[4px]">
-                                                <div className="w-[24px] h-[24px]">{<CatEarth/>}</div>
-                                                <div className="w-[24px] h-[24px]">{<CatMoney/>}</div>
-                                                <div className="w-[24px] h-[24px]">{<CatBrain/>}</div>
-                                                <div className="w-[24px] h-[24px]">{<CatRecycle/>}</div>
+                                                <CatEarth/>
+                                                <CatMoney/>
+                                                <CatBrain/>
+                                                <CatRecycle/>
                                             </div>
                                         </TableCell>
                                         <TableCell className="p-[12px]">{item.created_at}</TableCell>
                                         <TableCell className="p-[12px] relative">
                                             <div className="flex gap-[12px]">
                                                 <span>12/05/24</span>
-                                                <div className="w-[24px] h-[24px] cursor-pointer" onClick={() => handleOpen(item.product_id)}>{<SeeMore/>}</div>
-                                                {/* <img src={seeMore} id={item.product_id} alt="" className="w-[24px] h-[24px] cursor-pointer" onClick={handleOpen}/> */}
+                                                <div className="w-[24px] h-[24px] cursor-pointer" onClick={() => handleOpen(item.product_id)}>
+                                                    <SeeMore/>
+                                                </div>
                                             </div>
                                             {selectedDropDown === item.product_id && (
                                                 <ManageProducts isOpen={isOpen} id={item.product_id}/>
