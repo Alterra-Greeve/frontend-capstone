@@ -1,0 +1,32 @@
+import EditIcon from '@/assets/icons/editProduct.svg'
+import DetailsIcon from '@/assets/icons/detailsProduct.svg'
+import DeleteIcon from '@/assets/icons/deleteProduct.svg'
+import { useNavigate } from 'react-router-dom'
+type manageProps = {
+    isOpen: boolean
+    id: string
+}
+export default function ManageProducts({isOpen, id} : manageProps) {
+    const navigate = useNavigate()
+    return(
+        <div className={isOpen? "absolute top-[12px] right-[40px] rounded-[8px] bg-neutral-50 w-[106px] flex flex-col z-10 shadow-custom" : "hidden"}>
+            <div className="flex gap-[8px] py-[8px] px-[16px] hover:bg-primary-200 hover:rounded-t-[8px] cursor-pointer"
+            onClick={() => navigate(`edit-products/${id}`)}>
+                <div>{<EditIcon/>}</div>
+                <span className='text-[14px] font-[700] text-neutral-900'>Edit</span>
+            </div>
+            <div className="flex gap-[8px] py-[8px] px-[16px] hover:bg-primary-200 cursor-pointer" 
+            onClick={() => navigate(`?product_id=${id}`)}
+            >
+                <div>{<DetailsIcon/>}</div>
+                <span className='text-[14px] font-[700] text-neutral-900' >Lihat</span>
+            </div>
+            <div className="flex gap-[8px] py-[8px] px-[16px] hover:bg-primary-200 hover:rounded-b-[8px] cursor-pointer" 
+            // onClick={}
+            >
+                <div>{<DeleteIcon/>}</div>
+                <span className='text-[14px] font-[700] text-neutral-900' >Hapus</span>
+            </div>
+        </div>
+    )
+};
