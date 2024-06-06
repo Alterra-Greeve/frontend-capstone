@@ -1,12 +1,13 @@
 import AdminLayout from "@/layouts/AdminLayout";
 // import plusIcon from "@/assets/icons/plus.svg";
 import ExportIcon from "@/assets/icons/Export.svg";
-import FilterIcon from "@/assets/icons/Filter.svg";
+// import FilterIcon from "@/assets/icons/Filter.svg";
 import MoreIcon from "@/assets/icons/More.svg";
 import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
 import ShowProfileIcon from "@/assets/icons/Iconly/Show.svg";
 import EditIcon from "@/assets/icons/Iconly/Union.svg";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import profileAlt from "./modal-items/profile-alt.png"
 
 import {
   Table,
@@ -30,7 +31,7 @@ import Modal from "./modal";
 import Paging from "@/components/pagination";
 import Button from "@/components/Button/Button";
 import SearchBar from "@/components/SearchBar/SearchBar";
-import useFetch from "@/lib/hooks/useFetch";
+// import useFetch from "@/lib/hooks/useFetch";
 import UsersFilter from "./filter";
 import newUseFetch from "@/lib/hooks/newUseFetch";
 
@@ -61,7 +62,7 @@ export default function index() {
     "No.Telp",
     "Email",
     "Address",
-    "Create Date",
+    "Create At",
     "Membership",
     "",
   ];
@@ -110,7 +111,7 @@ export default function index() {
       {loading ? (
         <section>Loading</section>
       ) : (
-        <section className="[calc(100vh-90px)] grid">
+        <section className="max-h-[calc(100vh-90px)] grid">
           <div className="bg-white p-6 relative rounded-[7px]">
             <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
               <div className="flex gap-4 items-center">
@@ -151,15 +152,15 @@ export default function index() {
                       key={i}
                     >
                       <TableCell className="p-3 text-start">
-                        {item.id}
+                        {item.id.split("-")[0]}
                       </TableCell>
                       <TableCell
-                        className="p-3 text-start flex items-center gap-3"
+                        className="px-3 text-start flex h-full items-center gap-3"
                         key={i}
                       >
                         <div className="w-6 rounded-full bg-slate-300 border border-black">
                           <img
-                            src={item.avatar_url}
+                            src={item.avatar_url || profileAlt}
                             className="w-full rounded-full"
                           />
                         </div>
@@ -180,7 +181,7 @@ export default function index() {
                       <TableCell className="p-3 text-start ">
                         {item.address || "-"}
                       </TableCell>
-                      <TableCell className="p-3 text-start ">-</TableCell>
+                      <TableCell className="p-3 text-start min-w-[83px]">-</TableCell>
                       <TableCell className={`p-3 text-start`}>-</TableCell>
                       <TableCell className="p-3 text-center pe-4">
                         <DropdownMenu>
