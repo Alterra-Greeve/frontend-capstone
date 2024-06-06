@@ -30,12 +30,14 @@ export default function ProductsPage() {
           </div>
           {/* <hr /> */}
           <TableProducts data={data} dataShow={dataShow}/>
-          <Pagination 
-            dataLength={data.data.length}
-            amouthDataDisplayed={10}
-            setDataShow={(event: { start: number; end: number }) => {
-            setDataShow({Start : event.start , end : event.end});
-          }}/>
+          <div className="mx-[24px]">
+            <Pagination 
+              dataLength={data.data.length}
+              amouthDataDisplayed={10}
+              setDataShow={(event: { start: number; end: number }) => {
+              setDataShow({Start : event.start , end : event.end});
+            }}/>
+          </div>
         </div>
       </AdminLayout>
       {/* <Modal/> */}
