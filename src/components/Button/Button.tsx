@@ -1,6 +1,6 @@
 type ButtonProps = {
     variant: 'primary' | 'secondary';
-    icon?: string;
+    icon?: any;
     children: React.ReactNode;
     onClick?: () => void
 };
@@ -15,8 +15,8 @@ export default function Button({variant, icon, children, onClick} : ButtonProps)
     return (
         <button className={`${style}
             flex gap-[4px] justify-center items-center border-solid border-[1px] 
-            p-[8px] font-[500] text-[14px] rounded-[8px] w-full`} onClick={onClick}>
-                <img src={icon} alt="" className={icon? "w-[24px] h-[24px]" : ""}/>
+            p-[8px] font-[500] text-[14px] rounded-[8px]`} onClick={onClick}>
+                <div className={icon? "w-[24px] h-[24px]" : "hidden"}>{icon}</div>
                 {children}
         </button>
     )

@@ -5,7 +5,7 @@ export default function SearchProducts() {
     return(
         <div className='flex gap-[4px]'>
             <SearchBar/>
-            <img src={Filter} alt="" className='w-[40px] h-[40px]'/>
+            <div className='w-[40px] h-[40px]'>{<Filter/>}</div>
         </div>
     )
 };

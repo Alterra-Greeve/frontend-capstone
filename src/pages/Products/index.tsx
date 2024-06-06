@@ -2,8 +2,8 @@ import AdminLayout from "@/layouts/AdminLayout";
 import useFetch from "@/lib/hooks/useFetch";
 import SearchProducts from "./SearchProducts";
 import Pagination from "@/components/pagination";
-import download from "@/assets/icons/Export.svg"
-import plus from "@/assets/icons/plus.svg"
+import Download from "@/assets/icons/Export.svg"
+import Plus from "@/assets/icons/plus.svg"
 import Button from "@/components/Button/Button"
 import Modal from "./modal";
 import TableProducts from "./TableProducts";
@@ -24,8 +24,8 @@ export default function ProductsPage() {
           <div className="flex justify-between pt-[24px] mx-[24px] border-b-[0.5px] pb-[16px]">
             <SearchProducts/>
             <div className="flex gap-[8px]">
-              <Button variant="secondary" icon={download}>Export</Button>
-              <Button variant="primary" icon={plus} onClick={() => navigate("add-products")}>Tambahkan Produk Baru</Button>
+              <Button variant="secondary" icon={<Download/>}>Export</Button>
+              <Button variant="primary" icon={<Plus/>} onClick={() => navigate("add-products")}>Tambahkan Produk Baru</Button>
           </div>
           </div>
           {/* <hr /> */}
