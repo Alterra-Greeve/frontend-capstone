@@ -8,8 +8,7 @@ interface FetchState<T> {
   data: T | null;
   loading: boolean;
   error: Error | null;
-  postData: (dataProduct: object) => Promise<void>;
-  fetchData: () => Promise<void>;
+  fetchData: (params: string, options: object) => Promise<void>;
 }
 
 /**
@@ -22,12 +21,12 @@ interface FetchState<T> {
  *
  */
 
-const useFetch = <T>(params: string, options: object): FetchState<T> => {
+const newUseFetch = <T>(): FetchState<T> => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
 
-  const fetchData = async () => {
+  const fetchData = async (params: string, options: object): Promise<void> => {
     setLoading(true);
     setError(null);
     try {
@@ -44,36 +43,7 @@ const useFetch = <T>(params: string, options: object): FetchState<T> => {
     }
   };
 
-  const postData = async (dataProduct: object) => {
-    setLoading(true);
-    setError(null);
-
-    // dataProduct = JSON.stringify(dataProduct)
-    console.log({ ...options, data: dataProduct });
-
-    try {
-      const responses = await GreeveApi(
-        params,
-        { ...options, data: { ...dataProduct } } || {}
-      );
-      console.log(responses);
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        setError(error);
-      } else {
-        setError(new Error("An unknown error occurred"));
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  return { data, loading, error, postData, fetchData };
+  return { data, loading, error, fetchData };
 };
 
-export default useFetch;
+export default newUseFetch;

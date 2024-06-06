@@ -1,11 +1,12 @@
 import AdminLayout from "@/layouts/AdminLayout";
 // import plusIcon from "@/assets/icons/plus.svg";
-import exportIcon from "@/assets/icons/Export.svg";
-import filterIcon from "@/assets/icons/Filter.svg";
-import moreIcon from "@/assets/icons/More.svg";
-import deleteIcon from "@/assets/icons/Iconly/Union-1.svg";
-import showProfileIcon from "@/assets/icons/Iconly/Show.svg";
-import editIcon from "@/assets/icons/Iconly/Union.svg";
+import ExportIcon from "@/assets/icons/Export.svg";
+import FilterIcon from "@/assets/icons/Filter.svg";
+import MoreIcon from "@/assets/icons/More.svg";
+import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
+import ShowProfileIcon from "@/assets/icons/Iconly/Show.svg";
+import EditIcon from "@/assets/icons/Iconly/Union.svg";
+import { SetStateAction, useEffect, useState } from "react";
 
 import {
   Table,
@@ -31,14 +32,12 @@ import Button from "@/components/Button/Button";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import useFetch from "@/lib/hooks/useFetch";
 import UsersFilter from "./filter";
+import newUseFetch from "@/lib/hooks/newUseFetch";
 
-interface dataProduct {
+interface dataUser {
   length: number;
   map(
-    arg0: (
-      item: dataProduct,
-      i: number
-    ) => import("react/jsx-runtime").JSX.Element
+    arg0: (item: dataUser, i: number) => import("react/jsx-runtime").JSX.Element
   ): import("react").ReactNode;
   id: string;
   name: string;
@@ -66,16 +65,45 @@ export default function index() {
     "Membership",
     "",
   ];
-
   const navigate = useNavigate();
+  const { data, loading, fetchData } = newUseFetch<{ data: dataUser }>();
+  const [dataProduct, setDataProduct] = useState([] as unknown as dataUser);
 
-  const { data, loading } = useFetch<{ data: dataProduct }>(
-    "admin/users",
-    {
-      method: "get",
+  useEffect(() => {
+    fetchData("admin/users", { method: "get" });
+  }, []);
+
+  const [filter, setFilter] = useState({
+    name: "",
+    username: "",
+    gender: [],
+    membership: [],
+  });
+
+  function filterData(data: any) {
+    var tempData = [] as any;
+    data.map((item: dataUser): void => {
+      if (
+        item.name.includes(filter.name) &&
+        item.username.includes(filter.username)
+      ) {
+        tempData.push(item);
+      }
+    });
+    return tempData;
+  }
+
+  useEffect(() => {
+    if (filter.name !== "" || filter.username !== "") {
+      data ? setDataProduct(filterData(data.data)) : "";
+    } else {
+      data ? setDataProduct(data.data) : "";
     }
-  );
-  var dataProduct = data?.data as dataProduct;
+  }, [filter]);
+
+  useEffect(() => {
+    data ? setDataProduct(data.data) : "";
+  }, [data]);
 
   return (
     <AdminLayout>
@@ -87,17 +115,15 @@ export default function index() {
             <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
               <div className="flex gap-4 items-center">
                 <SearchBar />
-                <UsersFilter/>
-                {/* <Button
-                  icon={filterIcon}
-                  variant="secondary"
-                  children={undefined}
-                /> */}
+                <UsersFilter
+                  setFilter={(e: any) => setFilter(e)}
+                  filterValue={filter}
+                />
               </div>
               <div className="flex gap-[10px] items-center ps-[18px] py-1 ">
                 <Button
                   children="Export"
-                  icon={exportIcon}
+                  icon={ExportIcon}
                   variant="secondary"
                 />
               </div>
@@ -117,7 +143,7 @@ export default function index() {
                   </TableRow>
                 </TableHeader>
                 <TableBody className="bg-neutral-50">
-                  {dataProduct.map((item: dataProduct, i: number) => (
+                  {dataProduct.map((item: dataUser, i: number) => (
                     <TableRow
                       className={`text-start cursor-pointer text-xs leading-6 font-normal text-neutral-900 ${
                         i % 2 != 0 ? "bg-neutral-200 " : ""
@@ -155,13 +181,11 @@ export default function index() {
                         {item.address || "-"}
                       </TableCell>
                       <TableCell className="p-3 text-start ">-</TableCell>
-                      <TableCell className={`p-3 text-start`}>
-                        -
-                      </TableCell>
+                      <TableCell className={`p-3 text-start`}>-</TableCell>
                       <TableCell className="p-3 text-center pe-4">
                         <DropdownMenu>
                           <DropdownMenuTrigger className="hover:bg-slate-300 min-w-6">
-                            <img src={moreIcon} alt="more-icon" />
+                            <MoreIcon />
                           </DropdownMenuTrigger>
                           <DropdownMenuContent className="absolute right-5 -top-7 w-[106px] text-neutral-900">
                             <DropdownMenuItem
@@ -170,7 +194,7 @@ export default function index() {
                                 navigate(`?user_id=${item.id}&action=edit`)
                               }
                             >
-                              <img src={editIcon} className="w-5 h-5" />
+                              <EditIcon />
                               Edit
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -179,7 +203,7 @@ export default function index() {
                                 navigate(`?user_id=${item.id}`);
                               }}
                             >
-                              <img src={showProfileIcon} className="w-5 h-5" />
+                              <ShowProfileIcon />
                               Lihat
                             </DropdownMenuItem>
                             <DropdownMenuItem
@@ -188,7 +212,7 @@ export default function index() {
                                 navigate(`?user_id=${item.id}&action=delete`)
                               }
                             >
-                              <img src={deleteIcon} className="w-5 h-5" />
+                              <DeleteIcon />
                               Hapus
                             </DropdownMenuItem>
                           </DropdownMenuContent>
