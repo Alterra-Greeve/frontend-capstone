@@ -23,11 +23,10 @@ export default function App() {
         <Route path="users" element={<Users />} />
         <Route path="products" element={<Products />} />
         <Route path="products/add-products" element={<AddProducts />} />
-        <Route path="products/edit-products" element={<EditProducts />} />
+        <Route path="products/edit-products/:id" element={<EditProducts />} />
         <Route path="challenges" element={<Challenges />} />
         <Route path="data-impact" element={<DataImpact />} />
       </Route>
-
       <Route path="/auth/login" element={<LoginPage />} />
     </Routes>
   )

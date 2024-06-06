@@ -3,26 +3,26 @@ import { useAppDispatch } from "@/lib/redux";
 import { signOut } from "@/lib/redux/api/auth";
 
 import logo from "@/assets/images/logo-landscape.png";
-import dashboardIcon from "@/assets/icons/Category.svg";
-import userIcon from "@/assets/icons/Profile.svg";
-import productIcon from "@/assets/icons/Bag.svg";
-import challengesIcon from "@/assets/icons/Game.svg";
-import dataImpactIcon from "@/assets/icons/Chart.svg";
-import logoutIcon from "@/assets/icons/Logout.svg";
-import arrowIcon from "@/assets/icons/Arrow-Right.svg";
+import DashboardIcon from "@/assets/icons/Category.svg";
+import UserIcon from "@/assets/icons/Profile.svg";
+import ProductIcon from "@/assets/icons/Bag.svg";
+import ChallengesIcon from "@/assets/icons/Game.svg";
+import DataImpactIcon from "@/assets/icons/Chart.svg";
+import LogoutIcon from "@/assets/icons/Logout.svg";
+import ArrowIcon from "@/assets/icons/Arrow-Right.svg";
 
 interface NavItemProps {
   link: string;
-  icon: string;
+  icon: React.ReactNode;
   label: string;
 }
 
 const navItems: NavItemProps[] = [
-  { link: "/dashboard", icon: dashboardIcon, label: "Dashboard" },
-  { link: "/dashboard/users", icon: userIcon, label: "Users" },
-  { link: "/dashboard/products", icon: productIcon, label: "Products" },
-  { link: "/dashboard/challenges", icon: challengesIcon, label: "Challenges" },
-  { link: "/dashboard/data-impact", icon: dataImpactIcon, label: "Data Impact" },
+  { link: "/dashboard", icon: <DashboardIcon />, label: "Dashboard" },
+  { link: "/dashboard/users", icon: <UserIcon />, label: "Users" },
+  { link: "/dashboard/products", icon: <ProductIcon />, label: "Products" },
+  { link: "/dashboard/challenges", icon: <ChallengesIcon />, label: "Challenges" },
+  { link: "/dashboard/data-impact", icon: <DataImpactIcon />, label: "Data Impact" },
 ];
 
 const NavItem = ({ link, icon, label }: NavItemProps) => {
@@ -43,11 +43,11 @@ const NavItem = ({ link, icon, label }: NavItemProps) => {
       }
     >
       <div className="w-[24px] h-[24px]">
-        <img src={icon} alt={`${label} icon`} />
+        {icon}
       </div>
       <h5 className="font-semibold">{label}</h5>
       <div className="w-[24px] h-[24px]">
-        <img src={arrowIcon} alt="arrow icon" />
+        <ArrowIcon />
       </div>
     </NavLink>
   )
@@ -66,11 +66,11 @@ const ButtonSignOut = () => {
       className="bg-[#FAFAFA] rounded-md hover:bg-[#498579] hover:text-white flex justify-between gap-[10px] w-[200px] h-[56px] p-[16px] mx-[20px]"
     >
       <div className="w-[24px] h-[24px]">
-        <img src={logoutIcon} alt="logout" />
+        <LogoutIcon />
       </div>
       <h5 className="font-semibold">Log Out</h5>
       <div className="w-[24px] h-[24px]">
-        <img src={arrowIcon} alt="arrow icon" />
+        <ArrowIcon />
       </div>
     </button>
   )
