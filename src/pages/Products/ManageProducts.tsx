@@ -8,10 +8,6 @@ type manageProps = {
 }
 export default function ManageProducts({isOpen, id} : manageProps) {
     const navigate = useNavigate()
-    function handleEdit(e:any){
-        console.log(e.target.id)
-    }
-    
     return(
         <div className={isOpen? "absolute top-[12px] right-[40px] rounded-[8px] bg-neutral-50 w-[106px] flex flex-col z-10 shadow-custom" : "hidden"}>
             <div className="flex gap-[8px] py-[8px] px-[16px] hover:bg-primary-200 hover:rounded-t-[8px] cursor-pointer"
@@ -20,7 +16,7 @@ export default function ManageProducts({isOpen, id} : manageProps) {
                 <span className='text-[14px] font-[700] text-neutral-900'>Edit</span>
             </div>
             <div className="flex gap-[8px] py-[8px] px-[16px] hover:bg-primary-200 cursor-pointer" 
-            onClick={() => handleEdit(id)}
+            onClick={() => navigate(`?product_id=${id}`)}
             >
                 <img src={detailsIcon} alt="" />
                 <span className='text-[14px] font-[700] text-neutral-900' >Lihat</span>

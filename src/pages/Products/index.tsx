@@ -5,14 +5,15 @@ import Pagination from "@/components/pagination";
 import download from "@/assets/icons/Export.svg"
 import plus from "@/assets/icons/plus.svg"
 import Button from "@/components/Button/Button"
-import { Link } from "react-router-dom";
 import Modal from "./modal";
 import TableProducts from "./TableProducts";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ProductsPage() {
   const { loading, error, data } = useFetch("products", { method: 'get' });
   const [dataShow, setDataShow] = useState({})
+  const navigate = useNavigate()
   if (loading) return <AdminLayout>Loading...</AdminLayout>;
   if (error) return <AdminLayout>{error.message}</AdminLayout>;
   return (
@@ -24,9 +25,7 @@ export default function ProductsPage() {
             <SearchProducts/>
             <div className="flex gap-[8px]">
               <Button variant="secondary" icon={download}>Export</Button>
-              <Link to={"add-products"}>
-                <Button variant="primary" icon={plus}>Tambahkan Produk Baru</Button>
-              </Link>
+              <Button variant="primary" icon={plus} onClick={() => navigate("add-products")}>Tambahkan Produk Baru</Button>
           </div>
           </div>
           {/* <hr /> */}
