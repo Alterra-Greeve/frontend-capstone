@@ -130,7 +130,7 @@ export default function index() {
               <div className="flex gap-[10px] items-center ps-[18px] py-1 ">
                 <Button
                   children="Export"
-                  icon={ExportIcon}
+                  icon={<ExportIcon/>}
                   variant="secondary"
                 />
               </div>
