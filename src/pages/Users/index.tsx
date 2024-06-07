@@ -1,12 +1,13 @@
 import AdminLayout from "@/layouts/AdminLayout";
 // import plusIcon from "@/assets/icons/plus.svg";
 import ExportIcon from "@/assets/icons/Export.svg";
-import FilterIcon from "@/assets/icons/Filter.svg";
+// import FilterIcon from "@/assets/icons/Filter.svg";
 import MoreIcon from "@/assets/icons/More.svg";
 import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
 import ShowProfileIcon from "@/assets/icons/Iconly/Show.svg";
 import EditIcon from "@/assets/icons/Iconly/Union.svg";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import profileAlt from "./modal-items/profile-alt.png";
 
 import {
   Table,
@@ -30,7 +31,7 @@ import Modal from "./modal";
 import Paging from "@/components/pagination";
 import Button from "@/components/Button/Button";
 import SearchBar from "@/components/SearchBar/SearchBar";
-import useFetch from "@/lib/hooks/useFetch";
+// import useFetch from "@/lib/hooks/useFetch";
 import UsersFilter from "./filter";
 import newUseFetch from "@/lib/hooks/newUseFetch";
 
@@ -61,13 +62,19 @@ export default function index() {
     "No.Telp",
     "Email",
     "Address",
-    "Create Date",
+    "Create At",
     "Membership",
     "",
   ];
   const navigate = useNavigate();
   const { data, loading, fetchData } = newUseFetch<{ data: dataUser }>();
   const [dataProduct, setDataProduct] = useState([] as unknown as dataUser);
+  /* Fix paging show item */
+  const [dataShow, setDataShow] = useState({
+    start: 0,
+    end: 0,
+  });
+  /* Fix paging show item */
 
   useEffect(() => {
     fetchData("admin/users", { method: "get" });
@@ -110,7 +117,7 @@ export default function index() {
       {loading ? (
         <section>Loading</section>
       ) : (
-        <section className="[calc(100vh-90px)] grid">
+        <section className="max-h-[calc(100vh-90px)] grid ">
           <div className="bg-white p-6 relative rounded-[7px]">
             <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
               <div className="flex gap-4 items-center">
@@ -128,7 +135,7 @@ export default function index() {
                 />
               </div>
             </div>
-            <div className="mt-4 bg-primary-100 rounded-t-[8px] grid border-[1px] border-neutral-300">
+            <div className="mt-4 bg-primary-100 rounded-t-[8px] grid border-[1px] border-neutral-300 ">
               <Table>
                 <TableHeader>
                   <TableRow className="text-start py-[10px]">
@@ -143,83 +150,93 @@ export default function index() {
                   </TableRow>
                 </TableHeader>
                 <TableBody className="bg-neutral-50">
-                  {dataProduct.map((item: dataUser, i: number) => (
-                    <TableRow
-                      className={`text-start cursor-pointer text-xs leading-6 font-normal text-neutral-900 ${
-                        i % 2 != 0 ? "bg-neutral-200 " : ""
-                      }`}
-                      key={i}
-                    >
-                      <TableCell className="p-3 text-start">
-                        {item.id}
-                      </TableCell>
-                      <TableCell
-                        className="p-3 text-start flex items-center gap-3"
-                        key={i}
-                      >
-                        <div className="w-6 rounded-full bg-slate-300 border border-black">
-                          <img
-                            src={item.avatar_url}
-                            className="w-full rounded-full"
-                          />
-                        </div>
-                        {item.name || "-"}
-                      </TableCell>
-                      <TableCell className="p-3 text-start ">
-                        {item.username || "-"}
-                      </TableCell>
-                      <TableCell className="p-3 text-start ">
-                        {item.gender || "-"}
-                      </TableCell>
-                      <TableCell className="p-3 text-start ">
-                        {item.phone || "-"}
-                      </TableCell>
-                      <TableCell className="p-3 text-start ">
-                        {item.email || "-"}
-                      </TableCell>
-                      <TableCell className="p-3 text-start ">
-                        {item.address || "-"}
-                      </TableCell>
-                      <TableCell className="p-3 text-start ">-</TableCell>
-                      <TableCell className={`p-3 text-start`}>-</TableCell>
-                      <TableCell className="p-3 text-center pe-4">
-                        <DropdownMenu>
-                          <DropdownMenuTrigger className="hover:bg-slate-300 min-w-6">
-                            <MoreIcon />
-                          </DropdownMenuTrigger>
-                          <DropdownMenuContent className="absolute right-5 -top-7 w-[106px] text-neutral-900">
-                            <DropdownMenuItem
-                              className="text-sm font-bold flex gap-2 px-4 py-[10px]"
-                              onClick={() =>
-                                navigate(`?user_id=${item.id}&action=edit`)
-                              }
-                            >
-                              <EditIcon />
-                              Edit
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              className="text-sm font-bold flex gap-2 px-4 py-[10px]"
-                              onClick={() => {
-                                navigate(`?user_id=${item.id}`);
-                              }}
-                            >
-                              <ShowProfileIcon />
-                              Lihat
-                            </DropdownMenuItem>
-                            <DropdownMenuItem
-                              className="text-sm font-bold flex gap-2 px-4 py-[10px]"
-                              onClick={() =>
-                                navigate(`?user_id=${item.id}&action=delete`)
-                              }
-                            >
-                              <DeleteIcon />
-                              Hapus
-                            </DropdownMenuItem>
-                          </DropdownMenuContent>
-                        </DropdownMenu>
-                      </TableCell>
-                    </TableRow>
-                  ))}
+                  {/* Fix paging show item */}
+                  {dataProduct.map((item, i): any => {
+                    if (i >= dataShow.start - 1 && i <= dataShow.end - 1) {
+                      return (
+                        <TableRow
+                          className={`text-start cursor-pointer text-xs leading-6 font-normal text-neutral-900 ${
+                            i % 2 != 0 ? "bg-neutral-200 " : ""
+                          }`}
+                          key={i}
+                        >
+                          <TableCell className="p-3 text-start">
+                            {item.id.split("-")[0]}
+                          </TableCell>
+                          <TableCell
+                            className="px-3 text-start flex h-full items-center gap-3"
+                            key={i}
+                          >
+                            <div className="w-6 rounded-full bg-slate-300 border border-black">
+                              <img
+                                src={item.avatar_url || profileAlt}
+                                className="w-full rounded-full"
+                              />
+                            </div>
+                            {item.name || "-"}
+                          </TableCell>
+                          <TableCell className="p-3 text-start ">
+                            {item.username || "-"}
+                          </TableCell>
+                          <TableCell className="p-3 text-start ">
+                            {item.gender || "-"}
+                          </TableCell>
+                          <TableCell className="p-3 text-start ">
+                            {item.phone || "-"}
+                          </TableCell>
+                          <TableCell className="p-3 text-start ">
+                            {item.email || "-"}
+                          </TableCell>
+                          <TableCell className="p-3 text-start ">
+                            {item.address || "-"}
+                          </TableCell>
+                          <TableCell className="p-3 text-start min-w-[83px]">
+                            -
+                          </TableCell>
+                          <TableCell className={`p-3 text-start`}>-</TableCell>
+                          <TableCell className="p-3 text-center pe-4">
+                            <DropdownMenu>
+                              <DropdownMenuTrigger className="hover:bg-slate-300 min-w-6">
+                                <MoreIcon />
+                              </DropdownMenuTrigger>
+                              <DropdownMenuContent className="absolute right-5 -top-7 w-[106px] text-neutral-900">
+                                <DropdownMenuItem
+                                  className="text-sm font-bold flex gap-2 px-4 py-[10px]"
+                                  onClick={() =>
+                                    navigate(`?user_id=${item.id}&action=edit`)
+                                  }
+                                >
+                                  <EditIcon />
+                                  Edit
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                  className="text-sm font-bold flex gap-2 px-4 py-[10px]"
+                                  onClick={() => {
+                                    navigate(`?user_id=${item.id}`);
+                                  }}
+                                >
+                                  <ShowProfileIcon />
+                                  Lihat
+                                </DropdownMenuItem>
+                                <DropdownMenuItem
+                                  className="text-sm font-bold flex gap-2 px-4 py-[10px]"
+                                  onClick={() =>
+                                    navigate(
+                                      `?user_id=${item.id}&action=delete`
+                                    )
+                                  }
+                                >
+                                  <DeleteIcon />
+                                  Hapus
+                                </DropdownMenuItem>
+                              </DropdownMenuContent>
+                            </DropdownMenu>
+                          </TableCell>
+                        </TableRow>
+                      );
+                    }
+                  })}
+                  {/* Fix paging show item */}
                 </TableBody>
               </Table>
             </div>
@@ -228,7 +245,8 @@ export default function index() {
               amouthDataDisplayed={10}
               className={"my-4"}
               setDataShow={(event: { start: number; end: number }) => {
-                console.log(`Start : ${event.start} , end : ${event.end}`);
+                setDataShow({ start: event.start, end: event.end });
+                //  /* Fix paging show item */
               }}
             />
           </div>

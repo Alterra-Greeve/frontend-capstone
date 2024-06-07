@@ -1,20 +1,18 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  // DialogDescription,
+  // DialogHeader,
+  // DialogTitle,
+  // DialogTrigger,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import profileAlt from "./profile-alt.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "@/components/Button/Button";
 import { useEffect, useState } from "react";
 import ModalDialog from "./modal-dialog";
 import { Formik, Field, Form } from "formik";
-import useFetch from "@/lib/hooks/useFetch";
+// import useFetch from "@/lib/hooks/useFetch";
 import newUseFetch from "@/lib/hooks/newUseFetch";
 
 interface dataUsers {
@@ -37,12 +35,14 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
   const user_id = searchParams.get("user_id");
   const [userEdit, setUserEdit] = useState<dataUsers>();
 
-  const { data, loading, error, fetchData } = newUseFetch<{ data: any }>();
+  const { data, loading, fetchData } = newUseFetch<{ data: any }>();
 
   useEffect(() => {
-    fetchData(`admin/users/${user_id}`, {
-      method: "get",
-    });
+    if (user_id !== null) {
+      fetchData(`admin/users/${user_id}`, {
+        method: "get",
+      });
+    }
   }, [user_id]);
   useEffect(() => {
     setUserEdit(data?.data);
@@ -108,7 +108,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
         <DialogContent className="w-auto max-w-full  flex flex-col gap-5 sm:rounded-[20px]">
           {loading ? (
             <section>Loading</section>
-          ) : (
+          ) : userEdit ? (
             <>
               <div className="grid grid-cols-1">
                 <div className="flex flex-col gap-5">
@@ -134,7 +134,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
                   firstName: userEdit?.name || "",
                   lastName: "",
                   userName: userEdit?.username || "",
-                  gender: userEdit?.gender || "",
+                  gender: userEdit?.gender.toLocaleLowerCase() || "",
                   email: userEdit?.email || "",
                 }}
                 onSubmit={async (values) => {
@@ -191,7 +191,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
                           <div className="flex items-center space-x-2">
                             <Field
                               type="radio"
-                              value="Laki-Laki"
+                              value="laki-laki"
                               name="gender"
                             />
                             <label
@@ -204,7 +204,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
                           <div className="flex items-center space-x-2">
                             <Field
                               type="radio"
-                              value="Perempuan"
+                              value="perempuan"
                               name="gender"
                             />
                             <label
@@ -292,6 +292,8 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
                 )}
               </Formik>
             </>
+          ) : (
+            ""
           )}
         </DialogContent>
       )}

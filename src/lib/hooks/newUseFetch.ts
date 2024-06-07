@@ -1,7 +1,7 @@
 "use client";
 
 import { AxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GreeveApi } from "@/lib/axios";
 
 interface FetchState<T> {

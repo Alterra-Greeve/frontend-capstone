@@ -1,18 +1,18 @@
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
+  // DialogDescription,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  // DialogTitle,
+  // DialogTrigger,
 } from "@/components/ui/dialog";
 
-import profileAlt from "./profile-alt.png";
 import { useLocation, useNavigate } from "react-router-dom";
 import Button from "@/components/Button/Button";
-import useFetch from "@/lib/hooks/useFetch";
+// import useFetch from "@/lib/hooks/useFetch";
 import { useEffect, useState } from "react";
 import newUseFetch from "@/lib/hooks/newUseFetch";
+import profileAlt from "./profile-alt.png";
 
 interface dataUsers {
   id: string;
@@ -35,12 +35,14 @@ const ModalUserDetail = ({ isShow = false }: { isShow: any }) => {
   const [userDetailed, setUserDetailed] = useState<dataUsers>();
   const navigate = useNavigate();
 
-  const { data, loading, error, fetchData } = newUseFetch<{ data: any }>();
+  const { data, loading, fetchData } = newUseFetch<{ data: any }>();
 
   useEffect(() => {
-    fetchData(`admin/users/${user_id}`, {
-      method: "get",
-    });
+    if (user_id !== null) {
+      fetchData(`admin/users/${user_id}`, {
+        method: "get",
+      });
+    }
   }, [user_id]);
   useEffect(() => {
     setUserDetailed(data?.data);
