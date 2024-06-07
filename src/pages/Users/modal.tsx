@@ -26,6 +26,7 @@ const Modal = () => {
               children="Tidak"
               variant="secondary"
               onClick={() => navigate("")}
+              className={"w-full"}
             />
           }
           trueButton={
@@ -33,6 +34,7 @@ const Modal = () => {
               children="Ya , Hapus"
               variant="primary"
               onClick={() => navigate("")}
+              className={"w-full"}
             />
           }
         />

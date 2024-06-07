@@ -71,6 +71,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
               icon=""
               onClick={() => navigate("")}
               variant="secondary"
+              className={"w-full"}
             />
           }
           trueButton={
@@ -79,6 +80,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
               icon=""
               onClick={() => setAction("")}
               variant="primary"
+              className={"w-full"}
             />
           }
         />
@@ -93,6 +95,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
               icon=""
               onClick={() => navigate("")}
               variant="secondary"
+              className={"w-full"}
             />
           }
           trueButton={
@@ -101,6 +104,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
               icon=""
               onClick={() => handleEditUsers()}
               variant="primary"
+              className={"w-full"}
             />
           }
         />
@@ -267,6 +271,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
                     <div className="w-full flex justify-end my-3 gap-3 text-sm leading-6">
                       <div className="flex justify-center items-center w-[120px]">
                         <Button
+                          className={"w-full"}
                           children="Cancel"
                           variant="secondary"
                           icon=""
@@ -278,6 +283,7 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
                       </div>
                       <div className="flex justify-center items-center w-[120px]">
                         <Button
+                          className={"w-full"}
                           children="Simpan"
                           variant="primary"
                           icon=""

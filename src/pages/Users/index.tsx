@@ -34,6 +34,7 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 // import useFetch from "@/lib/hooks/useFetch";
 import UsersFilter from "./filter";
 import newUseFetch from "@/lib/hooks/newUseFetch";
+import FilterItem from "./filterItems";
 
 interface dataUser {
   length: number;
@@ -53,7 +54,7 @@ interface dataUser {
   avatar_url: string;
 }
 
-export default function index() {
+export default function Users() {
   const tableHeader = [
     "User ID",
     "Name",
@@ -130,11 +131,15 @@ export default function index() {
               <div className="flex gap-[10px] items-center ps-[18px] py-1 ">
                 <Button
                   children="Export"
-                  icon={<ExportIcon/>}
+                  icon={<ExportIcon />}
                   variant="secondary"
                 />
               </div>
             </div>
+            <FilterItem
+              filter={filter}
+              setFilter={setFilter}
+            />
             <div className="mt-4 bg-primary-100 rounded-t-[8px] grid border-[1px] border-neutral-300 ">
               <Table>
                 <TableHeader>

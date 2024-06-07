@@ -146,6 +146,7 @@ const ModalUserDetail = ({ isShow = false }: { isShow: any }) => {
                   children="tutup"
                   icon=""
                   onClick={() => navigate("")}
+                  className={"w-full"}
                 />
               </div>
             </div>

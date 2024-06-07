@@ -28,10 +28,10 @@ const UsersFilter = ({
       <PopoverContent className="w-auto absolute left-6 -top-10 text-neutral-900 p-3 rounded-[8px]">
         <Formik
           initialValues={{
-            name: filterValue.name || "",
-            username: filterValue.username || "",
-            gender: filterValue.gender || "",
-            membership: filterValue.membership || "",
+            name: filterValue?.name || "",
+            username: filterValue?.username || "",
+            gender: filterValue?.gender || "",
+            membership: filterValue?.membership || "",
           }}
           onSubmit={async (values) => {
             setFilter(values);
@@ -147,6 +147,7 @@ const UsersFilter = ({
                 <Button
                   children="Simpan"
                   variant="primary"
+                  className={"w-full"}
                   onClick={() => {
                     document.getElementById("submitFilter")?.click();
                     setIsOpen(false);
