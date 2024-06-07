@@ -24,8 +24,8 @@ export default function ProductsPage() {
           <div className="flex justify-between pt-[24px] mx-[24px] border-b-[0.5px] pb-[16px]">
             <SearchProducts/>
             <div className="flex gap-[8px]">
-              <Button variant="secondary" icon={<Download/>}>Export</Button>
-              <Button variant="primary" icon={<Plus/>} onClick={() => navigate("add-products")}>Tambahkan Produk Baru</Button>
+              <Button variant="secondary" className='p-[8px]' icon={<Download/>}>Export</Button>
+              <Button variant="primary" className='p-[8px]' icon={<Plus/>} onClick={() => navigate("add-products")}>Tambahkan Produk Baru</Button>
           </div>
           </div>
           {/* <hr /> */}
@@ -40,7 +40,7 @@ export default function ProductsPage() {
           </div>
         </div>
       </AdminLayout>
-      {/* <Modal/> */}
+      <Modal/>
     </>
   )
 }

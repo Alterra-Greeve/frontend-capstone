@@ -16,7 +16,7 @@ export default function Button({variant, icon, children, onClick, className} : B
     return (
         <button className={`${style}
             flex gap-[4px] justify-center items-center border-solid border-[1px] 
-            p-[8px] font-[500] text-[14px] rounded-[8px] ${className}`} onClick={onClick}>
+            font-[500] text-[14px] rounded-[8px] ${className}`} onClick={onClick}>
                 <div className={icon? "w-[24px] h-[24px]" : "hidden"}>{icon}</div>
                 {children}
         </button>

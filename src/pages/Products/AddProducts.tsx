@@ -3,7 +3,7 @@ import AdminLayout from "@/layouts/AdminLayout";
 import ArrowLeft from "@/assets/icons/Arrow - Left.svg";
 import DefaultBigPict from "@/assets/icons/default-pic.svg";
 import SubDefault from "@/assets/icons/sub-default-pic.svg";
-import upload from "@/assets/icons/Upload.svg";
+import Upload from "@/assets/icons/Upload.svg";
 import catEarth from "@/assets/icons/catEarth.svg";
 import catMoney from "@/assets/icons/catMoney.svg";
 import catBrain from "@/assets/icons/catBrains.svg";
@@ -20,6 +20,11 @@ export default function AddProducts() {
     const [newData, setNewData] = useState({});
     const [arrCategory, setArrCategory] = useState([])
     const navigate = useNavigate()
+    const today = new Date();
+    const month = today.getMonth()+1;
+    const year = today.getFullYear();
+    const date = today. getDate();
+    const currentDate = `${date < 10 ? `0${date}` : date}/${month < 10 ? `0${month}` : month}/${year}`
     function handleInput(e: any) {
         const { value, name } = e.target;
         setNewData({ ...newData, [name]: value });
@@ -55,7 +60,7 @@ export default function AddProducts() {
     // const { postData } = useFetch("products", { method: "post" });
     function handleSubmit() {
         setNewData({ ...newData, category: arrCategory });
-        console.log(newData)
+        // console.log(newData)
         // postData(data);
     }
 
@@ -70,8 +75,8 @@ export default function AddProducts() {
                         Informasi Produk
                     </button>
                     <div className="flex gap-[8px]">
-                        <Button variant="secondary">Hapus Data</Button>
-                        <Button variant="primary" onClick={() => handleSubmit()}>
+                        <Button variant="secondary" className='p-[8px]'>Hapus Data</Button>
+                        <Button variant="primary" className='p-[8px]' onClick={() => handleSubmit()}>
                             Simpan Data
                         </Button>
                     </div>
@@ -83,7 +88,7 @@ export default function AddProducts() {
                     </span>
                     <span className="rounded-[7px] bg-neutral-300 p-[8px] w-[328px]">
                         <span className="text-[12px] font-[500] text-neutral-500">
-                            09/05/24
+                            {currentDate}
                         </span>
                     </span>
                 </div>
@@ -105,7 +110,7 @@ export default function AddProducts() {
                                 className="bg-primary-100 border-[1px] border-primary-400 border-dashed w-[531px]
                             py-[12px] px-[8px] flex flex-col gap-[4px] items-center justify-center rounded-[8px]"
                             >
-                                <img src={upload} alt="" />
+                                <div><Upload/></div>
                                 <h1 className="text-[12px] font-[500px] text-neutral-700">
                                     Unggah Disini
                                 </h1>
