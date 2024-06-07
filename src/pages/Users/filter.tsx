@@ -5,7 +5,6 @@ import {
 } from "@/components/ui/popover";
 import FilterIcon from "@/assets/icons/Filter.svg";
 import Button from "@/components/Button/Button";
-import { useState } from "react";
 import { Formik, Field, Form } from "formik";
 
 const UsersFilter = ({
@@ -15,14 +14,9 @@ const UsersFilter = ({
   setFilter: any;
   filterValue: any;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
   return (
-    <Popover open={isOpen}>
-      <PopoverTrigger
-        className="hover:bg-slate-300 min-w-6"
-        onClick={() => setIsOpen(true)}
-      >
+    <Popover>
+      <PopoverTrigger className="hover:bg-slate-300 min-w-6" id="popOverTriger">
         <FilterIcon />
       </PopoverTrigger>
       <PopoverContent className="w-auto absolute left-6 -top-10 text-neutral-900 p-3 rounded-[8px]">
@@ -150,7 +144,7 @@ const UsersFilter = ({
                   className={"w-full"}
                   onClick={() => {
                     document.getElementById("submitFilter")?.click();
-                    setIsOpen(false);
+                    document.getElementById("popOverTriger")?.click();
                   }}
                 />
               </div>

@@ -93,7 +93,9 @@ export default function Users() {
     data.map((item: dataUser): void => {
       if (
         item.name.includes(filter.name) &&
-        item.username.includes(filter.username)
+        item.username.includes(filter.username) &&
+        (item.gender.toLocaleLowerCase().includes(filter.gender[0] || "") ||
+          item.gender.toLocaleLowerCase().includes(filter.gender[1] || ""))
       ) {
         tempData.push(item);
       }
@@ -102,7 +104,12 @@ export default function Users() {
   }
 
   useEffect(() => {
-    if (filter.name !== "" || filter.username !== "") {
+    if (
+      filter.name !== "" ||
+      filter.username !== "" ||
+      filter.gender.length >= 1
+      // filter.membership.length == 1
+    ) {
       data ? setDataProduct(filterData(data.data)) : "";
     } else {
       data ? setDataProduct(data.data) : "";
@@ -136,10 +143,7 @@ export default function Users() {
                 />
               </div>
             </div>
-            <FilterItem
-              filter={filter}
-              setFilter={setFilter}
-            />
+            <FilterItem filter={filter} setFilter={setFilter} />
             <div className="mt-4 bg-primary-100 rounded-t-[8px] grid border-[1px] border-neutral-300 ">
               <Table>
                 <TableHeader>
@@ -156,7 +160,7 @@ export default function Users() {
                 </TableHeader>
                 <TableBody className="bg-neutral-50">
                   {/* Fix paging show item */}
-                  {dataProduct.map((item, i): any => {
+                  {dataProduct?.map((item, i): any => {
                     if (i >= dataShow.start - 1 && i <= dataShow.end - 1) {
                       return (
                         <TableRow
@@ -175,7 +179,7 @@ export default function Users() {
                             <div className="w-6 rounded-full bg-slate-300 border border-black">
                               <img
                                 src={item.avatar_url || profileAlt}
-                                className="w-full rounded-full"
+                                className="w-full rounded-full h-6"
                               />
                             </div>
                             {item.name || "-"}
@@ -225,11 +229,11 @@ export default function Users() {
                                 </DropdownMenuItem>
                                 <DropdownMenuItem
                                   className="text-sm font-bold flex gap-2 px-4 py-[10px]"
-                                  onClick={() =>
+                                  onClick={() => {
                                     navigate(
                                       `?user_id=${item.id}&action=delete`
-                                    )
-                                  }
+                                    );
+                                  }}
                                 >
                                   <DeleteIcon />
                                   Hapus

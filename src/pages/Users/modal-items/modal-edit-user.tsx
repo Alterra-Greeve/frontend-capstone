@@ -135,8 +135,8 @@ const ModalEditUser = ({ isShow = false }: { isShow: any }) => {
               </div>
               <Formik
                 initialValues={{
-                  firstName: userEdit?.name || "",
-                  lastName: "",
+                  firstName: userEdit?.name.split(" ")[0] || "",
+                  lastName: userEdit?.name.split(" ")[1] || "",
                   userName: userEdit?.username || "",
                   gender: userEdit?.gender.toLocaleLowerCase() || "",
                   email: userEdit?.email || "",
