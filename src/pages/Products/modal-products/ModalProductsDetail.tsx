@@ -1,6 +1,6 @@
 import newUseFetch from "@/lib/hooks/newUseFetch";
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Coin from '@/assets/icons/Coin.svg'
 import Button from '@/components/Button/Button'
 
@@ -13,10 +13,7 @@ type dataProducts = {
     images: any;
 }
 
-export default function ModalProductsDetail() {
-    const location = useLocation();
-    const searchParams = new URLSearchParams(location.search);
-    const product_id = searchParams.get("product_id");
+export default function ModalProductsDetail({product_id}:any) {
     const navigate = useNavigate();
     const [productDetail, setProductDetail] = useState<dataProducts>();
     const { data, loading, fetchData } = newUseFetch<{ data: any }>();
@@ -27,7 +24,7 @@ export default function ModalProductsDetail() {
                 method: "get",
             });
         }
-        loading? console.log('helo') : setProductDetail(data?.data);
+        loading? console.log('loading') : setProductDetail(data?.data);
     }, [product_id]);
     console.log(productDetail)
 
@@ -37,7 +34,7 @@ export default function ModalProductsDetail() {
         }
     }
     return (
-        product_id !== null ? 
+        loading? 'Loading...':
         <div 
         className="fixed top-0 bottom-0 left-0 right-0
         flex justify-center items-center z-10" 
@@ -86,7 +83,5 @@ export default function ModalProductsDetail() {
                 </div>
             </div>
         </div>
-        :
-        <></>
     )
 };

@@ -2,7 +2,7 @@ type ButtonProps = {
   variant: 'primary' | 'secondary';
   icon?: React.ReactNode;
   children: React.ReactNode;
-  className: any;
+  className?: any;
   onClick?: () => void
 };
 
