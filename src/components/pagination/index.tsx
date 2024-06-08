@@ -7,10 +7,10 @@ const Paging = ({
   setDataShow,
   className,
 }: {
-  dataLength: any;
-  setDataShow?: any;
-  amouthDataDisplayed: any;
-  className?: any;
+  dataLength: number;
+  setDataShow?: (event: { start: number; end: number }) => void;
+  amouthDataDisplayed: number;
+  className?: string;
 }) => {
   const [pagingIndex, setPangingIndex] = useState<number>(1);
   const [pagingLength, setPagingLength] = useState(0);
@@ -27,8 +27,8 @@ const Paging = ({
     }
   }
   function handleShowedData() {
-    var end = amouthDataDisplayed * pagingIndex;
-    var start = end - amouthDataDisplayed + 1;
+    const end = amouthDataDisplayed * pagingIndex;
+    const start = end - amouthDataDisplayed + 1;
 
     setShowedData({
       start,
@@ -37,13 +37,17 @@ const Paging = ({
   }
   useEffect(() => {
     handleShowedData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagingIndex]);
   useEffect(() => {
+    // @ts-expect-error cannot invoke an object which is possibly 'undefined'
     setDataShow(showedData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showedData]);
 
   useEffect(() => {
     setPagingLength(handlePagingLength());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -55,13 +59,12 @@ const Paging = ({
           {dataLength} entri
         </p>
         <div
-          className={`min-w-[158px] flex items-center gap-4 ${
-            pagingIndex <= 1
-              ? "justify-end"
-              : pagingIndex >= pagingLength
+          className={`min-w-[158px] flex items-center gap-4 ${pagingIndex <= 1
+            ? "justify-end"
+            : pagingIndex >= pagingLength
               ? "justify-start"
               : ""
-          }`}
+            }`}
         >
           <button
             className={`min-w-6`}

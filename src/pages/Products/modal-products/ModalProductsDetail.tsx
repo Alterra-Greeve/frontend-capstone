@@ -30,14 +30,21 @@ export default function ModalProductsDetail() {
         loading? console.log('helo') : setProductDetail(data?.data);
     }, [product_id]);
     console.log(productDetail)
+
+    function handleClose(e:any){
+        if(e.target.id === 'wrapper'){
+            navigate('')
+        }
+    }
     return (
+        product_id !== null ? 
         <div 
         className="fixed top-0 bottom-0 left-0 right-0
-        flex justify-center items-center" 
+        flex justify-center items-center z-10" 
+        id="wrapper"
         style={{backgroundColor:'rgba(23, 23, 23, 0.50)'}}
+        onClick={(e) => handleClose(e)}
         >
-            {loading? 'Loading...'
-            :
             <div className="p-[16px] rounded-[7px] bg-neutral-50 shadow-custom 
             max-w-[549px] max-h-[698px]">
                 <img className='w-[549px] h-[284px] rounded-[7px] bg-cover'/>
@@ -73,11 +80,13 @@ export default function ModalProductsDetail() {
                         </div>
                     </div>
                     <div className='flex justify-end'>
-                        <Button variant='primary' children='Tutup' className='py-[12px] px-[39.5px]'/>
+                        <Button variant='primary' children='Tutup' className='py-[12px] px-[39.5px]'
+                        onClick={() => navigate('')}/>
                     </div>
                 </div>
             </div>
-            }
         </div>
+        :
+        <></>
     )
 };

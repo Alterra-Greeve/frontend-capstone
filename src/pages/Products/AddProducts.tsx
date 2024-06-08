@@ -8,12 +8,9 @@ import catEarth from "@/assets/icons/catEarth.svg";
 import catMoney from "@/assets/icons/catMoney.svg";
 import catBrain from "@/assets/icons/catBrains.svg";
 import catRecycle from "@/assets/icons/catRecycle.svg";
-import checkBox from "@/assets/icons/Checkbox.svg";
 import Input from "@/components/Input/Input";
 import Textarea from "@/components/Textarea/Textarea";
-import useFetch from "@/lib/hooks/useFetch";
 import { useState } from "react";
-import { Checkbox } from "@/components/ui/checkbox"
 import { useNavigate } from "react-router-dom";
 
 export default function AddProducts() {
@@ -64,12 +61,12 @@ export default function AddProducts() {
         // postData(data);
     }
 
-    return (
-        <AdminLayout>
-            <div className="flex flex-col gap-[16px] bg-neutral-100 p-[24px] h-[calc(100vh-90px)]">
-                <div className="flex justify-between">
-                    <button
-                        className="p-[8px] flex gap-[4px] items-center text-neutral-900 
+  return (
+    <AdminLayout>
+      <div className="flex flex-col gap-[16px] bg-neutral-100 p-[24px] h-[calc(100vh-90px)]">
+        <div className="flex justify-between">
+          <button
+            className="p-[8px] flex gap-[4px] items-center text-neutral-900 
                     text-[14px] font-[500]" onClick={() => navigate("/dashboard/products")}>
                         <div className="w-[24px] h-[24px]">{<ArrowLeft/>}</div>
                         Informasi Produk
@@ -96,18 +93,18 @@ export default function AddProducts() {
                     <div
                         className="bg-neutral-50 p-[8px] border-[0.5px] border-solid border-[#17171712] 
                     rounded-[8px]"
-                    >
-                        <div className="flex flex-col gap-[5px]">
-                            <div>{<DefaultBigPict/>}</div>
-                            <div className="flex gap-[4px]">
-                                <div>{<SubDefault/>}</div>
-                                <div>{<SubDefault/>}</div>
-                                <div>{<SubDefault/>}</div>
-                                <div>{<SubDefault/>}</div>
-                                <div>{<SubDefault/>}</div>
-                            </div>
-                            <div
-                                className="bg-primary-100 border-[1px] border-primary-400 border-dashed w-[531px]
+          >
+            <div className="flex flex-col gap-[5px]">
+              <div>{<DefaultBigPict />}</div>
+              <div className="flex gap-[4px]">
+                <div>{<SubDefault />}</div>
+                <div>{<SubDefault />}</div>
+                <div>{<SubDefault />}</div>
+                <div>{<SubDefault />}</div>
+                <div>{<SubDefault />}</div>
+              </div>
+              <div
+                className="bg-primary-100 border-[1px] border-primary-400 border-dashed w-[531px]
                             py-[12px] px-[8px] flex flex-col gap-[4px] items-center justify-center rounded-[8px]"
                             >
                                 <div><Upload/></div>
@@ -222,11 +219,11 @@ export default function AddProducts() {
                                 {/* <Checkbox className="border-[2px] w-[16px] h-[16px] m-[4px] bg-neutral-50 border-primary-500
                                 data-[state=checked]:bg-neutral-50 data-[state=checked]:text-primary-500" 
                                 onChange={handleCheck}/> */}
-                            </li>
-                        </ul>
-                    </form>
-                </div>
-            </div>
-        </AdminLayout>
-    );
+              </li>
+            </ul>
+          </form>
+        </div>
+      </div>
+    </AdminLayout>
+  );
 }
