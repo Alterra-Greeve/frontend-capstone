@@ -1,5 +1,3 @@
-"use client";
-
 import { AxiosError } from "axios";
 import { useState } from "react";
 import { GreeveApi } from "@/lib/axios";
@@ -21,7 +19,7 @@ interface FetchState<T> {
  *
  */
 
-const newUseFetch = <T>(): FetchState<T> => {
+const NewUseFetch = <T>(): FetchState<T> => {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -46,4 +44,4 @@ const newUseFetch = <T>(): FetchState<T> => {
   return { data, loading, error, fetchData };
 };
 
-export default newUseFetch;
+export default NewUseFetch;

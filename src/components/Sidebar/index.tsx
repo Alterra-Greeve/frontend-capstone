@@ -43,7 +43,7 @@ const NavItem = ({ link, icon, iconActive, label }: NavItemProps) => {
     >
       {isVisible ? <div className="w-[24px] h-[24px]">{iconActive}</div> : <div className="w-[24px] h-[24px]">{isActive ? iconActive : icon}</div>}
       <h5 className="font-semibold">{label}</h5>
-      {label === "Data Impact" ? (
+      {label === "Data Impact" && (
         isVisible ? (
           <div className={`w-[24px] h-[24px] ${isActive ? "rotate-90" : "rotate-90"} ml-[10px]`}>
             <ArrowIcon color="#FAFAFA" />
@@ -51,8 +51,6 @@ const NavItem = ({ link, icon, iconActive, label }: NavItemProps) => {
         ) : (
           <div className={`w-[24px] h-[24px] ${isActive ? "rotate-90" : "rotate-90"} ml-[10px]`}> {isActive ? <ArrowIcon color="#FAFAFA" /> : <ArrowIcon />}</div>
         )
-      ) : (
-        ""
       )}
     </NavLink>
   );
@@ -81,32 +79,37 @@ const ButtonSignOut = () => {
 
 export default function Sidebar() {
   return (
-    <div className="sticky left-0 top-0 bg-primary-50 w-[240px] min-h-screen flex flex-col justify-between gap-0">
-      <Link to={"/"} className="bg-primary-50 h-[90px] w-[240px] flex justify-center items-center">
-        <img src={logo} alt="logo" />
-      </Link>
+    <div className="bg-primary-50 w-[240px] border-r border-neutral-200">
+      <div className="sticky top-0  min-h-screen">
+        <Link to={"/"} className="bg-primary-50 h-[90px] w-[240px] flex justify-center items-center">
+          <img src={logo} alt="logo" />
+        </Link>
 
-      <div className="flex flex-col justify-between py-[16px]" style={{ minHeight: "calc(100vh - 90px)" }}>
-        <div className="flex flex-col gap-y-[16px]">
-          {navItems.slice(0, -1).map((item, index) => (
-            <NavItem key={index} {...item} />
-          ))}
-          <DropdownMenu>
-            <DropdownMenuTrigger>
-              <NavItem {...navItems[4]} />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-primary-50">
-              <DropdownMenuItem>
-                <NavItem link="/dashboard/data-impact/order" icon={<DataImpactIcon />} iconActive={<DataImpactIcon color="#FAFAFA" />} label="Order" />
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <NavItem link="/dashboard/data-impact/challenge" icon={<DataImpactIcon />} iconActive={<DataImpactIcon color="#FAFAFA" />} label="Challenge" />
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+        <div className=" py-[16px]">
+          <div className="flex flex-col gap-y-[16px]">
+            {navItems.slice(0, -1).map((item, index) => (
+              <NavItem key={index} {...item} />
+            ))}
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <NavItem {...navItems[4]} />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-primary-50">
+                <DropdownMenuItem>
+                  <NavItem link="/dashboard/data-impact/order" icon={<DataImpactIcon />} iconActive={<DataImpactIcon color="#FAFAFA" />} label="Order" />
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <NavItem link="/dashboard/data-impact/challenge" icon={<DataImpactIcon />} iconActive={<DataImpactIcon color="#FAFAFA" />} label="Challenge" />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
         </div>
-        <ButtonSignOut />
+        <div className="absolute bottom-5">
+          <ButtonSignOut />
+        </div>
       </div>
     </div>
   );
