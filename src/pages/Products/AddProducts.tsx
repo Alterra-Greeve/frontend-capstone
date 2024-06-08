@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function AddProducts() {
     const [newData, setNewData] = useState({});
-    const [arrCategory, setArrCategory] = useState([])
+    const [arrCategory, setArrCategory] = useState<any>([])
     const navigate = useNavigate()
     const today = new Date();
     const month = today.getMonth()+1;
@@ -33,7 +33,7 @@ export default function AddProducts() {
                 setArrCategory([...arrCategory, value]);
             }
         } else {
-            setArrCategory(arrCategory.filter((item) => item !== value));
+            setArrCategory(arrCategory.filter((item:any) => item !== value));
         }
     }
     

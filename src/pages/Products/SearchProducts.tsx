@@ -18,7 +18,7 @@ export default function SearchProducts() {
     <div className='flex gap-[4px]'>
       <SearchBar />
       <div className='w-[40px] h-[40px] relative z-10'>
-        <div onClick={() => setIsOpen(!isOpen)}>
+        <div onClick={() => setIsOpen(!isOpen)} className='cursor-pointer'>
           {isOpen? <Filter/> : <FilterOutline />}
         </div>
         {isOpen?
