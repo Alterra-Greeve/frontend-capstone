@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { z } from "zod";
 import { useAppDispatch } from "@/lib/redux";
 import { filteredUsers } from "@/lib/redux/api/users";
@@ -6,13 +5,20 @@ import { FilterUserSchema } from "@/lib/zod/users";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
 import FilterIcon from "@/assets/icons/Filter.svg";
 
-import { FilterInputField, FilterInputCheckbox } from "@/components/users/filter/input";
+import {
+  FilterInputField,
+  FilterInputCheckbox,
+} from "@/components/users/filter/input";
 
 const gender = [
   { id: "laki-laki", label: "Laki-laki" },
@@ -20,34 +26,24 @@ const gender = [
 ] as const;
 
 const membership = [
-  { id: 'iya', label: 'Iya' },
-  { id: 'tidak', label: 'Tidak' }
+  { id: "iya", label: "Iya" },
+  { id: "tidak", label: "Tidak" },
 ] as const;
 
 export default function UsersFilter() {
   const dispatch = useAppDispatch();
-  const [isOpen, setIsOpen] = useState(false);
+  // const { filter } = useSelector((state: RootState) => state.users);
 
   const form = useForm<z.infer<typeof FilterUserSchema>>({
     resolver: zodResolver(FilterUserSchema),
-    defaultValues: {
-      name: "",
-      username: "",
-      gender: "",
-      membership: "",
-    },
   });
-
   const onSubmit = (data: z.infer<typeof FilterUserSchema>) => {
     dispatch(filteredUsers(data));
   };
 
   return (
-    <Popover open={isOpen}>
-      <PopoverTrigger
-        className="hover:bg-slate-300 min-w-6"
-        onClick={() => setIsOpen(!isOpen)}
-      >
+    <Popover>
+      <PopoverTrigger className="hover:bg-slate-300 min-w-6" id="popOverFilter">
         <FilterIcon />
       </PopoverTrigger>
 
@@ -56,12 +52,17 @@ export default function UsersFilter() {
           <form
             className="grid gap-3"
             onSubmit={form.handleSubmit((data) => onSubmit(data))}
+            tabIndex={0}
           >
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
-                <FilterInputField label="Name" placeholder="Ex: Orion" {...field} />
+                <FilterInputField
+                  label="Name"
+                  placeholder="Ex: Orion"
+                  {...field}
+                />
               )}
             />
 
@@ -69,7 +70,11 @@ export default function UsersFilter() {
               control={form.control}
               name="username"
               render={({ field }) => (
-                <FilterInputField label="Username" placeholder="Ex: Weassly..." {...field} />
+                <FilterInputField
+                  label="Username"
+                  placeholder="Ex: Weassly..."
+                  {...field}
+                />
               )}
             />
 
@@ -83,11 +88,16 @@ export default function UsersFilter() {
                   </FormLabel>
                   <div className="flex flex-col gap-3">
                     {gender.map((item, index) => (
-                      <FormField key={index}
+                      <FormField
+                        key={index}
                         control={form.control}
                         name="gender"
                         render={({ field }) => (
-                          <FilterInputCheckbox id={item.id} label={item.label} field={field} />
+                          <FilterInputCheckbox
+                            id={item.id}
+                            label={item.label}
+                            field={field}
+                          />
                         )}
                       />
                     ))}
@@ -106,11 +116,16 @@ export default function UsersFilter() {
                   </FormLabel>
                   <div className="flex flex-col gap-3">
                     {membership.map((item, index) => (
-                      <FormField key={index}
+                      <FormField
+                        key={index}
                         control={form.control}
                         name="membership"
                         render={({ field }) => (
-                          <FilterInputCheckbox id={item.id} label={item.label} field={field} />
+                          <FilterInputCheckbox
+                            id={item.id}
+                            label={item.label}
+                            field={field}
+                          />
                         )}
                       />
                     ))}
@@ -120,7 +135,13 @@ export default function UsersFilter() {
             />
 
             <div className="mt-5 flex w-full">
-              <Button type="submit" className="w-full" onClick={() => setIsOpen(false)}>
+              <Button
+                type="submit"
+                className="w-full"
+                onClick={() => {
+                  document.getElementById("popOverFilter")?.click();
+                }}
+              >
                 Simpan
               </Button>
             </div>
