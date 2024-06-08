@@ -5,10 +5,11 @@ type InputProps = {
     style: string;
     id: string;
     name: string;
+    placeholder?: any;
     onChange: (e: string | number) => void;
 };
 
-export default function Input({type, style, id, name, onChange}:InputProps) {
+export default function Input({type, style, id, name, placeholder, onChange}:InputProps) {
     const [result, setResult] = useState("")
     const [isFocus, setIsFocus] = useState(false)
     function handleInput(e:any) {
@@ -29,6 +30,7 @@ export default function Input({type, style, id, name, onChange}:InputProps) {
     return (
         <input type={type} className={` rounded-[7px] p-[8px] border-[0.5px] border-solid 
         ${isFocus? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`} 
-        onFocus={handleFocus} onBlur={handleInput} onChange={handleInput} id={id} name={name}/>
+        onFocus={handleFocus} onBlur={handleInput} onChange={handleInput} id={id} name={name}
+        placeholder={placeholder}/>
     )
 };
