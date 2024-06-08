@@ -44,6 +44,7 @@ const FilterItem = () => {
               name: "",
               username: filter.username,
               gender: filter.gender,
+              membership: "",
             });
           }}
         />
@@ -59,6 +60,7 @@ const FilterItem = () => {
               name: filter.name,
               username: "",
               gender: filter.gender,
+              membership: "",
             });
           }}
         />
@@ -74,6 +76,7 @@ const FilterItem = () => {
               name: filter.name,
               username: filter.username,
               gender: "",
+              membership: "",
             });
           }}
         />
