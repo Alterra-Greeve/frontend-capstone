@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom"
-
-export default function ModalProductsDetail({isShow}:any) {
-    const navigate = useNavigate()
-    return (
-        <div>
-
-        </div>
-    )
-};
+export default function ModalProductsDetail({ isShow }: { isShow: boolean }) {
+  console.log(isShow);
+  return (
+    <div>
+      tes
+    </div>
+  )
+}
