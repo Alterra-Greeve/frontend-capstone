@@ -4,8 +4,8 @@ import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { getUsers } from "@/lib/redux/api/users";
 import { useEffect } from "react";
 
-import TableProducts from "@/components/users/table";
 import Header from "@/components/users/header";
+import TableUsers from "@/components/users/table";
 
 export default function UsersPage() {
   const dispatch = useAppDispatch();
@@ -27,7 +27,7 @@ export default function UsersPage() {
     <AdminLayout>
       <div className="p-6">
         <Header />
-        <TableProducts />
+        <TableUsers />
       </div>
 
       {/* <Paging
