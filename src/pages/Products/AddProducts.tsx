@@ -7,7 +7,7 @@ import CatBrain from "@/assets/icons/catBrains.svg";
 import CatRecycle from "@/assets/icons/catRecycle.svg";
 import Input from "@/components/Input/Input";
 import Textarea from "@/components/Textarea/Textarea";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AddImage from "./AddImage";
 
@@ -21,7 +21,7 @@ export default function AddProducts() {
     const date = today.getDate();
     const currentDate = `${date < 10 ? `0${date}` : date}/${month < 10 ? `0${month}` : month}/${year}`
     const [imageArr, setImageArr] = useState<any>([])
-    console.log(imageArr)
+    
     function handleInput(e: any) {
         const { value, name } = e.target;
         setNewData({ ...newData, [name]: value });
@@ -36,31 +36,14 @@ export default function AddProducts() {
             setArrCategory(arrCategory.filter((item: any) => item !== value));
         }
     }
-    
-    // let data = {
-    //     name: "product test",
-    //     description: "product",
-    //     coin: 200,
-    //     price: 30000,
-    //     category: [
-    //         "e965bc1d-9bfa-4512-8e28-64a101201d9d",
-    //         "e965bc1d-9bfa-4512-8e28-64a101201d9e",
-    //         "e965bc1d-9bfa-4512-8e28-64a101201d9f",
-    //     ],
-    //     image_url: [
-    //         "https://example.com/images/water-bottle3.jpg",
-    //         "https://example.com/images/water-bottle3.jpg",
-    //         "https://example.com/images/water-bottle3.jpg",
-    //     ],
-    // };
 
     // const { postData } = useFetch("products", { method: "post" });
     function handleSubmit() {
-        setNewData({ ...newData, category: arrCategory });
-        console.log(newData)
-        // postData(data);
+        setNewData({ ...newData, category: arrCategory, image_url: imageArr });
+        
+        // postData();
     }
-
+    console.log(newData)
     return (
         <AdminLayout>
             <div className="flex flex-col gap-[16px] bg-neutral-100 p-[24px] h-[calc(100vh-90px)]">
