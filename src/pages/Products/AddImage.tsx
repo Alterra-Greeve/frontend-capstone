@@ -8,15 +8,17 @@ import { useRef, useState } from "react";
 
 type imageProp = {
     imageSize: 'big' | 'small';
+    imageArr: any;
+    setImageArr: (image: any) => void;
 }
 
-export default function AddImage({imageSize}: imageProp) {
+export default function AddImage({imageSize, setImageArr, imageArr}: imageProp) {
     const [selectedFile, setSelectedFile] = useState<string>('');
     const fileRef = useRef<HTMLInputElement | null>(null);
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { files } = e.target;
         if (files && files.length > 0) {
-            
+            setImageArr([...imageArr, files[0]])
             setSelectedFile(files[0] ?
                 URL.createObjectURL(files[0]) : 'no image'
             );

@@ -12,15 +12,16 @@ import { useNavigate } from "react-router-dom";
 import AddImage from "./AddImage";
 
 export default function AddProducts() {
-    const [newData, setNewData] = useState({});
+    const [newData, setNewData] = useState<any>({});
     const [arrCategory, setArrCategory] = useState<any>([])
-    
     const navigate = useNavigate()
     const today = new Date();
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
     const date = today.getDate();
     const currentDate = `${date < 10 ? `0${date}` : date}/${month < 10 ? `0${month}` : month}/${year}`
+    const [imageArr, setImageArr] = useState<any>()
+    console.log(imageArr)
     function handleInput(e: any) {
         const { value, name } = e.target;
         setNewData({ ...newData, [name]: value });
@@ -94,13 +95,13 @@ export default function AddProducts() {
                     rounded-[8px] h-[418px] w-[539px]"
                     >
                         <div className="flex flex-col gap-[5px]">
-                            <AddImage imageSize="big"/>
+                            <AddImage imageSize="big" setImageArr={setImageArr} imageArr={imageArr}/>
                             <div className="flex gap-[4px]">
-                                <AddImage imageSize="small"/>
-                                <AddImage imageSize="small"/>
-                                <AddImage imageSize="small"/>
-                                <AddImage imageSize="small"/>
-                                <AddImage imageSize="small"/>
+                                <AddImage imageSize="small" setImageArr={setImageArr} imageArr={imageArr}/>
+                                <AddImage imageSize="small" setImageArr={setImageArr} imageArr={imageArr}/>
+                                <AddImage imageSize="small" setImageArr={setImageArr} imageArr={imageArr}/>
+                                <AddImage imageSize="small" setImageArr={setImageArr} imageArr={imageArr}/>
+                                <AddImage imageSize="small" setImageArr={setImageArr} imageArr={imageArr}/>
                             </div>
                         </div>
                     </div>
@@ -114,7 +115,7 @@ export default function AddProducts() {
                                 style="w-full"
                                 id="namaProduk"
                                 name="namaProduk"
-                                onChange={handleInput}
+                                onChange={(e) => handleInput(e)}
                             />
                         </div>
                         <div className="flex gap-[10px]">
@@ -125,7 +126,7 @@ export default function AddProducts() {
                                     style="w-[189px]"
                                     id="harga"
                                     name="harga"
-                                    onChange={handleInput}
+                                    onChange={(e) => handleInput(e)}
                                 />
                             </div>
                             <div className="flex flex-col">
@@ -135,7 +136,7 @@ export default function AddProducts() {
                                     style="w-[189px]"
                                     id="stok"
                                     name="stok"
-                                    onChange={handleInput}
+                                    onChange={(e) => handleInput(e)}
                                 />
                             </div>
                             <div className="flex flex-col">
@@ -145,7 +146,7 @@ export default function AddProducts() {
                                     style="w-[189px]"
                                     id="koin"
                                     name="koin"
-                                    onChange={handleInput}
+                                    onChange={(e) => handleInput(e)}
                                 />
                             </div>
                         </div>
@@ -155,7 +156,7 @@ export default function AddProducts() {
                                 style="w-[587px] h-[121px]"
                                 id="deskripsi"
                                 name="deskripsi"
-                                onChange={handleInput}
+                                onChange={(e) => handleInput(e)}
                             />
                         </div>
                         <div>
