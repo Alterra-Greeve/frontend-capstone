@@ -25,9 +25,10 @@ export default function AddImage({imageSize}: imageProp) {
         fileRef.current?.click()
     }
     function handleClose(){
-        
-    }
 
+    }
+    // array yang dibalikin nanti jadi length yg nentuin pergerakan 
+    // style dari border add photo sama no photo
     if(imageSize === 'big'){
         return(
             <>
