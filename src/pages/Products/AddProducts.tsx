@@ -10,12 +10,14 @@ import Input from "@/components/Input/Input";
 import Textarea from "@/components/Textarea/Textarea";
 import EmptyPhoto from '@/assets/icons/EmptyPhoto.svg'
 import PlusIcon from '@/assets/icons/PlusPhoto.svg'
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function AddProducts() {
     const [newData, setNewData] = useState({});
     const [arrCategory, setArrCategory] = useState<any>([])
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const fileRef = useRef<HTMLInputElement | null>(null);
     const navigate = useNavigate()
     const today = new Date();
     const month = today.getMonth() + 1;
@@ -36,7 +38,15 @@ export default function AddProducts() {
             setArrCategory(arrCategory.filter((item: any) => item !== value));
         }
     }
-
+    function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+        const { files } = e.target;
+        if (files && files.length > 0) {
+            setSelectedFile(files[0]);
+        }
+    }
+    function onClickFile(){
+        fileRef.current?.click()
+    }
     // let data = {
     //     name: "product test",
     //     description: "product",
@@ -57,7 +67,7 @@ export default function AddProducts() {
     // const { postData } = useFetch("products", { method: "post" });
     function handleSubmit() {
         setNewData({ ...newData, category: arrCategory });
-        // console.log(newData)
+        console.log(newData)
         // postData(data);
     }
 
@@ -89,20 +99,26 @@ export default function AddProducts() {
                         </span>
                     </span>
                 </div>
-                <div className="flex gap-[10px]">
+                <form className="flex gap-[10px]">
                     <div
                         className="bg-neutral-50 p-[4px] border-[0.5px] border-solid border-[#17171712] 
                     rounded-[8px] max-h-[418px]"
                     >
                         <div className="flex flex-col gap-[5px]">
                             <div className="border-[2px] border-dashed border-primary-500 rounded-[8px] bg-primary-50
-                            flex justify-center items-center min-h-[300px]">
-                                <div className="w-[116px] h-[116px] relative">
-                                    <EmptyPhoto/>
-                                    <span className="absolute top-[72px] left-[71px]">
-                                        <PlusIcon/>
-                                    </span>
-                                </div>
+                            flex justify-center items-center min-h-[300px] hover:cursor-pointer">
+                                {!selectedFile && (
+                                    <>
+                                        <div className="w-[116px] h-[116px] relative" onClick={() => onClickFile()}>
+                                            <EmptyPhoto/>
+                                            <span className="absolute top-[72px] left-[71px]">
+                                                <PlusIcon/>
+                                            </span>
+                                        </div>
+                                        <input ref={fileRef} type="file" name="file" className="hidden" 
+                                        onChange={(e) => handleFileChange(e)}/>
+                                    </>
+                                )}
                             </div>
                             <div className="flex gap-[4px]">
                                 <div>{<SubDefault />}</div>
@@ -113,8 +129,7 @@ export default function AddProducts() {
                             </div>
                         </div>
                     </div>
-                    <form
-                        action=""
+                    <div
                         className="text-[12px] font-[600] text-neutral-800 flex flex-col gap-[8px]"
                     >
                         <div className="flex flex-col">
@@ -212,8 +227,8 @@ export default function AddProducts() {
                                 </li>
                             </ul>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </AdminLayout>
     );
