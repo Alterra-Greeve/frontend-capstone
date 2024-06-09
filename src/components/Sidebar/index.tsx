@@ -25,14 +25,20 @@ const navItems: NavItemProps[] = [
 const NavItem = ({ link, icon, iconActive, label }: NavItemProps) => {
   const location = useLocation();
   const [isVisible, setIsVisible] = useState(false);
-  const isActive =
-    location.pathname === link ||
+  const isActive = location.pathname === link ||
     (link === "/dashboard" && location.pathname === "/dashboard") ||
-    (link === "/dashboard/data-impact" && (location.pathname === "/dashboard/data-impact/order" || location.pathname === "/dashboard/data-impact/challenge"));
+    (link === "/dashboard/data-impact" && (
+      location.pathname.includes("/dashboard/data-impact")
+    )) ||
+    (link === "/dashboard/challenges" && (
+      location.pathname.includes("/dashboard/challenges")
+    )) ||
+    (link === "/dashboard/products" && (
+      location.pathname.includes("/dashboard/products")
+    ));
 
   return (
-    <NavLink
-      to={link}
+    <NavLink to={link}
       className={() =>
         isActive
           ? "bg-[#498579] text-[#FAFAFA] rounded-md flex justify-start items-center gap-[10px] w-[200px] h-[56px] p-[16px] mx-[20px]"
@@ -41,16 +47,15 @@ const NavItem = ({ link, icon, iconActive, label }: NavItemProps) => {
       onMouseEnter={() => setIsVisible(true)}
       onMouseLeave={() => setIsVisible(false)}
     >
-      {isVisible ? <div className="w-[24px] h-[24px]">{iconActive}</div> : <div className="w-[24px] h-[24px]">{isActive ? iconActive : icon}</div>}
+      <div className="w-[24px] h-[24px]">
+        {isVisible ? iconActive : (isActive ? iconActive : icon)}
+      </div>
+
       <h5 className="font-semibold">{label}</h5>
       {label === "Data Impact" && (
-        isVisible ? (
-          <div className={`w-[24px] h-[24px] ${isActive ? "rotate-90" : "rotate-90"} ml-[10px]`}>
-            <ArrowIcon color="#FAFAFA" />
-          </div>
-        ) : (
-          <div className={`w-[24px] h-[24px] ${isActive ? "rotate-90" : "rotate-90"} ml-[10px]`}> {isActive ? <ArrowIcon color="#FAFAFA" /> : <ArrowIcon />}</div>
-        )
+        <div className={`w-[24px] h-[24px] ${isActive ? "rotate-90" : "rotate-90"} ml-[10px]`}>
+          <ArrowIcon color={isActive || isVisible ? "#FAFAFA" : undefined} />
+        </div>
       )}
     </NavLink>
   );
@@ -58,12 +63,9 @@ const NavItem = ({ link, icon, iconActive, label }: NavItemProps) => {
 
 const ButtonSignOut = () => {
   const dispatch = useAppDispatch();
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+  const handleLogout = () => dispatch(signOut());
 
-  const handleLogout = () => {
-    dispatch(signOut());
-  };
-
-  const [isVisible, setIsVisible] = useState(false);
   return (
     <button
       onMouseEnter={() => setIsVisible(true)}
@@ -71,7 +73,12 @@ const ButtonSignOut = () => {
       onClick={handleLogout}
       className="bg-primary-50 rounded-md hover:bg-[#498579] hover:text-white flex justify-start gap-[10px] w-[200px] h-[56px] p-[16px] mx-[20px]"
     >
-      <div className="w-[24px] h-[24px]">{isVisible ? <LogoutIcon color="#FAFAFA" /> : <LogoutIcon />}</div>
+      <div className="w-[24px] h-[24px]">
+        {isVisible
+          ? <LogoutIcon color="#FAFAFA" />
+          : <LogoutIcon />
+        }
+      </div>
       <h5 className="font-semibold">Log Out</h5>
     </button>
   );
