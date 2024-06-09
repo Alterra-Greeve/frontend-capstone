@@ -1,9 +1,7 @@
 import Button from "@/components/Button/Button";
 import AdminLayout from "@/layouts/AdminLayout";
 import ArrowLeft from "@/assets/icons/Arrow - Left.svg";
-import DefaultBigPict from "@/assets/icons/default-pic.svg";
 import SubDefault from "@/assets/icons/sub-default-pic.svg";
-import Upload from "@/assets/icons/Upload.svg";
 import CatEarth from "@/assets/icons/catEarth.svg";
 import CatMoney from "@/assets/icons/catMoney.svg";
 import CatBrain from "@/assets/icons/catBrains.svg";
