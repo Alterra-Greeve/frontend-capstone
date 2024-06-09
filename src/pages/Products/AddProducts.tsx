@@ -20,7 +20,7 @@ export default function AddProducts() {
     const year = today.getFullYear();
     const date = today.getDate();
     const currentDate = `${date < 10 ? `0${date}` : date}/${month < 10 ? `0${month}` : month}/${year}`
-    const [imageArr, setImageArr] = useState<any>()
+    const [imageArr, setImageArr] = useState<any>([])
     console.log(imageArr)
     function handleInput(e: any) {
         const { value, name } = e.target;
