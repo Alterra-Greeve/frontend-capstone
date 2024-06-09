@@ -1,15 +1,17 @@
 import { Routes, Route } from "react-router-dom";
-import DataImpact from "./pages/DataImpact";
-import ProtectedRoutes from "./pages/ProtectedRoutes";
-import LoginPage from "./pages/auth/login";
-import AddProducts from "./pages/Products/AddProducts";
-import EditProducts from "./pages/Products/EditProducts";
-import DataImpactOrder from "./pages/DataImpactOrder";
-import DataImpactChallenge from "./pages/DataImpactChallenge";
-import UsersPage from "./pages/Users/index";
-import ProductsPage from "./pages/Products";
-import ChallengesPage from "./pages/Challenges";
-import DashboardPage from "./pages/Dashboard";
+import DataImpact from "@/pages/DataImpact";
+import ProtectedRoutes from "@/pages/ProtectedRoutes";
+import LoginPage from "@/pages/auth/login";
+import AddProducts from "@/pages/Products/AddProducts";
+import EditProducts from "@/pages/Products/EditProducts";
+import DataImpactOrder from "@/pages/DataImpactOrder";
+import DataImpactChallenge from "@/pages/DataImpactChallenge";
+import UsersPage from "@/pages/Users/index";
+import ProductsPage from "@/pages/Products";
+import ChallengesPage from "@/pages/Challenges";
+import DashboardPage from "@/pages/Dashboard";
+import EditChallengePage from "@/pages/Challenges/edit";
+import AddChallengePage from "@/pages/Challenges/add";
 
 export default function App() {
   return (
@@ -23,13 +25,24 @@ export default function App() {
       <Route path="/dashboard" element={<ProtectedRoutes />}>
         <Route index element={<DashboardPage />} />
         <Route path="users" element={<UsersPage />} />
-        <Route path="products" element={<ProductsPage />} />
-        <Route path="products/add-products" element={<AddProducts />} />
-        <Route path="products/edit-products/:id" element={<EditProducts />} />
-        <Route path="challenges" element={<ChallengesPage />} />
-        <Route path="data-impact" element={<DataImpact />} />
-        <Route path="data-impact/order" element={<DataImpactOrder />} />
-        <Route path="data-impact/challenge" element={<DataImpactChallenge />} />
+
+        <Route path="products">
+          <Route index element={<ProductsPage />} />
+          <Route path="add-products" element={<AddProducts />} />
+          <Route path="edit-products/:id" element={<EditProducts />} />
+        </Route>
+
+        <Route path="challenges">
+          <Route index element={<ChallengesPage />} />
+          <Route path="edit/:id" element={<EditChallengePage />} />
+          <Route path="add" element={<AddChallengePage />} />
+        </Route>
+
+        <Route path="data-impact">
+          <Route index element={<DataImpact />} />
+          <Route path="order" element={<DataImpactOrder />} />
+          <Route path="challenge" element={<DataImpactChallenge />} />
+        </Route>
       </Route>
       <Route path="/auth/login" element={<LoginPage />} />
     </Routes>
