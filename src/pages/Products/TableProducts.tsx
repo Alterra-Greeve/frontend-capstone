@@ -24,7 +24,7 @@ export default function TableProducts({data, dataShow}:any) {
         setSelectedDropDown(id);
     }
     return (
-        <div className="mx-[24px] rounded-[8px] bg-primary-100 ">
+        <div className="mx-[24px] rounded-[8px] bg-primary-100">
             <Table>
                 <TableHeader>
                     <TableRow>
