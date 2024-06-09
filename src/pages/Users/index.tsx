@@ -1,3 +1,5 @@
+"use client";
+
 import AdminLayout from "@/layouts/AdminLayout";
 
 import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
@@ -9,14 +11,20 @@ import Header from "@/components/users/header";
 import Paging from "@/components/pagination";
 import FilterItem from "@/components/users/filter/filterItems";
 import Loading from "@/components/loading";
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
+
 
 export default function UsersPage() {
   const dispatch = useAppDispatch();
-  const { isLoading, data } = useAppSelector((state: RootState) => state.users);
+  const { isLoading, data, error } = useAppSelector(
+    (state: RootState) => state.users
+  );
   const [dataUsersShow, setDataUsersShow] = useState({
     start: 0,
-    end: 10
-  })
+    end: 10,
+  });
+  const { toast } = useToast();
 
   useEffect(() => {
     (async () => {
@@ -26,8 +34,21 @@ export default function UsersPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (error) {
+      toast({
+        variant: "destructive",
+        description: "There was a problem with your request.",
+      });
+    }
+  }, []);
+
   if (isLoading) {
-    return <AdminLayout><Loading/></AdminLayout>;
+    return (
+      <AdminLayout>
+        <Loading />
+      </AdminLayout>
+    );
   }
 
   return (
@@ -44,6 +65,7 @@ export default function UsersPage() {
             setDataUsersShow(event);
           }}
         />
+        <Toaster />
       </div>
     </AdminLayout>
   );
