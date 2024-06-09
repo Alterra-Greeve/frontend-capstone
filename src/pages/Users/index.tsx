@@ -2,16 +2,21 @@ import AdminLayout from "@/layouts/AdminLayout";
 
 import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { getUsers } from "@/lib/redux/api/users";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import TableProducts from "@/components/users/table";
 import Header from "@/components/users/header";
 import Paging from "@/components/pagination";
 import FilterItem from "@/components/users/filter/filterItems";
+import Loading from "@/components/loading";
 
 export default function UsersPage() {
   const dispatch = useAppDispatch();
   const { isLoading, data } = useAppSelector((state: RootState) => state.users);
+  const [dataUsersShow, setDataUsersShow] = useState({
+    start: 0,
+    end: 10
+  })
 
   useEffect(() => {
     (async () => {
@@ -22,7 +27,7 @@ export default function UsersPage() {
   }, []);
 
   if (isLoading) {
-    return <AdminLayout>loading</AdminLayout>;
+    return <AdminLayout><Loading/></AdminLayout>;
   }
 
   return (
@@ -30,13 +35,13 @@ export default function UsersPage() {
       <div className="p-6">
         <Header />
         <FilterItem />
-        <TableProducts />
+        <TableProducts dataUsersShow={dataUsersShow} />
         <Paging
           dataLength={data?.length}
           amouthDataDisplayed={10}
           className={"my-4"}
           setDataShow={(event: { start: number; end: number }) => {
-            console.log(event.start + event.end);
+            setDataUsersShow(event);
           }}
         />
       </div>

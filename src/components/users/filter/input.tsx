@@ -8,6 +8,11 @@ interface FilterInputFieldProps {
   placeholder: string;
 }
 
+interface FilterInputFieldProps {
+  label: string;
+  placeholder: string;
+}
+
 export const FilterInputField: React.FC<FilterInputFieldProps> = ({
   label,
   placeholder,

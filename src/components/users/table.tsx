@@ -38,8 +38,15 @@ const tableHeader: string[] = [
   "",
 ];
 
-export default function TableProducts() {
+interface TableProductsProps {
+  dataUsersShow: { start: number; end: number };
+}
+
+export default function TableProducts({ dataUsersShow }: TableProductsProps) {
   const { data } = useAppSelector((state: RootState) => state.users);
+
+  // Slice the data array to only include the items from start to end
+  const displayedData = data.slice(dataUsersShow.start-1, dataUsersShow.end);
 
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -107,11 +114,11 @@ export default function TableProducts() {
           </TableHeader>
 
           <TableBody className="bg-neutral-50">
-            {data.map((item, index) => (
+            {displayedData.map((item, index) => (
               <TableRow
                 key={index}
                 className={`text-start text-xs leading-6 font-normal text-neutral-900 ${
-                  index % 2 != 0 ? "bg-neutral-200 " : ""
+                  index % 2 !== 0 ? "bg-neutral-200 " : ""
                 }`}
               >
                 <TableCell className="p-3 text-start">

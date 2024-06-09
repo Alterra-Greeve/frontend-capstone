@@ -122,23 +122,20 @@ export const usersSlice = createSlice({
     ) => {
       const { name, username, gender } = action.payload;
 
-      const lowercasedName = name?.toLowerCase();
-      const lowercasedUsername = username?.toLowerCase();
-      const lowercasedGender = gender ? gender?.toLowerCase() : "";
+      const lowercasedName = name?.toLowerCase() || "";
+      const lowercasedUsername = username?.toLowerCase() || "";
+      const lowercasedGender = gender?.toLowerCase() || "";
 
       state.filter = {
-        name: name || "",
-        username: username || "",
-        gender: gender || "",
+        name: lowercasedName,
+        username: lowercasedUsername,
+        gender: lowercasedGender,
       };
+
       state.data = state.originalData.filter((item) => {
-        const isNameMatch = item.name.toLowerCase().includes(lowercasedName!);
-        const isUsernameMatch = item.username
-          .toLowerCase()
-          .includes(lowercasedUsername!);
-        const isGenderMatch = gender
-          ? item.gender.toLowerCase() === lowercasedGender
-          : true;
+        const isNameMatch = lowercasedName ? item.name.toLowerCase().includes(lowercasedName) : true;
+        const isUsernameMatch = lowercasedUsername ? item.username.toLowerCase().includes(lowercasedUsername) : true;
+        const isGenderMatch = lowercasedGender ? item.gender.toLowerCase() === lowercasedGender : true;
 
         return isNameMatch && isUsernameMatch && isGenderMatch;
       });

@@ -1,9 +1,11 @@
 import { z } from "zod";
-import { useAppDispatch } from "@/lib/redux";
+import { useAppDispatch, RootState } from "@/lib/redux";
 import { filteredUsers } from "@/lib/redux/api/users";
 import { FilterUserSchema } from "@/lib/zod/users";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 import {
   Popover,
@@ -32,11 +34,20 @@ const membership = [
 
 export default function UsersFilter() {
   const dispatch = useAppDispatch();
-  // const { filter } = useSelector((state: RootState) => state.users);
+  const { filter } = useSelector((state: RootState) => state.users);
 
   const form = useForm<z.infer<typeof FilterUserSchema>>({
     resolver: zodResolver(FilterUserSchema),
   });
+  useEffect(() => {
+    if (filter) {
+      form.reset({
+        name: filter.name,
+        username: filter.username,
+        gender: filter.gender,
+      });
+    }
+  }, [filter, form]);
   const onSubmit = (data: z.infer<typeof FilterUserSchema>) => {
     dispatch(filteredUsers(data));
   };

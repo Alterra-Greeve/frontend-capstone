@@ -19,7 +19,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useAppDispatch } from "@/lib/redux";
 import { editUser, getUsers, UsersProps } from "@/lib/redux/api/users";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import IllustrationDelete from "@/assets/icons/modal-delete.svg";
@@ -29,6 +29,7 @@ interface EditUserModalProps {
   onClose: () => void;
   data: UsersProps | undefined;
 }
+
 const formSchema = z.object({
   name: z.string().optional(),
   username: z.string().optional(),
@@ -54,64 +55,59 @@ export default function EditUserModal({
       address: "",
     },
   });
+
   const [action, setAction] = useState("");
   const [userEdited, setUserEdited] = useState<any>();
 
   useEffect(() => {
     if (data) {
-      form.reset({
-        name: data.name,
-        username: data.username,
-        gender: data.gender,
-        email: data.email,
-        phone: data.phone,
-        address: data.address,
-      });
+      form.reset(data);
     }
   }, [data, form]);
 
   const dispatch = useAppDispatch();
 
-  const handleFormSubmit = (formData: z.infer<typeof formSchema>) => {
-    setUserEdited({
-      name: formData.name,
-      address: formData.address,
-      gender: formData.gender,
-      phone: formData.phone,
-    });
-  };
+  const handleFormSubmit = useCallback(
+    (formData: z.infer<typeof formSchema>) => {
+      if (!formData.name || !formData.email) {
+        // Example condition: ensure name and email are not empty
+        console.error("Form data is invalid");
+        return; // Prevent form submission if data is invalid
+      }
+      setUserEdited(formData);
+    },
+    []
+  );
 
-  const handleEditUsers = async () => {
-    await dispatch(
-      editUser({
-        userId: data?.id,
-        data: {
-          name: userEdited.name,
-          address: userEdited.address,
-          gender: userEdited.gender,
-          phone: userEdited.phone,
-        },
-      })
-    );
-    await dispatch(getUsers());
-  };
+  const handleEditUsers = useCallback(async () => {
+    if (data?.id && userEdited) {
+      try {
+        await dispatch(editUser({ userId: data.id, data: userEdited }));
+        await dispatch(getUsers());
+        onClose(); // Close the modal on successful edit
+      } catch (error) {
+        console.error("Failed to edit user:", error);
+        // Optionally, handle the error state in the UI, e.g., show a notification
+      }
+    }
+  }, [dispatch, data, userEdited, onClose]);
 
-  function ConfirmAction({
-    dialogHead,
-    dialogBody,
-    trueChildern,
-    falseChildern,
-    trueAction,
-    falseAction,
-  }: {
-    dialogHead: string;
-    dialogBody: string;
-    trueAction?: any;
-    falseAction?: any;
-    trueChildern: string;
-    falseChildern: string;
-  }) {
-    return (
+  const ConfirmAction = useCallback(
+    ({
+      dialogHead,
+      dialogBody,
+      trueChildren,
+      falseChildren,
+      trueAction,
+      falseAction,
+    }: {
+      dialogHead: string;
+      dialogBody: string;
+      trueChildren: React.ReactNode;
+      falseChildren: React.ReactNode;
+      trueAction: () => void;
+      falseAction: () => void;
+    }) => (
       <DialogContent className="bg-neutral-50 flex flex-col items-center md:rounded-2xl">
         <IllustrationDelete />
         <DialogHeader className="items-center pt-6">
@@ -124,224 +120,236 @@ export default function EditUserModal({
           <div className="w-full flex justify-center items-center gap-5">
             <Button
               className="min-w-full py-6 rounded-lg"
-              variant={"outline_primary"}
+              variant="outline_primary"
               onClick={trueAction}
             >
-              {trueChildern}
+              {trueChildren}
             </Button>
             <Button
               className="min-w-full py-6 rounded-lg"
-              variant={"primary"}
+              variant="primary"
               onClick={falseAction}
             >
-              {falseChildern}
+              {falseChildren}
             </Button>
           </div>
         </DialogFooter>
       </DialogContent>
-    );
-  }
+    ),
+    []
+  );
 
   return (
     <Dialog open={isOpen}>
-      {action == "close" ? (
+      {action === "close" ? (
         <ConfirmAction
           dialogHead="Perubahan belum disimpan!"
           dialogBody="Anda telah mengubah beberapa informasi. Pastikan untuk menyimpan agar tidak kehilangan perubahan ini"
           trueAction={() => {
             onClose();
-            setTimeout(() => {
-              setAction("");
-            }, 200);
+            setTimeout(() => setAction(""), 200);
           }}
-          trueChildern="Keluar"
+          trueChildren="Keluar"
           falseAction={() => setAction("")}
-          falseChildern="Tetap Mengedit"
+          falseChildren="Tetap Mengedit"
         />
-      ) : action == "simpan" ? (
+      ) : action === "simpan" ? (
         <ConfirmAction
           dialogHead="Ingin menyimpan data ini?"
           dialogBody="Perubahan dari data sebelumnya akan tersimpan"
           falseAction={() => {
-            onClose();
             handleEditUsers();
-            setTimeout(() => {
-              setAction("");
-            }, 200);
+            setTimeout(() => setAction(""), 200);
           }}
-          falseChildern="Iya"
+          falseChildren="Iya"
           trueAction={() => {
             onClose();
             setAction("");
           }}
-          trueChildern="Tidak"
+          trueChildren="Tidak"
         />
       ) : (
-        <DialogContent className="max-w-2xl bg-neutral-50 p-10 py-8 md:rounded-2xl">
-          <DialogHeader>
-            <img
-              src={data?.avatar_url}
-              alt="profile-image"
-              className="rounded-full w-20 h-20"
-            />
-            <div className="flex flex-col pt-4">
-              <h5 className="font-bold text-lg">{data?.name}</h5>
-              <p>{data?.email}</p>
-            </div>
-          </DialogHeader>
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleFormSubmit)}
-              className="flex flex-col gap-4"
-              tabIndex={0}
-            >
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-neutral-800">Name</FormLabel>
-                    <FormControl className="flex items-center gap-3 w-full">
-                      <Input
-                        {...field}
-                        value={field.value}
-                        onChange={field.onChange}
-                        className="border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
-                      />
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-neutral-800">Username</FormLabel>
-                    <Input
-                      {...field}
-                      value={field.value}
-                      onChange={field.onChange}
-                      className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
-                    />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="gender"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-neutral-800">Gender</FormLabel>
-                    <FormControl>
-                      <RadioGroup
-                        onValueChange={field.onChange}
-                        value={field.value}
-                        className="flex items-center gap-5"
-                      >
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem
-                              checked={
-                                field.value?.toLocaleLowerCase() == "laki-laki"
-                                  ? true
-                                  : false
-                              }
-                              value="laki-laki"
-                              className="border-2 border-primary-500 checked:bg-primary-500 checked:border-primary-500"
-                            />
-                          </FormControl>
-                          <FormLabel className="font-semibold">
-                            Laki-Laki
-                          </FormLabel>
-                        </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem
-                              className="border-2 border-primary-500 checked:bg-primary-500 checked:border-primary-500"
-                              value="Perempuan"
-                              checked={
-                                field.value?.toLocaleLowerCase() == "perempuan"
-                                  ? true
-                                  : false
-                              }
-                            />
-                          </FormControl>
-                          <FormLabel className="font-semibold">
-                            Perempuan
-                          </FormLabel>
-                        </FormItem>
-                      </RadioGroup>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-neutral-800">Email</FormLabel>
-                    <Input
-                      {...field}
-                      value={field.value}
-                      onChange={field.onChange}
-                      className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
-                    />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="phone"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-neutral-800">No.Telp</FormLabel>
-                    <Input
-                      {...field}
-                      value={field.value}
-                      onChange={field.onChange}
-                      className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
-                    />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="address"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-neutral-800">Alamat</FormLabel>
-                    <Input
-                      {...field}
-                      value={field.value}
-                      onChange={field.onChange}
-                      className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800"
-                    />
-                  </FormItem>
-                )}
-              />
-              <DialogFooter className="pt-4">
-                <Button
-                  onClick={() => setAction("close")}
-                  variant={"outline_primary"}
-                  className="px-12 rounded-lg"
-                  type="button"
-                >
-                  Batal
-                </Button>
-                <Button
-                  type="submit"
-                  className="px-12 rounded-lg"
-                  onClick={() => {
-                    setTimeout(() => {
-                      setAction("simpan");
-                    }, 200);
-                  }}
-                >
-                  Simpan
-                </Button>
-              </DialogFooter>
-            </form>
-          </Form>
-        </DialogContent>
+        <UserForm
+          form={form}
+          data={data}
+          setAction={setAction}
+          handleFormSubmit={form.handleSubmit(handleFormSubmit)}
+        />
       )}
     </Dialog>
+  );
+}
+
+interface UserFormData {
+  avatar_url?: string;
+  name?: string;
+  email?: string; // Ensure this property is included
+}
+
+interface UserFormProps {
+  form: any; // Ideally, specify a more detailed type
+  data: UserFormData | undefined; // Allow data to be undefined
+  setAction: (action: string) => void;
+  handleFormSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+}
+
+function UserForm({ form, data, setAction, handleFormSubmit }: UserFormProps) {
+  return (
+    <DialogContent className="max-w-2xl bg-neutral-50 p-10 py-8 md:rounded-2xl">
+      <DialogHeader>
+        <img
+          src={data?.avatar_url}
+          alt="profile-image"
+          className="rounded-full w-20 h-20"
+        />
+        <div className="flex flex-col pt-4">
+          <h5 className="font-bold text-lg">{data?.name}</h5>
+          <p>{data?.email}</p>
+        </div>
+      </DialogHeader>
+      <Form {...form}>
+        <form
+          onSubmit={handleFormSubmit}
+          className="flex flex-col gap-4"
+          tabIndex={0}
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-neutral-800">Name</FormLabel>
+                <FormControl className="flex items-center gap-3 w-full">
+                  <Input
+                    {...field}
+                    value={field.value}
+                    onChange={field.onChange}
+                    className="border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-neutral-800">Username</FormLabel>
+                <Input
+                  {...field}
+                  value={field.value}
+                  onChange={field.onChange}
+                  className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
+                />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="gender"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-neutral-800">Gender</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    value={field.value}
+                    className="flex items-center gap-5"
+                  >
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem
+                          checked={
+                            field.value?.toLocaleLowerCase() == "laki-laki"
+                              ? true
+                              : false
+                          }
+                          value="laki-laki"
+                          className="border-2 border-primary-500 checked:bg-primary-500 checked:border-primary-500"
+                        />
+                      </FormControl>
+                      <FormLabel className="font-semibold">Laki-Laki</FormLabel>
+                    </FormItem>
+                    <FormItem className="flex items-center space-x-3 space-y-0">
+                      <FormControl>
+                        <RadioGroupItem
+                          className="border-2 border-primary-500 checked:bg-primary-500 checked:border-primary-500"
+                          value="Perempuan"
+                          checked={
+                            field.value?.toLocaleLowerCase() == "perempuan"
+                              ? true
+                              : false
+                          }
+                        />
+                      </FormControl>
+                      <FormLabel className="font-semibold">Perempuan</FormLabel>
+                    </FormItem>
+                  </RadioGroup>
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-neutral-800">Email</FormLabel>
+                <Input
+                  {...field}
+                  value={field.value}
+                  onChange={field.onChange}
+                  className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
+                />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-neutral-800">No.Telp</FormLabel>
+                <Input
+                  {...field}
+                  value={field.value}
+                  onChange={field.onChange}
+                  className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
+                />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name="address"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-neutral-800">Alamat</FormLabel>
+                <Input
+                  {...field}
+                  value={field.value}
+                  onChange={field.onChange}
+                  className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800"
+                />
+              </FormItem>
+            )}
+          />
+          <DialogFooter className="pt-4">
+            <Button
+              onClick={() => setAction("close")}
+              variant="outline_primary"
+              className="px-12 rounded-lg"
+              type="button"
+            >
+              Batal
+            </Button>
+            <Button
+              type="submit"
+              className="px-12 rounded-lg"
+              onClick={() => setTimeout(() => setAction("simpan"), 200)}
+            >
+              Simpan
+            </Button>
+          </DialogFooter>
+        </form>
+      </Form>
+    </DialogContent>
   );
 }
