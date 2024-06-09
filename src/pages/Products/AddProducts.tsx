@@ -91,7 +91,7 @@ export default function AddProducts() {
                 <form className="flex gap-[10px]">
                     <div
                         className="bg-neutral-50 p-[4px] border-[0.5px] border-solid border-[#17171712] 
-                    rounded-[8px] h-[418px] "
+                    rounded-[8px] h-[418px] w-[539px]"
                     >
                         <div className="flex flex-col gap-[5px]">
                             <AddImage imageSize="big"/>

@@ -16,11 +16,13 @@ export default function AddImage({imageSize}: imageProp) {
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { files } = e.target;
         if (files && files.length > 0) {
+            
             setSelectedFile(files[0] ?
                 URL.createObjectURL(files[0]) : 'no image'
             );
         }
     }
+    
     function onClickFile(){
         fileRef.current?.click()
     }
