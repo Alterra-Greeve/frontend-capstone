@@ -24,9 +24,10 @@ export default function ModalProductsDetail({product_id}:any) {
                 method: "get",
             });
         }
-        loading? console.log('loading') : setProductDetail(data?.data);
     }, [product_id]);
-    console.log(productDetail)
+    useEffect(()=>{
+        setProductDetail(data?.data)
+    },[data])
 
     function handleClose(e:any){
         if(e.target.id === 'wrapper'){
