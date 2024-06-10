@@ -23,6 +23,7 @@ export default function TableProducts({data, dataShow}:any) {
         setIsOpen(!isOpen);
         setSelectedDropDown(id);
     }
+    
     return (
         <div className="mx-[24px] rounded-[8px] bg-primary-100 ">
             <Table>
