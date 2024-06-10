@@ -18,7 +18,6 @@ export default function AddProducts() {
         image_url: [],
         category: []
     });
-    // const [imageArr, setImageArr] = useState<any>([])
     const today = new Date();
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
@@ -77,11 +76,16 @@ export default function AddProducts() {
                         <div className="flex flex-col gap-[5px]">
                             <AddImage imageSize="big" setNewData={setNewData} newData={newData}/>
                             <div className="flex gap-[4px]">
-                                <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
-                                <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
-                                <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
-                                <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
-                                <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
+                                {newData.image_url[0] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
+                                : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
+                                {newData.image_url[1] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
+                                : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
+                                {newData.image_url[2] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
+                                : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
+                                {newData.image_url[3] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
+                                : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
+                                {newData.image_url[4] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
+                                : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
                             </div>
                         </div>
                     </div>
