@@ -10,6 +10,7 @@ import CatRecycle from "@/assets/icons/catRecycle.svg";
 import Input from "@/components/Input/Input";
 import Textarea from "@/components/Textarea/Textarea";
 import AddImage from "./AddImage";
+import useFetch from "@/lib/hooks/useFetch";
 
 export default function AddProducts() {
     const navigate = useNavigate()
@@ -34,11 +35,10 @@ export default function AddProducts() {
         : setNewData({ ...newData, category: newData.category.filter((item: any) => item !== value) })
     }
 
-    // const { postData } = useFetch("products", { method: "post" });
+    const { postData } = useFetch("products", { method: "post" });
     function handleSubmit() {
-        setNewData({ ...newData });
+        postData(newData);
         console.log(newData)
-        // postData();
     }
     
     return (
