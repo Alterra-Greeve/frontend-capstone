@@ -14,9 +14,10 @@ import AddImage from "./AddImage";
 export default function AddProducts() {
     const navigate = useNavigate()
     const [newData, setNewData] = useState<any>({
+        image_url: [],
         category: []
     });
-    const [imageArr, setImageArr] = useState<any>([])
+    // const [imageArr, setImageArr] = useState<any>([])
     const today = new Date();
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
@@ -35,7 +36,7 @@ export default function AddProducts() {
 
     // const { postData } = useFetch("products", { method: "post" });
     function handleSubmit() {
-        setNewData({ ...newData, image_url: imageArr });
+        setNewData({ ...newData });
         console.log(newData)
         // postData();
     }
@@ -74,13 +75,13 @@ export default function AddProducts() {
                     rounded-[8px] h-[418px] w-[539px]"
                     >
                         <div className="flex flex-col gap-[5px]">
-                            <AddImage imageSize="big" setImageArr={setImageArr} imageArr={imageArr}/>
+                            <AddImage imageSize="big" setNewData={setNewData} newData={newData}/>
                             <div className="flex gap-[4px]">
-                                <AddImage imageSize="small" setImageArr={setImageArr} imageArr={imageArr}/>
-                                <AddImage imageSize="small" setImageArr={setImageArr} imageArr={imageArr}/>
-                                <AddImage imageSize="small" setImageArr={setImageArr} imageArr={imageArr}/>
-                                <AddImage imageSize="small" setImageArr={setImageArr} imageArr={imageArr}/>
-                                <AddImage imageSize="small" setImageArr={setImageArr} imageArr={imageArr}/>
+                                <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
+                                <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
+                                <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
+                                <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
+                                <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
                             </div>
                         </div>
                     </div>
