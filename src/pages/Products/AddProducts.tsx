@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "@/components/Button/Button";
 import AdminLayout from "@/layouts/AdminLayout";
 import ArrowLeft from "@/assets/icons/Arrow - Left.svg";
@@ -7,25 +9,24 @@ import CatBrain from "@/assets/icons/catBrains.svg";
 import CatRecycle from "@/assets/icons/catRecycle.svg";
 import Input from "@/components/Input/Input";
 import Textarea from "@/components/Textarea/Textarea";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import AddImage from "./AddImage";
 
 export default function AddProducts() {
+    const navigate = useNavigate()
     const [newData, setNewData] = useState<any>({});
     const [arrCategory, setArrCategory] = useState<any>([])
-    const navigate = useNavigate()
+    const [imageArr, setImageArr] = useState<any>([])
     const today = new Date();
     const month = today.getMonth() + 1;
     const year = today.getFullYear();
     const date = today.getDate();
     const currentDate = `${date < 10 ? `0${date}` : date}/${month < 10 ? `0${month}` : month}/${year}`
-    const [imageArr, setImageArr] = useState<any>([])
     
     function handleInput(e: any) {
         const { value, name } = e.target;
         setNewData({ ...newData, [name]: value });
     }
+    
     function handleCheck(e: any) {
         const { checked, value } = e.target;
         if (checked) {
@@ -40,10 +41,10 @@ export default function AddProducts() {
     // const { postData } = useFetch("products", { method: "post" });
     function handleSubmit() {
         setNewData({ ...newData, category: arrCategory, image_url: imageArr });
-        
+        console.log(newData)
         // postData();
     }
-    console.log(newData)
+    
     return (
         <AdminLayout>
             <div className="flex flex-col gap-[16px] bg-neutral-100 p-[24px] h-[calc(100vh-90px)]">
