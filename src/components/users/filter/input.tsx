@@ -8,7 +8,16 @@ interface FilterInputFieldProps {
   placeholder: string;
 }
 
-export const FilterInputField: React.FC<FilterInputFieldProps> = ({ label, placeholder, ...field }) => {
+interface FilterInputFieldProps {
+  label: string;
+  placeholder: string;
+}
+
+export const FilterInputField: React.FC<FilterInputFieldProps> = ({
+  label,
+  placeholder,
+  ...field
+}) => {
   return (
     <FormItem className="border border-neutral-200 p-3 rounded-lg">
       <FormLabel className="text-base text-neutral-900 font-extrabold leading-5">
@@ -22,7 +31,7 @@ export const FilterInputField: React.FC<FilterInputFieldProps> = ({ label, place
         />
       </FormControl>
     </FormItem>
-  )
+  );
 };
 
 interface FilterCheckboxProps<TFieldValues extends FieldValues> {
@@ -33,11 +42,12 @@ interface FilterCheckboxProps<TFieldValues extends FieldValues> {
 }
 
 export const FilterInputCheckbox = <TFieldValues extends FieldValues>({
-  id, label, field
+  id,
+  label,
+  field,
 }: FilterCheckboxProps<TFieldValues>) => {
-
   const handleChange = (checked: boolean) => {
-    field.onChange(checked ? id : '');
+    field.onChange(checked ? id : "");
   };
 
   return (
@@ -51,5 +61,5 @@ export const FilterInputCheckbox = <TFieldValues extends FieldValues>({
       </FormControl>
       <FormLabel className="font-normal">{label}</FormLabel>
     </FormItem>
-  )
-}
+  );
+};
