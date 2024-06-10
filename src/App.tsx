@@ -10,6 +10,7 @@ import UsersPage from "./pages/Users/index";
 import ProductsPage from "./pages/Products";
 import ChallengesPage from "./pages/Challenges";
 import DashboardPage from "./pages/Dashboard";
+import ForumPage from "./pages/forums";
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
       <Route path="/dashboard" element={<ProtectedRoutes />}>
         <Route index element={<DashboardPage />} />
         <Route path="users" element={<UsersPage />} />
+        <Route path="forum-discussion" element={<ForumPage />} />
         <Route path="products" element={<ProductsPage />} />
         <Route path="products/add-products" element={<AddProducts />} />
         <Route path="products/edit-products/:id" element={<EditProducts />} />

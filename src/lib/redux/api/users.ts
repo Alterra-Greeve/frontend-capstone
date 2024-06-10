@@ -81,6 +81,7 @@ interface InitialState {
   isLoading: boolean;
   isError: boolean;
   error: string | null;
+  message: string;
 }
 
 const initialState: InitialState = {
@@ -94,6 +95,7 @@ const initialState: InitialState = {
   isLoading: false,
   isError: false,
   error: null,
+  message: "",
 };
 
 export const usersSlice = createSlice({
@@ -133,9 +135,15 @@ export const usersSlice = createSlice({
       };
 
       state.data = state.originalData.filter((item) => {
-        const isNameMatch = lowercasedName ? item.name.toLowerCase().includes(lowercasedName) : true;
-        const isUsernameMatch = lowercasedUsername ? item.username.toLowerCase().includes(lowercasedUsername) : true;
-        const isGenderMatch = lowercasedGender ? item.gender.toLowerCase() === lowercasedGender : true;
+        const isNameMatch = lowercasedName
+          ? item.name.toLowerCase().includes(lowercasedName)
+          : true;
+        const isUsernameMatch = lowercasedUsername
+          ? item.username.toLowerCase().includes(lowercasedUsername)
+          : true;
+        const isGenderMatch = lowercasedGender
+          ? item.gender.toLowerCase() === lowercasedGender
+          : true;
 
         return isNameMatch && isUsernameMatch && isGenderMatch;
       });
@@ -148,36 +156,43 @@ export const usersSlice = createSlice({
     builder
       .addCase(getUsers.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
         state.error = null;
+        state.isError = false;
+        state.message = "";
       })
       .addCase(getUsers.fulfilled, (state, action) => {
         state.data = action.payload.data;
         state.originalData = action.payload.data;
         state.metadata = action.payload.metadata;
+        state.isError = false;
         state.isLoading = false;
+        state.message = "";
       })
       .addCase(getUsers.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.error.message as string;
+        state.message = "Failed to load users."; // Added failure message
       })
       .addCase(deleteUser.fulfilled, (state, action) => {
-        state.isLoading = false;
         state.data = state.data.filter(
           (item: UsersProps) => item.id !== action.payload
         );
+        state.isLoading = false;
+        state.isError = false;
+        state.message = "User successfully deleted."; // Added success message
       })
       .addCase(deleteUser.rejected, (state, action) => {
-        //edit users
         state.isLoading = false;
         state.isError = true;
         state.error = action.error.message as string;
+        state.message = "Failed to delete user."; // Added failure message
       })
       .addCase(editUser.pending, (state) => {
         state.isLoading = true;
-        state.isError = false;
         state.error = null;
+        state.isError = false;
+        state.message = "";
       })
       .addCase(editUser.fulfilled, (state, action) => {
         const updatedUser = action.payload;
@@ -188,15 +203,19 @@ export const usersSlice = createSlice({
           user.id === updatedUser.id ? updatedUser : user
         );
         state.isLoading = false;
+        state.isError = false;
+        state.message = "User successfully updated."; // Added success message
       })
       .addCase(editUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.error = action.error.message as string;
-      }); //edit users
+        state.message = "Failed to update user."; // Added failure message
+      });
   },
 });
 
 export default usersSlice.reducer;
 export const { usersCurrentPage, filteredUsers, resetFilter } =
   usersSlice.actions;
+
