@@ -13,8 +13,9 @@ import AddImage from "./AddImage";
 
 export default function AddProducts() {
     const navigate = useNavigate()
-    const [newData, setNewData] = useState<any>({});
-    const [arrCategory, setArrCategory] = useState<any>([])
+    const [newData, setNewData] = useState<any>({
+        category: []
+    });
     const [imageArr, setImageArr] = useState<any>([])
     const today = new Date();
     const month = today.getMonth() + 1;
@@ -26,21 +27,15 @@ export default function AddProducts() {
         const { value, name } = e.target;
         setNewData({ ...newData, [name]: value });
     }
-    
     function handleCheck(e: any) {
         const { checked, value } = e.target;
-        if (checked) {
-            if (!arrCategory.includes(value)) {
-                setArrCategory([...arrCategory, value]);
-            }
-        } else {
-            setArrCategory(arrCategory.filter((item: any) => item !== value));
-        }
+        checked ? setNewData({ ...newData, category: [...newData.category, value] })  
+        : setNewData({ ...newData, category: newData.category.filter((item: any) => item !== value) })
     }
 
     // const { postData } = useFetch("products", { method: "post" });
     function handleSubmit() {
-        setNewData({ ...newData, category: arrCategory, image_url: imageArr });
+        setNewData({ ...newData, image_url: imageArr });
         console.log(newData)
         // postData();
     }
@@ -93,53 +88,53 @@ export default function AddProducts() {
                         className="text-[12px] font-[600] text-neutral-800 flex flex-col gap-[8px]"
                     >
                         <div className="flex flex-col">
-                            <label htmlFor="namaProduk">Nama Produk</label>
+                            <label htmlFor="name">Nama Produk</label>
                             <Input
                                 type="text"
                                 style="w-full"
-                                id="namaProduk"
-                                name="namaProduk"
+                                id="name"
+                                name="name"
                                 onChange={(e) => handleInput(e)}
                             />
                         </div>
                         <div className="flex gap-[10px]">
                             <div className="flex flex-col">
-                                <label htmlFor="harga">Harga</label>
+                                <label htmlFor="price">Harga</label>
                                 <Input
                                     type="number"
                                     style="w-[189px]"
-                                    id="harga"
-                                    name="harga"
+                                    id="price"
+                                    name="price"
                                     onChange={(e) => handleInput(e)}
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <label htmlFor="stok">Stok</label>
+                                <label htmlFor="stock">Stok</label>
                                 <Input
                                     type="number"
                                     style="w-[189px]"
-                                    id="stok"
-                                    name="stok"
+                                    id="stock"
+                                    name="stock"
                                     onChange={(e) => handleInput(e)}
                                 />
                             </div>
                             <div className="flex flex-col">
-                                <label htmlFor="koin">Koin</label>
+                                <label htmlFor="coin">Koin</label>
                                 <Input
                                     type="number"
                                     style="w-[189px]"
-                                    id="koin"
-                                    name="koin"
+                                    id="coin"
+                                    name="coin"
                                     onChange={(e) => handleInput(e)}
                                 />
                             </div>
                         </div>
                         <div className="flex flex-col">
-                            <label htmlFor="deskripsi">Deskripsi</label>
+                            <label htmlFor="description">Deskripsi</label>
                             <Textarea
                                 style="w-[587px] h-[121px]"
-                                id="deskripsi"
-                                name="deskripsi"
+                                id="description"
+                                name="description"
                                 onChange={(e) => handleInput(e)}
                             />
                         </div>
@@ -147,7 +142,7 @@ export default function AddProducts() {
                             <label htmlFor="">Membantu</label>
                             <ul className="flex flex-col">
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Pemanasan Global" id="" value="Pemanasan Global" onChange={handleCheck} />
+                                    <input type="checkbox" name="Pemanasan Global" id="" value="Pemanasan Global" onChange={(e)=>handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatEarth />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -156,7 +151,7 @@ export default function AddProducts() {
                                     </div>
                                 </li>
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Hemat Uang" id="" value="Hemat Uang" onChange={handleCheck} />
+                                    <input type="checkbox" name="Hemat Uang" id="" value="Hemat Uang" onChange={(e)=>handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatMoney />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -165,7 +160,7 @@ export default function AddProducts() {
                                     </div>
                                 </li>
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Memperluas Wawasan" id="" value="Memperluas Wawasan" onChange={handleCheck} />
+                                    <input type="checkbox" name="Memperluas Wawasan" id="" value="Memperluas Wawasan" onChange={(e)=>handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatBrain />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -174,7 +169,7 @@ export default function AddProducts() {
                                     </div>
                                 </li>
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Mengurangi Limbah" id="" value="Mengurangi Limbah" onChange={handleCheck} />
+                                    <input type="checkbox" name="Mengurangi Limbah" id="" value="Mengurangi Limbah" onChange={(e)=>handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatRecycle />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
