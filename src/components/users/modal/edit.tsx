@@ -23,6 +23,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import IllustrationDelete from "@/assets/icons/modal-delete.svg";
+import { useToast } from "@/components/ui/use-toast";
 
 interface EditUserModalProps {
   isOpen: boolean;
@@ -58,7 +59,7 @@ export default function EditUserModal({
 
   const [action, setAction] = useState("");
   const [userEdited, setUserEdited] = useState<any>();
-
+  
   useEffect(() => {
     if (data) {
       form.reset(data);

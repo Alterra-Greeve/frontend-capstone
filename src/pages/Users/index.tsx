@@ -13,11 +13,12 @@ import FilterItem from "@/components/users/filter/filterItems";
 import Loading from "@/components/loading";
 import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
-
+import CheckCircle from "@/assets/icons/checkCircle";
+import CrossCircle from "@/assets/icons/crossCircle";
 
 export default function UsersPage() {
   const dispatch = useAppDispatch();
-  const { isLoading, data, error } = useAppSelector(
+  const { isLoading, data, message, isError } = useAppSelector(
     (state: RootState) => state.users
   );
   const [dataUsersShow, setDataUsersShow] = useState({
@@ -35,13 +36,14 @@ export default function UsersPage() {
   }, []);
 
   useEffect(() => {
-    if (error) {
+    if (message !== "") {
       toast({
-        variant: "destructive",
-        description: "There was a problem with your request.",
+        icon: isError ? <CrossCircle /> : <CheckCircle />,
+        variant: isError ? "destructive" : "default",
+        description: message,
       });
     }
-  }, []);
+  }, [isError, message]);
 
   if (isLoading) {
     return (

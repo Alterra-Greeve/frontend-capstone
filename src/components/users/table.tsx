@@ -130,7 +130,7 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
                       src={
                         item.avatar_url || "@/assets/images/default-user.png"
                       }
-                      className="w-full rounded-full h-6"
+                      className="rounded-full h-6 w-6"
                     />
                   </div>
                   {item.name || "-"}
