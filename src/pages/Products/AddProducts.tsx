@@ -43,8 +43,8 @@ export default function AddProducts() {
         if(name === '' || price === '' || stock === '' || image_url.length === 0
         || description === '' || coin === '' || category.length === 0){
             setIsEmpty(true)
-            alert('empty')
         }else{
+            setIsEmpty(false)
             setIsVisible(true)
         }
     }
@@ -116,6 +116,8 @@ export default function AddProducts() {
                                 style="w-full"
                                 id="name"
                                 name="name"
+                                isEmpty={isEmpty}
+                                data={newData.name}
                                 onChange={(e) => handleInput(e)}
                             />
                             {!newData.name && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan nama produk</span> : <></>}
@@ -128,6 +130,8 @@ export default function AddProducts() {
                                     style="w-[189px]"
                                     id="price"
                                     name="price"
+                                    isEmpty={isEmpty}
+                                    data={newData.price}
                                     onChange={(e) => handleInput(e)}
                                 />
                                 {!newData.price && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah harga</span> : <></>}
@@ -139,6 +143,8 @@ export default function AddProducts() {
                                     style="w-[189px]"
                                     id="stock"
                                     name="stock"
+                                    isEmpty={isEmpty}
+                                    data={newData.stock}
                                     onChange={(e) => handleInput(e)}
                                 />
                                 {!newData.stock && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah stok</span> : <></>}
@@ -150,6 +156,8 @@ export default function AddProducts() {
                                     style="w-[189px]"
                                     id="coin"
                                     name="coin"
+                                    isEmpty={isEmpty}
+                                    data={newData.coin}
                                     onChange={(e) => handleInput(e)}
                                 />
                                 {!newData.coin && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah koin</span> : <></>}
@@ -161,6 +169,8 @@ export default function AddProducts() {
                                 style="w-[587px] h-[121px]"
                                 id="description"
                                 name="description"
+                                isEmpty={isEmpty}
+                                data={newData.description}
                                 onChange={(e) => handleInput(e)}
                             />
                             {!newData.description && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan isi deskripsi</span> : <></>}
