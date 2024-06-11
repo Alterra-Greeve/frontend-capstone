@@ -19,8 +19,8 @@ export default function ProductsPage() {
   return (
     <>
       <AdminLayout>
-        <div className="bg-[#F5F5F5] flex flex-col gap-[16px] h-[calc(100vh-90px)]
-        relative overflow-auto">
+        <div className="bg-[#F5F5F5] flex flex-col gap-[16px] 
+        relative">
           <div className="flex justify-between pt-[24px] mx-[24px] border-b-[0.5px] pb-[16px]">
             <SearchProducts />
             <div className="flex gap-[8px]">
