@@ -1,4 +1,5 @@
 import { useState } from "react"
+import DangerIcon from '@/assets/icons/DangerSquare.svg'
 
 type InputProps = {
     type: string;
@@ -27,11 +28,18 @@ export default function Input({type, style, id, name, isEmpty, data, placeholder
         setIsFocus(false)
     }
     return (
-        <input type={type} className={isEmpty && !data || isEmpty && !data.length? 
-        `rounded-[7px] p-[8px] border-[0.5px] border-solid border-danger-500 outline-none ${style}`
-        :
-        `rounded-[7px] p-[8px] border-[0.5px] border-solid ${isFocus? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`} 
-        onFocus={() => setIsFocus(true)} onBlur={handleInput} onChange={handleInput} id={id} name={name}
-        placeholder={placeholder}/>
+        <div className="relative">
+            <input type={type} className={isEmpty && !data || isEmpty && !data.length? 
+            `rounded-[7px] p-[8px] border-[0.5px] border-solid border-danger-500 outline-none ${style}`
+            :
+            `rounded-[7px] p-[8px] border-[0.5px] border-solid ${isFocus? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`} 
+            onFocus={() => setIsFocus(true)} onBlur={handleInput} onChange={handleInput} id={id} name={name}
+            placeholder={placeholder}/>
+            {isEmpty && !data || isEmpty && !data.length?
+                <span className="absolute right-[6px] top-[6px] w-[24px] h-[24px]">
+                    <DangerIcon/>
+                </span>
+            :<></>}
+        </div>
     )
 };

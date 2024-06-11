@@ -48,7 +48,7 @@ export default function TableProducts({data, dataShow}:any) {
                                     <TableRow className={i%2 === 0? 'bg-neutral-50' : 'bg-neutral-200'} key={i}>
                                         <TableCell className="p-[12px]">{item.product_id}</TableCell>
                                         <TableCell className="p-[12px]">
-                                            <Avatar/>
+                                            <img src={item.images[0].image_url} className="w-[24px] h-[24px] rounded-[24px]"></img>
                                         </TableCell>
                                         <TableCell className="p-[12px]">{item.name}</TableCell>
                                         <TableCell className="p-[12px]">{item.price}</TableCell>

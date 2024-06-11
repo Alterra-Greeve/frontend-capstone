@@ -1,4 +1,5 @@
 import { useState } from "react";
+import DangerIcon from '@/assets/icons/DangerSquare.svg'
 
 type TextAreaProps = {
     style: string;
@@ -27,11 +28,18 @@ export default function Textarea({style, id, name, isEmpty, data, onChange}: Tex
         setIsFocus(false)
     }
     return (
-        <textarea id={id} name={name} className={isEmpty && !data || isEmpty && !data.length?
-        `rounded-[7px] p-[8px] resize-none border-[0.5px] border-solid border-danger-500 outline-none ${style}`
-        :
-        `rounded-[7px] p-[8px] resize-none border-[0.5px] border-solid 
-        ${isFocus? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`} 
-        onFocus={handleFocus} onBlur={handleInput} onChange={handleInput}></textarea>
+        <div className="relative">
+            <textarea id={id} name={name} className={isEmpty && !data || isEmpty && !data.length?
+            `rounded-[7px] p-[8px] resize-none border-[0.5px] border-solid border-danger-500 outline-none ${style}`
+            :
+            `rounded-[7px] p-[8px] resize-none border-[0.5px] border-solid 
+            ${isFocus? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`} 
+            onFocus={handleFocus} onBlur={handleInput} onChange={handleInput}></textarea>
+            {isEmpty && !data || isEmpty && !data.length?
+                <span className="absolute right-[6px] top-[6px] w-[24px] h-[24px]">
+                    <DangerIcon/>
+                </span>
+            :<></>}
+        </div>
     )
 };
