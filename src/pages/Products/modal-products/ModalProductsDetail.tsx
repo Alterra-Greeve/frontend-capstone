@@ -40,7 +40,7 @@ export default function ModalProductsDetail({ product_id }: any) {
         loading ? 'Loading...' :
             <div
                 className="fixed top-0 bottom-0 left-0 right-0
-        flex justify-center items-center z-10"
+                flex justify-center items-center z-10"
                 id="wrapper"
                 style={{ backgroundColor: 'rgba(23, 23, 23, 0.50)' }}
                 onClick={(e) => handleClose(e)}

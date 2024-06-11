@@ -16,29 +16,21 @@ type imageProp = {
 export default function AddImage({ imageSize, setNewData, newData }: imageProp) {
     const [selectedFile, setSelectedFile] = useState<string>('');
     const fileRef = useRef<HTMLInputElement | null>(null);
-    async function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { files } = e.target;
         if (files && files.length > 0) {
-            // try {
-            //     const response = await GreeveApi.post('/media/upload', { data: { image: files[0] } })
-            //     console.log(response)
-            // } catch (error) {
-            //     console.error(error)
-            // }
             handleUpload(files[0])
-            setNewData({ ...newData, image_url: [...newData.image_url, files[0]] })
             setSelectedFile(files[0] ?
                 URL.createObjectURL(files[0]) : 'no image'
             );
         }
     }
     async function handleUpload(file: File): Promise<void> {
-        // const url = "https://api.greeve.store/api/v1/media/upload";
         const formData = new FormData();
         formData.append("image", file);
         try {
             const response = await GreeveApiMediaUpload.post('/media/upload', formData);
-            console.log('File uploaded successfully:', response);
+            setNewData({ ...newData, image_url: [...newData.image_url, response.data.data.image_url] })
         } catch (error) {
             console.error('Error uploading file:', error);
         }
