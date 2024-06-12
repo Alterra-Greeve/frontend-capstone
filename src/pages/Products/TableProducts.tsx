@@ -7,7 +7,6 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import SeeMore from '@/assets/icons/More.svg'
-import Avatar from '@/assets/icons/avatar.svg'
 import CatEarth from '@/assets/icons/catEarth.svg'
 import CatMoney from '@/assets/icons/catMoney.svg'
 import CatBrain from '@/assets/icons/catBrains.svg'
