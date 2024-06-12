@@ -22,7 +22,7 @@ export default function TableProducts({data, dataShow}:any) {
         setIsOpen(!isOpen);
         setSelectedDropDown(id);
     }
-    
+    console.log(data.data)
     return (
         <div className="mx-[24px] rounded-[8px] bg-primary-100 ">
             <Table>
@@ -56,15 +56,24 @@ export default function TableProducts({data, dataShow}:any) {
                                         <TableCell className="p-[12px]">{item.description}</TableCell>
                                         <TableCell className="py-[12px]">
                                             <div className="flex gap-[4px]">
-                                                <CatEarth/>
-                                                <CatMoney/>
-                                                <CatBrain/>
-                                                <CatRecycle/>
+                                                {item?.category.map((item:any)=>{
+                                                    if(item.impact_category.name === 'Mengurangi Pemanasan Global'){
+                                                        return <CatEarth/>
+                                                    }else if(item.impact_category.name === 'Hemat Uang'){
+                                                        return <CatMoney/>
+                                                    }else if(item.impact_category.name === 'Perluas Wawasan'){
+                                                        return <CatBrain/>
+                                                    }else if(item.impact_category.name === 'Mengurangi Limbah'){
+                                                        return <CatRecycle/>
+                                                    }else{
+                                                        return null
+                                                    }
+                                                })}
                                             </div>
                                         </TableCell>
                                         <TableCell className="p-[12px]">{item.created_at}</TableCell>
                                         <TableCell className="p-[12px] relative">
-                                            <div className="flex gap-[12px]">
+                                            <div className="flex gap-[12px] items-center">
                                                 <span>12/05/24</span>
                                                 <div className="w-[24px] h-[24px] cursor-pointer" onClick={() => handleOpen(item.product_id)}>
                                                     <SeeMore/>

@@ -10,7 +10,7 @@ type dataProducts = {
     coin: number;
     price: number;
     category: any;
-    images: any;
+    image_url: any;
 }
 
 export default function ModalProductsDetail({ product_id }: any) {
@@ -46,23 +46,23 @@ export default function ModalProductsDetail({ product_id }: any) {
                 onClick={(e) => handleClose(e)}
             >
                 <div className="p-[16px] rounded-[7px] bg-neutral-50 shadow-custom ">
-                    <img src={productDetail?.images[0].image_url} className='w-[549px] h-[284px] rounded-[7px] bg-cover'/>
+                    <img src={productDetail?.image_url[0]} className='w-[549px] h-[284px] rounded-[7px] bg-cover'/>
                     <div className="flex justify-between mt-[8px]">
                         <ul className="flex gap-[8px]">
-                            {productDetail?.images[1]?
-                            <img src={productDetail?.images[1].image_url} className="w-[70px] h-[70px] rounded-[8px] bg-cover"/>
+                            {productDetail?.image_url[1]?
+                            <img src={productDetail?.image_url[1]} className="w-[70px] h-[70px] rounded-[8px] bg-cover"/>
                             :<div className="w-[70px] h-[70px] rounded-[8px] bg-neutral-100" ></div>}
-                            {productDetail?.images[2]?
-                            <img src={productDetail?.images[2].image_url} className="w-[70px] h-[70px] rounded-[8px] bg-cover"/>
+                            {productDetail?.image_url[2]?
+                            <img src={productDetail?.image_url[2]} className="w-[70px] h-[70px] rounded-[8px] bg-cover"/>
                             :<div className="w-[70px] h-[70px] rounded-[8px] bg-neutral-100" ></div>}
-                            {productDetail?.images[3]?
-                            <img src={productDetail?.images[3].image_url} className="w-[70px] h-[70px] rounded-[8px] bg-cover"/>
+                            {productDetail?.image_url[3]?
+                            <img src={productDetail?.image_url[3]} className="w-[70px] h-[70px] rounded-[8px] bg-cover"/>
                             :<div className="w-[70px] h-[70px] rounded-[8px] bg-neutral-100" ></div>}
-                            {productDetail?.images[4]?
-                            <img src={productDetail?.images[4].image_url} className="w-[70px] h-[70px] rounded-[8px] bg-cover"/>
+                            {productDetail?.image_url[4]?
+                            <img src={productDetail?.image_url[4]} className="w-[70px] h-[70px] rounded-[8px] bg-cover"/>
                             :<div className="w-[70px] h-[70px] rounded-[8px] bg-neutral-100" ></div>}
-                            {productDetail?.images[5]?
-                            <img src={productDetail?.images[5].image_url} className="w-[70px] h-[70px] rounded-[8px] bg-cover"/>
+                            {productDetail?.image_url[5]?
+                            <img src={productDetail?.image_url[5]} className="w-[70px] h-[70px] rounded-[8px] bg-cover"/>
                             :<div className="w-[70px] h-[70px] rounded-[8px] bg-neutral-100" ></div>}
                         </ul>
                         <div className="py-[17px] px-[27.5px] flex gap-[10px] items-center

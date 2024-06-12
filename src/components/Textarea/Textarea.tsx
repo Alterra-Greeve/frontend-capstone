@@ -34,12 +34,12 @@ export default function Textarea({style, id, name, isEmpty, value, onChange}: Te
             :
             `rounded-[7px] p-[8px] resize-none border-[0.5px] border-solid 
             ${isFocus? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`} 
-            onFocus={handleFocus} onBlur={handleInput} onChange={handleInput}></textarea>
+            onFocus={handleFocus} onBlur={handleInput} onChange={handleInput} value={value}></textarea>
             {isEmpty && !value || isEmpty && !value.length?
                 <span className="absolute right-[6px] top-[6px] w-[24px] h-[24px]">
                     <DangerIcon/>
                 </span>
-            :<></>}
+            :null}
         </div>
     )
 };
