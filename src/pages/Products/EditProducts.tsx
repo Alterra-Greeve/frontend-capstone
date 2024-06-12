@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Button from "@/components/Button/Button";
 import AdminLayout from "@/layouts/AdminLayout";
 import ArrowLeft from "@/assets/icons/Arrow - Left.svg";
@@ -10,10 +10,19 @@ import CatRecycle from "@/assets/icons/catRecycle.svg";
 import Input from "@/components/Input/Input";
 import Textarea from "@/components/Textarea/Textarea";
 import AddImage from "./AddImage";
-// import useFetch from "@/lib/hooks/useFetch";
+import NewUseFetch from "@/lib/hooks/newUseFetch";
+import useFetch from "@/lib/hooks/useFetch";
+import ModalAlerts from "./modal-products/ModalAlerts";
+import ProductSaved from '@/assets/icons/ProductSaved.svg'
+import YesOrNo from '@/assets/icons/YesOrNo.svg'
 
 export default function EditProducts() {
+    const {id} = useParams()
+    const { data, loading, fetchData } = NewUseFetch<{ data: any }>();
     const navigate = useNavigate()
+    const [isVisible, setIsVisible] = useState(false)
+    const [isSaved, setIsSaved] = useState(false)
+    const [isEmpty, setIsEmpty] = useState(false)
     const [newData, setNewData] = useState<any>({
         image_url: [],
         category: []
@@ -23,20 +32,48 @@ export default function EditProducts() {
     const year = today.getFullYear();
     const date = today.getDate();
     const currentDate = `${date < 10 ? `0${date}` : date}/${month < 10 ? `0${month}` : month}/${year}`
-    
     function handleInput(e: any) {
         const { value, name } = e.target;
         setNewData({ ...newData, [name]: value });
     }
     function handleCheck(e: any) {
         const { checked, value } = e.target;
-        checked ? setNewData({ ...newData, category: [...newData.category, value] })  
-        : setNewData({ ...newData, category: newData.category.filter((item: any) => item !== value) })
+        checked ? setNewData({ ...newData, category: [...newData.category, value] })
+            : setNewData({ ...newData, category: newData.category.filter((item: any) => item !== value) })
     }
-
-    function handleSubmit() {
-        console.log(newData)
+    function handleValidation(){
+        const {name, price, stock, image_url, description, coin, category} = newData
+        if(name === '' || price === '' || stock === '' || image_url.length === 0
+        || description === '' || coin === '' || category.length === 0){
+            setIsEmpty(true)
+        }else{
+            setIsEmpty(false)
+            setIsVisible(true)
+        }
     }
+    const { postData } = useFetch("products", { method: "post" });
+    function handlePost(){
+        const postDataCopy = { ...newData };
+        postDataCopy.price = parseInt(newData.price);
+        postDataCopy.stock = parseInt(newData.stock);
+        postDataCopy.coin = parseInt(newData.coin);
+        postData(postDataCopy);
+        setIsVisible(false)
+        setIsSaved(true)
+        console.log(postDataCopy)
+    }
+    useEffect(() => {
+        if (id !== null) {
+            fetchData(`products/${id}`, {
+                method: "get",
+            });
+        }
+    }, [id]);
+    const [product, setProduct] = useState<any>({})
+    useEffect(() => {
+        setProduct(data?.data)
+        console.log(product)
+    }, [data])
     return(
         <AdminLayout>
             <div className="flex flex-col gap-[16px] bg-neutral-100 p-[24px] h-[calc(100vh-90px)]">
@@ -49,7 +86,7 @@ export default function EditProducts() {
                     </button>
                     <div className="flex gap-[8px]">
                         <Button variant="secondary" className='p-[8px]'>Hapus Data</Button>
-                        <Button variant="primary" className='p-[8px]' onClick={() => handleSubmit()}>
+                        <Button variant="primary" className='p-[8px]' onClick={() => handleValidation()}>
                             Simpan Data
                         </Button>
                     </div>
@@ -71,20 +108,21 @@ export default function EditProducts() {
                     rounded-[8px] h-[418px] w-[539px]"
                     >
                         <div className="flex flex-col gap-[5px]">
-                            <AddImage imageSize="big" setNewData={setNewData} newData={newData}/>
+                            <AddImage imageSize="big" setNewData={setNewData} newData={newData} />
                             <div className="flex gap-[4px]">
-                                {newData.image_url[0] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
-                                : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
-                                {newData.image_url[1] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
-                                : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
-                                {newData.image_url[2] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
-                                : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
-                                {newData.image_url[3] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
-                                : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
-                                {newData.image_url[4] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData}/>
-                                : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
+                                {newData.image_url[0] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
+                                    : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
+                                {newData.image_url[1] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
+                                    : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
+                                {newData.image_url[2] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
+                                    : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
+                                {newData.image_url[3] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
+                                    : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
+                                {newData.image_url[4] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
+                                    : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
                             </div>
                         </div>
+                        {!newData.image_url.length && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Pilih beberapa gambar</span> : null}
                     </div>
                     <div
                         className="text-[12px] font-[600] text-neutral-800 flex flex-col gap-[8px]"
@@ -96,9 +134,11 @@ export default function EditProducts() {
                                 style="w-full"
                                 id="name"
                                 name="name"
-                                value={''}
+                                isEmpty={isEmpty}
+                                value={newData.name}
                                 onChange={(e) => handleInput(e)}
                             />
+                            {!newData.name && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan nama produk</span> : null}
                         </div>
                         <div className="flex gap-[10px]">
                             <div className="flex flex-col">
@@ -108,9 +148,11 @@ export default function EditProducts() {
                                     style="w-[189px]"
                                     id="price"
                                     name="price"
-                                    value={''}
+                                    isEmpty={isEmpty}
+                                    value={newData.price}
                                     onChange={(e) => handleInput(e)}
                                 />
+                                {!newData.price && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah harga</span> : null}
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="stock">Stok</label>
@@ -119,9 +161,11 @@ export default function EditProducts() {
                                     style="w-[189px]"
                                     id="stock"
                                     name="stock"
-                                    value={''}
+                                    isEmpty={isEmpty}
+                                    value={newData.stock}
                                     onChange={(e) => handleInput(e)}
                                 />
+                                {!newData.stock && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah stok</span> : null}
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="coin">Koin</label>
@@ -130,9 +174,11 @@ export default function EditProducts() {
                                     style="w-[189px]"
                                     id="coin"
                                     name="coin"
-                                    value={''}
+                                    isEmpty={isEmpty}
+                                    value={newData.coin}
                                     onChange={(e) => handleInput(e)}
                                 />
+                                {!newData.coin && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah koin</span> : null}
                             </div>
                         </div>
                         <div className="flex flex-col">
@@ -141,15 +187,17 @@ export default function EditProducts() {
                                 style="w-[587px] h-[121px]"
                                 id="description"
                                 name="description"
-                                value={''}
+                                isEmpty={isEmpty}
+                                value={newData.description}
                                 onChange={(e) => handleInput(e)}
                             />
+                            {!newData.description && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan isi deskripsi</span> : null}
                         </div>
                         <div>
                             <label htmlFor="">Membantu</label>
                             <ul className="flex flex-col">
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Pemanasan Global" id="" value="Pemanasan Global" onChange={(e)=>handleCheck(e)} />
+                                    <input type="checkbox" name="Pemanasan Global" id="" value="b5d07366-3b31-4011-95e3-34735b0b61f8" onChange={(e) => handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatEarth />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -158,7 +206,7 @@ export default function EditProducts() {
                                     </div>
                                 </li>
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Hemat Uang" id="" value="Hemat Uang" onChange={(e)=>handleCheck(e)} />
+                                    <input type="checkbox" name="Hemat Uang" id="" value="83808762-e2b8-4b34-a1eb-0ed8d4fda3dd" onChange={(e) => handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatMoney />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -167,7 +215,7 @@ export default function EditProducts() {
                                     </div>
                                 </li>
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Memperluas Wawasan" id="" value="Memperluas Wawasan" onChange={(e)=>handleCheck(e)} />
+                                    <input type="checkbox" name="Memperluas Wawasan" id="" value="e8e714bd-c34e-4278-980c-39bd1f55b5fb" onChange={(e) => handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatBrain />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -176,7 +224,7 @@ export default function EditProducts() {
                                     </div>
                                 </li>
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Mengurangi Limbah" id="" value="Mengurangi Limbah" onChange={(e)=>handleCheck(e)} />
+                                    <input type="checkbox" name="Mengurangi Limbah" id="" value="7d34a5fa-e2cf-466d-9f01-d731f6967082" onChange={(e) => handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatRecycle />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -187,11 +235,45 @@ export default function EditProducts() {
                                     data-[state=checked]:bg-neutral-50 data-[state=checked]:text-primary-500" 
                                     onChange={handleCheck}/> */}
                                 </li>
+                            {!newData.category.length && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Pilih beberapa category</span> : null}
                             </ul>
                         </div>
                     </div>
                 </form>
             </div>
+            {isVisible?
+                <ModalAlerts className="rounded-[20px] bg-neutral-50 max-w-[500px] 
+                max-h-[440px] p-[32px] flex flex-col items-center gap-[32px]">
+                    <YesOrNo />
+                    <div className="flex flex-col gap-[12px] items-center">
+                        <h1 className="font-[700] text-[24px] text-neutral-900">Ingin menyimpan data ini?</h1>
+                        <h2 className="font-[400] text-[16px] text-neutral-900">Perubahan dari data sebelumnya akan tersimpan</h2>
+                    </div>
+                    <div className="flex gap-[24px]">
+                        <Button variant="secondary" children='Tidak' className='w-[206px] py-[12px]'
+                            onClick={() => setIsVisible(false)} />
+                        <Button variant="primary" children='Iya, Simpan' className='w-[206px] py-[12px]'
+                            onClick={() => handlePost()} />
+                    </div>
+                </ModalAlerts>
+            : null}
+            {isSaved?
+                <ModalAlerts className="rounded-[20px] bg-neutral-50 max-w-[500px] 
+                max-h-[440px] p-[32px] flex flex-col items-center gap-[32px]">
+                    <ProductSaved/>
+                    <div className="flex flex-col gap-[12px] items-center">
+                        <h1 className="font-[700] text-[24px] text-neutral-900">Data berhasil tersimpan!</h1>
+                        <h2 className="font-[400] text-[16px] text-neutral-900">Data tersimpan! Semua perubahan telah berhasil disimpan.</h2>
+                    </div>
+                    <div className="flex gap-[24px]">
+                        <Link to='/dashboard/products/'>
+                            <Button variant="primary" children='Tutup' className='w-[336px] py-[12px]'
+                            onClick={() => setIsSaved(false)}/>
+                        </Link>
+                    </div>
+                </ModalAlerts>
+            :null
+            }
         </AdminLayout>
     )
 };
