@@ -6,13 +6,22 @@ import NewUseFetch from "@/lib/hooks/newUseFetch";
 
 export default function ModalDeleteProducts({product_id}:any) {
     const navigate = useNavigate()
-    const { fetchData } = NewUseFetch<{ data: any }>();
-    function handleDelete(){
+    const { fetchData, error } = NewUseFetch<{ data: any }>();
+    async function handleDelete(){
         if (product_id !== null) {
-            fetchData(`admin/products/${product_id}`, {
-                method: "delete",
-            });
-            navigate('')
+            try{
+                await fetchData(`admin/products/${product_id}`, {
+                    method: "delete",
+                });
+                await fetchData(`products`, {
+                    method: "get",
+                });
+            }catch{
+                console.error(error)
+            }finally{
+                navigate('')
+                location.reload()
+            }
         }
     }
     return (

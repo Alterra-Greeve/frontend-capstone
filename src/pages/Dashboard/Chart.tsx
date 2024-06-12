@@ -129,7 +129,7 @@ const Chart = () => {
     setIsOpen(!isOpen);
   };
 
-  console.log(isOpen);
+  // console.log(isOpen);
 
   return (
     <section className="bg-neutral-50 w-full h-auto mt-[16px] p-[20px] relative">

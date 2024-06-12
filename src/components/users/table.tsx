@@ -33,7 +33,7 @@ const tableHeader: string[] = [
   "No.Telp",
   "Email",
   "Address",
-  "Create Date",
+  "Create At",
   "Membership",
   "",
 ];
@@ -46,7 +46,7 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
   const { data } = useAppSelector((state: RootState) => state.users);
 
   // Slice the data array to only include the items from start to end
-  const displayedData = data.slice(dataUsersShow.start-1, dataUsersShow.end);
+  const displayedData = data.slice(dataUsersShow.start - 1, dataUsersShow.end);
 
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -124,16 +124,18 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
                 <TableCell className="p-3 text-start">
                   {item.id.split("-")[0]}
                 </TableCell>
-                <TableCell className="px-3 text-start flex items-center gap-3">
-                  <div className="w-6 rounded-full bg-slate-300 border border-black">
-                    <img
-                      src={
-                        item.avatar_url || "@/assets/images/default-user.png"
-                      }
-                      className="w-full rounded-full h-6"
-                    />
+                <TableCell className="px-3 text-start">
+                  <div className="flex justify-start gap-3">
+                    <div className="w-6 rounded-full bg-slate-300 border border-black">
+                      <img
+                        src={
+                          item.avatar_url || "@/assets/images/default-user.png"
+                        }
+                        className="rounded-full h-6 w-6"
+                      />
+                    </div>
+                    {item.name || "-"}
                   </div>
-                  {item.name || "-"}
                 </TableCell>
 
                 <TableCell className="p-3 text-start">
@@ -151,7 +153,9 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
                 <TableCell className="p-3 text-start">
                   {item.address || "-"}
                 </TableCell>
-                <TableCell className="p-3 text-start">-</TableCell>
+                <TableCell className="p-3 text-start  min-w-[90px]">
+                  -
+                </TableCell>
                 <TableCell className="p-3 text-start">-</TableCell>
 
                 <TableCell className="p-3 text-center pe-4">

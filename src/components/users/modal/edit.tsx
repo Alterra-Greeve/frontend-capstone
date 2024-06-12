@@ -13,6 +13,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -31,12 +32,29 @@ interface EditUserModalProps {
 }
 
 const formSchema = z.object({
-  name: z.string().optional(),
-  username: z.string().optional(),
-  gender: z.string().optional(),
-  email: z.string().optional(),
-  phone: z.string().optional(),
-  address: z.string().optional(),
+  name: z.string().min(1, {
+    message: "Name cannot be empty",
+  }),
+  username: z.string().min(1, {
+    message: "Username cannot be empty",
+  }),
+  gender: z.string().min(1, {
+    message: "Gender cannot be empty",
+  }),
+  email: z
+    .string()
+    .email({
+      message: "Email must be a valid email address",
+    })
+    .min(1, {
+      message: "Email cannot be empty",
+    }),
+  phone: z.string().min(1, {
+    message: "Phone cannot be empty",
+  }),
+  address: z.string().min(1, {
+    message: "Address cannot be empty",
+  }),
 });
 
 export default function EditUserModal({
@@ -75,6 +93,7 @@ export default function EditUserModal({
         return; // Prevent form submission if data is invalid
       }
       setUserEdited(formData);
+      setAction("simpan");
     },
     []
   );
@@ -216,7 +235,7 @@ function UserForm({ form, data, setAction, handleFormSubmit }: UserFormProps) {
           <FormField
             control={form.control}
             name="name"
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <FormItem>
                 <FormLabel className="text-neutral-800">Name</FormLabel>
                 <FormControl className="flex items-center gap-3 w-full">
@@ -224,23 +243,33 @@ function UserForm({ form, data, setAction, handleFormSubmit }: UserFormProps) {
                     {...field}
                     value={field.value}
                     onChange={field.onChange}
-                    className="border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
+                    className={`${
+                      fieldState.error
+                        ? "border-danger-500"
+                        : "border-neutral-500"
+                    } focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg`}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             name="username"
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <FormItem>
                 <FormLabel className="text-neutral-800">Username</FormLabel>
                 <Input
                   {...field}
                   value={field.value}
                   onChange={field.onChange}
-                  className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
+                  className={`${
+                    fieldState.error
+                      ? "border-danger-500"
+                      : "border-neutral-500"
+                  } focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg`}
                 />
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -286,48 +315,64 @@ function UserForm({ form, data, setAction, handleFormSubmit }: UserFormProps) {
                     </FormItem>
                   </RadioGroup>
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             name="email"
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <FormItem>
                 <FormLabel className="text-neutral-800">Email</FormLabel>
                 <Input
                   {...field}
                   value={field.value}
                   onChange={field.onChange}
-                  className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
+                  className={`${
+                    fieldState.error
+                      ? "border-danger-500"
+                      : "border-neutral-500"
+                  } focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg`}
                 />
+                <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             name="phone"
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <FormItem>
                 <FormLabel className="text-neutral-800">No.Telp</FormLabel>
                 <Input
                   {...field}
                   value={field.value}
                   onChange={field.onChange}
-                  className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg"
+                  className={`${
+                    fieldState.error
+                      ? "border-danger-500"
+                      : "border-neutral-500"
+                  } focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg`}
                 />
+                <FormMessage />
               </FormItem>
             )}
           />
           <FormField
             name="address"
-            render={({ field }) => (
+            render={({ field, fieldState }) => (
               <FormItem>
                 <FormLabel className="text-neutral-800">Alamat</FormLabel>
                 <Input
                   {...field}
                   value={field.value}
                   onChange={field.onChange}
-                  className="min-w-full border-neutral-500 focus-visible:ring-transparent focus-visible:border-neutral-800"
+                  className={`${
+                    fieldState.error
+                      ? "border-danger-500"
+                      : "border-neutral-500"
+                  } focus-visible:ring-transparent focus-visible:border-neutral-800 rounded-lg`}
                 />
+                <FormMessage />
               </FormItem>
             )}
           />
@@ -340,11 +385,7 @@ function UserForm({ form, data, setAction, handleFormSubmit }: UserFormProps) {
             >
               Batal
             </Button>
-            <Button
-              type="submit"
-              className="px-12 rounded-lg"
-              onClick={() => setTimeout(() => setAction("simpan"), 200)}
-            >
+            <Button type="submit" className="px-12 rounded-lg">
               Simpan
             </Button>
           </DialogFooter>
