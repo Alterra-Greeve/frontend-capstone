@@ -39,20 +39,30 @@ const scrollToSection = (id: string) => {
 
 export default function Footer() {
   return (
-    <footer className="py-[34px] px-[64px] sticky top-0 bg-primary-500 w-full h-[200px] flex flex-row justify-between">
+    <footer className="py-[24px] px-[64px] sticky top-0 bg-primary-500 w-full h-auto flex flex-row justify-between">
       <Link className="flex justify-center items-center" to={"/"}>
         <img src={logo} alt="logo" />
       </Link>
       <div className="flex justify-end items-center gap-[23px]">
         {navItems.map((item, index) => (
-          <NavLink key={index} to={item.link} onClick={() => scrollToSection(`${item.label}`)}>
-            <h3 className="text-neutral-50 text-[16px] font-semibold">{item.label}</h3>
+          <NavLink
+            key={index}
+            to={item.link}
+            onClick={() => scrollToSection(`${item.label}`)}
+          >
+            <h3 className="text-neutral-50 text-[16px] font-semibold">
+              {item.label}
+            </h3>
           </NavLink>
         ))}
       </div>
       <div className="flex justify-end items-center gap-[10px]">
         {socialItems.map((item, index) => (
-          <Link to={item.link} key={index} className="w-[32px] h-[32px] bg-neutral-50 flex justify-center items-center rounded-full">
+          <Link
+            to={item.link}
+            key={index}
+            className="w-[32px] h-[32px] bg-neutral-50 flex justify-center items-center rounded-full"
+          >
             <img src={item.image} alt={`{${index}}`} />
           </Link>
         ))}
