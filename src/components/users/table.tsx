@@ -125,13 +125,13 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
                   {item.id.split("-")[0]}
                 </TableCell>
                 <TableCell className="px-3 text-start">
-                  <div className="flex justify-start gap-3">
-                    <div className="w-6 rounded-full bg-slate-300 border border-black">
+                  <div className="flex justify-start items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-slate-300 border border-black">
                       <img
                         src={
                           item.avatar_url || "@/assets/images/default-user.png"
                         }
-                        className="rounded-full h-6 w-6"
+                        className="rounded-full object-contain"
                       />
                     </div>
                     {item.name || "-"}
