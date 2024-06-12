@@ -35,7 +35,7 @@ export default function ModalProductsDetail({ product_id }: any) {
             navigate('')
         }
     }
-    console.log(productDetail?.images[0])
+    console.log(productDetail)
     return (
         loading ? 'Loading...' :
             <div
