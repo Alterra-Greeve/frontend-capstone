@@ -96,6 +96,7 @@ export default function EditProducts() {
                                 style="w-full"
                                 id="name"
                                 name="name"
+                                value={''}
                                 onChange={(e) => handleInput(e)}
                             />
                         </div>
@@ -107,6 +108,7 @@ export default function EditProducts() {
                                     style="w-[189px]"
                                     id="price"
                                     name="price"
+                                    value={''}
                                     onChange={(e) => handleInput(e)}
                                 />
                             </div>
@@ -117,6 +119,7 @@ export default function EditProducts() {
                                     style="w-[189px]"
                                     id="stock"
                                     name="stock"
+                                    value={''}
                                     onChange={(e) => handleInput(e)}
                                 />
                             </div>
@@ -127,6 +130,7 @@ export default function EditProducts() {
                                     style="w-[189px]"
                                     id="coin"
                                     name="coin"
+                                    value={''}
                                     onChange={(e) => handleInput(e)}
                                 />
                             </div>
@@ -137,6 +141,7 @@ export default function EditProducts() {
                                 style="w-[587px] h-[121px]"
                                 id="description"
                                 name="description"
+                                value={''}
                                 onChange={(e) => handleInput(e)}
                             />
                         </div>

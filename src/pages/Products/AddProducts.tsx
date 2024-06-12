@@ -117,7 +117,7 @@ export default function AddProducts() {
                                 id="name"
                                 name="name"
                                 isEmpty={isEmpty}
-                                data={newData.name}
+                                value={newData.name}
                                 onChange={(e) => handleInput(e)}
                             />
                             {!newData.name && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan nama produk</span> : <></>}
@@ -131,7 +131,7 @@ export default function AddProducts() {
                                     id="price"
                                     name="price"
                                     isEmpty={isEmpty}
-                                    data={newData.price}
+                                    value={newData.price}
                                     onChange={(e) => handleInput(e)}
                                 />
                                 {!newData.price && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah harga</span> : <></>}
@@ -144,7 +144,7 @@ export default function AddProducts() {
                                     id="stock"
                                     name="stock"
                                     isEmpty={isEmpty}
-                                    data={newData.stock}
+                                    value={newData.stock}
                                     onChange={(e) => handleInput(e)}
                                 />
                                 {!newData.stock && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah stok</span> : <></>}
@@ -157,7 +157,7 @@ export default function AddProducts() {
                                     id="coin"
                                     name="coin"
                                     isEmpty={isEmpty}
-                                    data={newData.coin}
+                                    value={newData.coin}
                                     onChange={(e) => handleInput(e)}
                                 />
                                 {!newData.coin && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah koin</span> : <></>}
@@ -170,7 +170,7 @@ export default function AddProducts() {
                                 id="description"
                                 name="description"
                                 isEmpty={isEmpty}
-                                data={newData.description}
+                                value={newData.description}
                                 onChange={(e) => handleInput(e)}
                             />
                             {!newData.description && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan isi deskripsi</span> : <></>}
