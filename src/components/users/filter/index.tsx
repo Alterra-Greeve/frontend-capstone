@@ -15,7 +15,7 @@ import {
 import { FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 
-import FilterIcon from "@/assets/icons/Filter.svg";
+import FilterOutline from "@/assets/icons/FilterOutline.svg";
 
 import {
   FilterInputField,
@@ -55,7 +55,7 @@ export default function UsersFilter() {
   return (
     <Popover>
       <PopoverTrigger className="hover:bg-slate-300 min-w-6" id="popOverFilter">
-        <FilterIcon />
+        <FilterOutline />
       </PopoverTrigger>
 
       <PopoverContent className="w-sm absolute left-6 -top-10 text-neutral-900 p-3 rounded-xl">
