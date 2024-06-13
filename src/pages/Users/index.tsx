@@ -1,15 +1,31 @@
+"use client";
+
 import AdminLayout from "@/layouts/AdminLayout";
 
 import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { getUsers } from "@/lib/redux/api/users";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import TableProducts from "@/components/users/table";
 import Header from "@/components/users/header";
+import Paging from "@/components/pagination";
+import FilterItem from "@/components/users/filter/filterItems";
+import Loading from "@/components/loading";
+import { useToast } from "@/components/ui/use-toast";
+import { Toaster } from "@/components/ui/toaster";
+import CheckCircle from "@/assets/icons/checkCircle";
+import CrossCircle from "@/assets/icons/crossCircle";
 
 export default function UsersPage() {
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((state: RootState) => state.users);
+  const { isLoading, data, message, isError } = useAppSelector(
+    (state: RootState) => state.users
+  );
+  const [dataUsersShow, setDataUsersShow] = useState({
+    start: 0,
+    end: 10,
+  });
+  const { toast } = useToast();
 
   useEffect(() => {
     (async () => {
@@ -19,25 +35,40 @@ export default function UsersPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    if (message !== "") {
+      toast({
+        icon: isError ? <CrossCircle /> : <CheckCircle />,
+        variant: isError ? "destructive" : "default",
+        description: message,
+      });
+    }
+  }, [isError, message]);
+
   if (isLoading) {
-    return <AdminLayout>loading</AdminLayout>
+    return (
+      <AdminLayout>
+        <Loading />
+      </AdminLayout>
+    );
   }
 
   return (
     <AdminLayout>
       <div className="p-6">
         <Header />
-        <TableProducts />
-      </div>
-
-      {/* <Paging
-          dataLength={data?.data.length}
+        <FilterItem />
+        <TableProducts dataUsersShow={dataUsersShow} />
+        <Paging
+          dataLength={data?.length}
           amouthDataDisplayed={10}
           className={"my-4"}
           setDataShow={(event: { start: number; end: number }) => {
-            console.log(`Start : ${event.start} , end : ${event.end}`);
+            setDataUsersShow(event);
           }}
-        /> */}
+        />
+        <Toaster />
+      </div>
     </AdminLayout>
   );
 }

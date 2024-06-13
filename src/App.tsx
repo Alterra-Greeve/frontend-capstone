@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import DataImpact from "./pages/DataImpact";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import LoginPage from "./pages/auth/login";
@@ -10,6 +10,8 @@ import UsersPage from "./pages/Users/index";
 import ProductsPage from "./pages/Products";
 import ChallengesPage from "./pages/Challenges";
 import DashboardPage from "./pages/Dashboard";
+import ForumPage from "./pages/forums";
+import ForumDetail from "./pages/forums/forum-detail";
 
 export default function App() {
   return (
@@ -23,6 +25,10 @@ export default function App() {
       <Route path="/dashboard" element={<ProtectedRoutes />}>
         <Route index element={<DashboardPage />} />
         <Route path="users" element={<UsersPage />} />
+        {/* Forum */}
+        <Route path="forum-discussion" element={<ForumPage />} />
+        <Route path="forum-discussion/:forum_id" element={<ForumDetail />} />
+        {/* Forum */}
         <Route path="products" element={<ProductsPage />} />
         <Route path="products/add-products" element={<AddProducts />} />
         <Route path="products/edit-products/:id" element={<EditProducts />} />
@@ -31,6 +37,7 @@ export default function App() {
         <Route path="data-impact/order" element={<DataImpactOrder />} />
         <Route path="data-impact/challenge" element={<DataImpactChallenge />} />
       </Route>
+      <Route path="/" element={<Navigate to="/auth/login" />} />
       <Route path="/auth/login" element={<LoginPage />} />
     </Routes>
   );

@@ -8,6 +8,7 @@ import Button from "@/components/Button/Button";
 import TableProducts from "./TableProducts";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Modal from "./modal";
 
 export default function ProductsPage() {
   const { loading, error, data } = useFetch("products", { method: 'get' });
@@ -18,14 +19,14 @@ export default function ProductsPage() {
   return (
     <>
       <AdminLayout>
-        <div className="bg-[#F5F5F5] flex flex-col gap-[16px] h-[calc(100vh-90px)]
-        relative overflow-auto">
+        <div className="bg-[#F5F5F5] flex flex-col gap-[16px] 
+        relative">
           <div className="flex justify-between pt-[24px] mx-[24px] border-b-[0.5px] pb-[16px]">
             <SearchProducts />
             <div className="flex gap-[8px]">
-              <Button variant="secondary" icon={<Download />}>Export</Button>
-              <Button variant="primary" icon={<Plus />} onClick={() => navigate("add-products")}>Tambahkan Produk Baru</Button>
-            </div>
+              <Button variant="secondary" className='p-[8px]' icon={<Download/>}>Export</Button>
+              <Button variant="primary" className='p-[8px]' icon={<Plus/>} onClick={() => navigate("add-products")}>Tambahkan Produk Baru</Button>
+          </div>
           </div>
           {/* <hr /> */}
           <TableProducts data={data} dataShow={dataShow} />
@@ -40,7 +41,7 @@ export default function ProductsPage() {
           </div>
         </div>
       </AdminLayout>
-      {/* <Modal/> */}
+      <Modal/>
     </>
   )
 }
