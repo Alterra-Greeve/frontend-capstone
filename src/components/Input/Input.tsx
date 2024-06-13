@@ -34,7 +34,7 @@ export default function Input({type, style, id, name, isEmpty, value, placeholde
             :
             `rounded-[7px] p-[8px] border-[0.5px] border-solid ${isFocus? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`} 
             onFocus={() => setIsFocus(true)} onBlur={handleInput} onChange={handleInput} id={id} name={name}
-            placeholder={placeholder}/>
+            placeholder={placeholder} value={value}/>
             {isEmpty && !value || isEmpty && !value.length?
                 <span className="absolute right-[6px] top-[6px] w-[24px] h-[24px]">
                     <DangerIcon/>

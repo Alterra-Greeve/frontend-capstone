@@ -50,10 +50,14 @@ export default function AddProducts() {
     }
     const { postData } = useFetch("products", { method: "post" });
     function handlePost(){
-        postData(newData);
+        const postDataCopy = { ...newData };
+        postDataCopy.price = parseInt(newData.price);
+        postDataCopy.stock = parseInt(newData.stock);
+        postDataCopy.coin = parseInt(newData.coin);
+        postData(postDataCopy);
         setIsVisible(false)
         setIsSaved(true)
-        console.log(newData)
+        console.log(postDataCopy)
     }
 
     return (
@@ -92,19 +96,19 @@ export default function AddProducts() {
                         <div className="flex flex-col gap-[5px]">
                             <AddImage imageSize="big" setNewData={setNewData} newData={newData} />
                             <div className="flex gap-[4px]">
-                                {newData.image_url[0] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
+                                {newData?.image_url[0] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
                                     : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
-                                {newData.image_url[1] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
+                                {newData?.image_url[1] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
                                     : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
-                                {newData.image_url[2] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
+                                {newData?.image_url[2] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
                                     : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
-                                {newData.image_url[3] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
+                                {newData?.image_url[3] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
                                     : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
-                                {newData.image_url[4] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
+                                {newData?.image_url[4] ? <AddImage imageSize="small" setNewData={setNewData} newData={newData} />
                                     : <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200"></div>}
                             </div>
                         </div>
-                        {!newData.image_url.length && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Pilih beberapa gambar</span> : <></>}
+                        {!newData.image_url.length && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Pilih beberapa gambar</span> : null}
                     </div>
                     <div
                         className="text-[12px] font-[600] text-neutral-800 flex flex-col gap-[8px]"
@@ -120,7 +124,7 @@ export default function AddProducts() {
                                 value={newData.name}
                                 onChange={(e) => handleInput(e)}
                             />
-                            {!newData.name && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan nama produk</span> : <></>}
+                            {!newData.name && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan nama produk</span> : null}
                         </div>
                         <div className="flex gap-[10px]">
                             <div className="flex flex-col">
@@ -134,7 +138,7 @@ export default function AddProducts() {
                                     value={newData.price}
                                     onChange={(e) => handleInput(e)}
                                 />
-                                {!newData.price && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah harga</span> : <></>}
+                                {!newData.price && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah harga</span> : null}
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="stock">Stok</label>
@@ -147,7 +151,7 @@ export default function AddProducts() {
                                     value={newData.stock}
                                     onChange={(e) => handleInput(e)}
                                 />
-                                {!newData.stock && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah stok</span> : <></>}
+                                {!newData.stock && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah stok</span> : null}
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="coin">Koin</label>
@@ -160,7 +164,7 @@ export default function AddProducts() {
                                     value={newData.coin}
                                     onChange={(e) => handleInput(e)}
                                 />
-                                {!newData.coin && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah koin</span> : <></>}
+                                {!newData.coin && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan jumlah koin</span> : null}
                             </div>
                         </div>
                         <div className="flex flex-col">
@@ -173,13 +177,13 @@ export default function AddProducts() {
                                 value={newData.description}
                                 onChange={(e) => handleInput(e)}
                             />
-                            {!newData.description && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan isi deskripsi</span> : <></>}
+                            {!newData.description && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Masukkan isi deskripsi</span> : null}
                         </div>
                         <div>
                             <label htmlFor="">Membantu</label>
                             <ul className="flex flex-col">
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Pemanasan Global" id="" value="Pemanasan Global" onChange={(e) => handleCheck(e)} />
+                                    <input type="checkbox" name="Pemanasan Global" id="" value="b5d07366-3b31-4011-95e3-34735b0b61f8" onChange={(e) => handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatEarth />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -188,7 +192,7 @@ export default function AddProducts() {
                                     </div>
                                 </li>
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Hemat Uang" id="" value="Hemat Uang" onChange={(e) => handleCheck(e)} />
+                                    <input type="checkbox" name="Hemat Uang" id="" value="83808762-e2b8-4b34-a1eb-0ed8d4fda3dd" onChange={(e) => handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatMoney />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -197,7 +201,7 @@ export default function AddProducts() {
                                     </div>
                                 </li>
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Memperluas Wawasan" id="" value="Memperluas Wawasan" onChange={(e) => handleCheck(e)} />
+                                    <input type="checkbox" name="Memperluas Wawasan" id="" value="e8e714bd-c34e-4278-980c-39bd1f55b5fb" onChange={(e) => handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatBrain />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -206,7 +210,7 @@ export default function AddProducts() {
                                     </div>
                                 </li>
                                 <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                    <input type="checkbox" name="Mengurangi Limbah" id="" value="Mengurangi Limbah" onChange={(e) => handleCheck(e)} />
+                                    <input type="checkbox" name="Mengurangi Limbah" id="" value="7d34a5fa-e2cf-466d-9f01-d731f6967082" onChange={(e) => handleCheck(e)} />
                                     <div className="p-[4px] flex gap-[4px] items-center">
                                         <CatRecycle />
                                         <span className="text-neutral-900 text-[16px] font-[500]">
@@ -217,7 +221,7 @@ export default function AddProducts() {
                                     data-[state=checked]:bg-neutral-50 data-[state=checked]:text-primary-500" 
                                     onChange={handleCheck}/> */}
                                 </li>
-                            {!newData.category.length && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Pilih beberapa category</span> : <></>}
+                            {!newData.category.length && isEmpty? <span className="text-danger-500 text-[10px] font-[400]">Pilih beberapa category</span> : null}
                             </ul>
                         </div>
                     </div>
@@ -238,7 +242,7 @@ export default function AddProducts() {
                             onClick={() => handlePost()} />
                     </div>
                 </ModalAlerts>
-            : <></>}
+            : null}
             {isSaved?
                 <ModalAlerts className="rounded-[20px] bg-neutral-50 max-w-[500px] 
                 max-h-[440px] p-[32px] flex flex-col items-center gap-[32px]">
@@ -254,7 +258,7 @@ export default function AddProducts() {
                         </Link>
                     </div>
                 </ModalAlerts>
-            :<></>
+            :null
             }
         </AdminLayout>
     );
