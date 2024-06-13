@@ -9,7 +9,7 @@ import PartnersSection from "./PartnersSection";
 
 const Home = () => {
   return (
-    <div className="realtive">
+    <div>
       <HeroSection />
       <PartnersSection />
       <AboutUsSection />
