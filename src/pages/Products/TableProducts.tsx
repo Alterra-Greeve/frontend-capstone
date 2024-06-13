@@ -22,7 +22,7 @@ export default function TableProducts({data, dataShow}:any) {
         setIsOpen(!isOpen);
         setSelectedDropDown(id);
     }
-    console.log(data.data)
+    // console.log(data.data)
     return (
         <div className="mx-[24px] rounded-[8px] bg-primary-100 ">
             <Table>

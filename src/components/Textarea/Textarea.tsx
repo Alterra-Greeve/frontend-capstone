@@ -6,7 +6,7 @@ type TextAreaProps = {
     id: string;
     name: string;
     isEmpty?: boolean;
-    value: any;
+    value?: any;
     onChange: (e: string) => void;
 };
 export default function Textarea({style, id, name, isEmpty, value, onChange}: TextAreaProps) {
