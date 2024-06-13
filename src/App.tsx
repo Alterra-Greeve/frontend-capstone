@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import DataImpact from "./pages/DataImpact";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import LoginPage from "./pages/auth/login";
@@ -37,6 +37,7 @@ export default function App() {
         <Route path="data-impact/order" element={<DataImpactOrder />} />
         <Route path="data-impact/challenge" element={<DataImpactChallenge />} />
       </Route>
+      <Route path="/" element={<Navigate to="/auth/login" />} />
       <Route path="/auth/login" element={<LoginPage />} />
     </Routes>
   );
