@@ -1,9 +1,12 @@
 import AdminLayout from "@/layouts/AdminLayout";
 import { GreeveApi } from "@/lib/axios";
-import { useEffect, useState } from "react";
+import { 
+  useEffect, 
+  // useState 
+} from "react";
 
 const DataImpactOrder = () => {
-  const [data, setData] = useState({})
+  // const [data, setData] = useState({})
   async function fetchDataImpact() {
     const response = await GreeveApi.get(`admin/impact`)
     console.log(response.data)
