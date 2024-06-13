@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import hero1 from "../../assets/images/hero5.png";
 import hero2 from "../../assets/images/hero4.png";
 import hero3 from "../../assets/images/hero6.png";
-import ornamen from "../../assets/images/ornamen2.png";
 
 const HeroSection = () => {
   const scrollToSection = (id: string) => {
@@ -13,21 +12,17 @@ const HeroSection = () => {
     }
   };
   return (
-    <section className="flex justify-between py-[60px] px-[64px] relative">
-      <img
-        className="absolute bottom-0 right-0 -z-50"
-        src={ornamen}
-        alt="ornamen"
-      />
-      <div className="w-[613px] flex px-[24px] flex-col justify-start gap-[45px] mt-[50px]">
-        <h3 className="text-[64px] text-primary-500 font-normal gap-0 leading-tight">
-          Together, We Can Create a{" "}
+    <section className="flex justify-between 2xl:justify-center py-[60px] px-[64px] relative">
+      <div className="max-w-[547px] flex px-[24px] flex-col justify-start gap-[45px] mt-[50px]">
+        <h3 className="text-[64px] text-primary-500 font-normal gap-0 leading-none">
+          Together, We <br /> Can Create a <br />
           <span className="font-bold">Greener Future</span>
         </h3>
-        <p className="text-neutral-600 text-[25px] font-normal">
-          Bergabunglah dengan gerakan ramah lingkungan, berbelanja secara
-          bertanggung jawab, dan dapatkan imbalan atas pilihan Anda yang ramah
-          lingkungan.
+        <p className="text-neutral-800 text-[20px] font-normal text-justify">
+          Bergabunglah dengan gerakan ramah lingkungan, berbelanja{" "}
+          <span className="font-semibold">secara bertanggung jawab</span>, dan{" "}
+          <span className="font-semibold">dapatkan imbalan</span> atas pilihan
+          Anda yang ramah lingkungan.
         </p>
         <Button
           onClick={() => scrollToSection("Download")}
@@ -36,18 +31,10 @@ const HeroSection = () => {
           Mulai Sekarang
         </Button>
       </div>
-      <div className="relative max-w-[50%]">
-        <img className="w-auto h-auto absolute" src={hero1} alt="hero" />
-        <img
-          className="w-auto h-auto absolute right-[300px]"
-          src={hero2}
-          alt="hero"
-        />
-        <img
-          className="w-auto h-auto absolute  right-[100px]"
-          src={hero3}
-          alt="hero"
-        />
+      <div className="flex gap-[-1rem] max-w-1/2-screen justify-center items-center mt-20">
+        <img className="w-auto h-[477px]" src={hero1} alt="hero" />
+        <img className="w-auto h-[477px]" src={hero2} alt="hero" />
+        <img className="w-auto h-[477px]" src={hero3} alt="hero" />
       </div>
     </section>
   );
