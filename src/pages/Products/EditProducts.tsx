@@ -18,12 +18,12 @@ import YesOrNo from '@/assets/icons/YesOrNo.svg'
 export default function EditProducts() {
     const {id} = useParams()
     const navigate = useNavigate()
-    const [checked, setChecked] = useState({
-        earth: false,
-        money: false,
-        brain: false,
-        recycle: false
-    })
+    // const [checked, setChecked] = useState({
+    //     earth: false,
+    //     money: false,
+    //     brain: false,
+    //     recycle: false
+    // })
     const [isVisible, setIsVisible] = useState(false)
     const [isSaved, setIsSaved] = useState(false)
     const [isEmpty, setIsEmpty] = useState(false)
@@ -37,11 +37,11 @@ export default function EditProducts() {
         const { value, name } = e.target;
         setNewData({ ...newData, [name]: value });
     }
-    function handleCheck(e: any) {
-        const { checked, value } = e.target;
-        checked ? setNewData({ ...newData, category: [...newData.category, value] })
-            : setNewData({ ...newData, category: newData.category.filter((item: any) => item !== value) })
-    }
+    // function handleCheck(e: any) {
+    //     const { checked, value } = e.target;
+    //     checked ? setNewData({ ...newData, category: [...newData.category, value] })
+    //         : setNewData({ ...newData, category: newData.category.filter((item: any) => item !== value) })
+    // }
     function handleValidation(){
         const {name, price, stock, image_url, description, coin, category} = newData
         if(name === '' || price === 0 || stock === 0 || image_url.length === 0
@@ -216,8 +216,8 @@ export default function EditProducts() {
                                 <label htmlFor="">Membantu</label>
                                 <ul className="flex flex-col">
                                     <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                        <input type="checkbox" name="Pemanasan Global" id="" value="b5d07366-3b31-4011-95e3-34735b0b61f8" 
-                                        onChange={(e) => handleCheck(e)} checked={checked.earth}/>
+                                        {/* <input type="checkbox" name="Pemanasan Global" id="" value="b5d07366-3b31-4011-95e3-34735b0b61f8" 
+                                        onChange={(e) => handleCheck(e)} checked={checked.earth}/> */}
                                         <div className="p-[4px] flex gap-[4px] items-center">
                                             <CatEarth />
                                             <span className="text-neutral-900 text-[16px] font-[500]">
@@ -226,8 +226,8 @@ export default function EditProducts() {
                                         </div>
                                     </li>
                                     <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                        <input type="checkbox" name="Hemat Uang" id="" value="83808762-e2b8-4b34-a1eb-0ed8d4fda3dd" onChange={(e) => handleCheck(e)} 
-                                        checked={checked.money}/>
+                                        {/* <input type="checkbox" name="Hemat Uang" id="" value="83808762-e2b8-4b34-a1eb-0ed8d4fda3dd" onChange={(e) => handleCheck(e)} 
+                                        checked={checked.money}/> */}
                                         <div className="p-[4px] flex gap-[4px] items-center">
                                             <CatMoney />
                                             <span className="text-neutral-900 text-[16px] font-[500]">
@@ -236,8 +236,8 @@ export default function EditProducts() {
                                         </div>
                                     </li>
                                     <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                        <input type="checkbox" name="Memperluas Wawasan" id="" value="e8e714bd-c34e-4278-980c-39bd1f55b5fb" onChange={(e) => handleCheck(e)} 
-                                        checked={checked.brain}/>
+                                        {/* <input type="checkbox" name="Memperluas Wawasan" id="" value="e8e714bd-c34e-4278-980c-39bd1f55b5fb" onChange={(e) => handleCheck(e)} 
+                                        checked={checked.brain}/> */}
                                         <div className="p-[4px] flex gap-[4px] items-center">
                                             <CatBrain />
                                             <span className="text-neutral-900 text-[16px] font-[500]">
@@ -246,8 +246,8 @@ export default function EditProducts() {
                                         </div>
                                     </li>
                                     <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                        <input type="checkbox" name="Mengurangi Limbah" id="" value="7d34a5fa-e2cf-466d-9f01-d731f6967082" onChange={(e) => handleCheck(e)} 
-                                        checked={checked.recycle}/>
+                                        {/* <input type="checkbox" name="Mengurangi Limbah" id="" value="7d34a5fa-e2cf-466d-9f01-d731f6967082" onChange={(e) => handleCheck(e)} 
+                                        checked={checked.recycle}/> */}
                                         <div className="p-[4px] flex gap-[4px] items-center">
                                             <CatRecycle />
                                             <span className="text-neutral-900 text-[16px] font-[500]">
