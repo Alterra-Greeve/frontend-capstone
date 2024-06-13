@@ -15,5 +15,5 @@ export default function ProtectedRoutes() {
 
   return session === "authenticated"
     ? <Outlet />
-    : <Navigate to="/auth/login" />
+    : <Navigate to="/auth/login" replace />
 }

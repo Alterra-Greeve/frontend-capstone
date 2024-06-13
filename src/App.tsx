@@ -1,8 +1,4 @@
-import { Routes, Route } from "react-router-dom";
-import Challenges from "./pages/Challenges/index";
-import Dashboard from "./pages/Dashboard/index";
-import Products from "./pages/Products/index";
-import Users from "./pages/Users/index";
+import { Routes, Route, Navigate } from "react-router-dom";
 import DataImpact from "./pages/DataImpact";
 import ProtectedRoutes from "./pages/ProtectedRoutes";
 import LoginPage from "./pages/auth/login";
@@ -10,6 +6,12 @@ import AddProducts from "./pages/Products/AddProducts";
 import EditProducts from "./pages/Products/EditProducts";
 import DataImpactOrder from "./pages/DataImpactOrder";
 import DataImpactChallenge from "./pages/DataImpactChallenge";
+import UsersPage from "./pages/Users/index";
+import ProductsPage from "./pages/Products";
+import ChallengesPage from "./pages/Challenges";
+import DashboardPage from "./pages/Dashboard";
+import ForumPage from "./pages/forums";
+import ForumDetail from "./pages/forums/forum-detail";
 
 export default function App() {
   return (
@@ -21,16 +23,21 @@ export default function App() {
        * pastiin tambahin di dalam prefix /dashboard
        */}
       <Route path="/dashboard" element={<ProtectedRoutes />}>
-        <Route index element={<Dashboard />} />
-        <Route path="users" element={<Users />} />
-        <Route path="products" element={<Products />} />
+        <Route index element={<DashboardPage />} />
+        <Route path="users" element={<UsersPage />} />
+        {/* Forum */}
+        <Route path="forum-discussion" element={<ForumPage />} />
+        <Route path="forum-discussion/:forum_id" element={<ForumDetail />} />
+        {/* Forum */}
+        <Route path="products" element={<ProductsPage />} />
         <Route path="products/add-products" element={<AddProducts />} />
         <Route path="products/edit-products/:id" element={<EditProducts />} />
-        <Route path="challenges" element={<Challenges />} />
+        <Route path="challenges" element={<ChallengesPage />} />
         <Route path="data-impact" element={<DataImpact />} />
         <Route path="data-impact/order" element={<DataImpactOrder />} />
         <Route path="data-impact/challenge" element={<DataImpactChallenge />} />
       </Route>
+      <Route path="/" element={<Navigate to="/auth/login" />} />
       <Route path="/auth/login" element={<LoginPage />} />
     </Routes>
   );
