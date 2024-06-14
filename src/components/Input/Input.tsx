@@ -7,7 +7,7 @@ type InputProps = {
     id: string;
     name: string;
     isEmpty?: boolean;
-    value: any;
+    value?: any;
     placeholder?: any;
     onChange: (e: string | number) => void;
 };

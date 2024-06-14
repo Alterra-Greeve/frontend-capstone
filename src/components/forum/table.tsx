@@ -20,6 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 const ForumTable = () => {
   const { discussions = [] } = useAppSelector((state) => state.forum);
+  
   const navigate = useNavigate();
 
   return (
@@ -71,8 +72,8 @@ const ForumTable = () => {
                 {item.author.name}
               </TableCell>
               <TableCell className=" p-3 text-start">
-                <div className="flex gap-2">
-                  <div className="w-6 rounded-full bg-slate-300 border border-black">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-full bg-slate-300 border border-black">
                     <img
                       src={
                         item.author.avatar_url ||
@@ -84,7 +85,7 @@ const ForumTable = () => {
                   {item.author.name || "-"}
                 </div>
               </TableCell>
-              <TableCell className="max-w-6 p-3 text-center pe-4">
+              <TableCell className="max-w-6 p-3 text-center pe-8">
                 <DropdownMenu>
                   <DropdownMenuTrigger className="outline-none hover:bg-neutral-300 py-2 rounded-lg flex justify-center items-center">
                     <MoreIcon />

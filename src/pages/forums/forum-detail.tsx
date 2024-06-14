@@ -10,6 +10,8 @@ const ForumDetail = () => {
   const { forum_id } = useParams();
   const navigate = useNavigate();
   const { discussionsDetail, loading } = useAppSelector((state) => state.forum);
+  console.log(discussionsDetail);
+  
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -42,7 +44,7 @@ const ForumDetail = () => {
           </div>
           <div className="flex flex-col gap-3">
             {/* <h1 className="text-xl">Message</h1> */}
-            {discussionsDetail.forum_messages.map((item, index) => (
+            {discussionsDetail?.forum_messages?.map((item, index) => (
               <div
                 key={index}
                 className="flex flex-col gap-2 p-4 rounded-[7px] border-[0.3px] border-neutral-300 bg-neutral-50"
