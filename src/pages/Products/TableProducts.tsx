@@ -22,7 +22,7 @@ export default function TableProducts({data, dataShow}:any) {
         setIsOpen(!isOpen);
         setSelectedDropDown(id);
     }
-    // console.log(data.data)
+    console.log(data.data[0].category)
     return (
         <div className="mx-[24px] rounded-[8px] bg-primary-100 ">
             <Table>
@@ -47,7 +47,7 @@ export default function TableProducts({data, dataShow}:any) {
                                     <TableRow className={i%2 === 0? 'bg-neutral-50' : 'bg-neutral-200'} key={i}>
                                         <TableCell className="p-[12px]">{item.product_id}</TableCell>
                                         <TableCell className="p-[12px]">
-                                            <img src={item.images[0].image_url} className="w-[24px] h-[24px] rounded-[24px]"></img>
+                                            <img src={item.image_url[0]} className="w-[24px] h-[24px] rounded-[24px]"></img>
                                         </TableCell>
                                         <TableCell className="p-[12px]">{item.name}</TableCell>
                                         <TableCell className="p-[12px]">{item.price}</TableCell>
@@ -56,19 +56,10 @@ export default function TableProducts({data, dataShow}:any) {
                                         <TableCell className="p-[12px]">{item.description}</TableCell>
                                         <TableCell className="py-[12px]">
                                             <div className="flex gap-[4px]">
-                                                {item?.category.map((item:any)=>{
-                                                    if(item.impact_category.name === 'Mengurangi Pemanasan Global'){
-                                                        return <CatEarth/>
-                                                    }else if(item.impact_category.name === 'Hemat Uang'){
-                                                        return <CatMoney/>
-                                                    }else if(item.impact_category.name === 'Perluas Wawasan'){
-                                                        return <CatBrain/>
-                                                    }else if(item.impact_category.name === 'Mengurangi Limbah'){
-                                                        return <CatRecycle/>
-                                                    }else{
-                                                        return null
-                                                    }
-                                                })}
+                                                {item.category.includes('Mengurangi Pemanasan Global') ? <CatEarth/> : null}
+                                                {item.category.includes('Hemat Uang') ? <CatMoney/> : null}
+                                                {item.category.includes('Perluas Wawasan') ? <CatBrain/> : null}
+                                                {item.category.includes('Mengurangi Limbah') ? <CatRecycle/> : null}
                                             </div>
                                         </TableCell>
                                         <TableCell className="p-[12px]">{item.created_at}</TableCell>
