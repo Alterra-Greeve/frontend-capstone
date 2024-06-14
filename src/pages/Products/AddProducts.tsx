@@ -62,7 +62,7 @@ export default function AddProducts() {
 
     return (
         <AdminLayout>
-            <div className="flex flex-col gap-[16px] bg-neutral-100 p-[24px] h-[calc(100vh-90px)]">
+            <div className="flex flex-col gap-[16px] bg-primary-50 p-[24px] h-[calc(100vh-90px)]">
                 <div className="flex justify-between">
                     <button
                         className="p-[8px] flex gap-[4px] items-center text-neutral-900 
