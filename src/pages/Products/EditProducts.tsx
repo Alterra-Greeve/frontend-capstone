@@ -74,7 +74,7 @@ export default function EditProducts() {
         }
     }, [id]);
 
-    console.log(newData?.image_url)
+    console.log(newData)
     return (
         <AdminLayout>
             {/* {loading? 'loading..' : */}
