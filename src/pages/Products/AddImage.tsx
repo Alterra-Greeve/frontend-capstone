@@ -44,8 +44,7 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
     }
     // array yang dibalikin nanti jadi length yg nentuin pergerakan 
     // style dari border add photo sama no photo
-    // console.log('foto',photo)
-    console.log(photo)
+    // console.log(photo)
     if (imageSize === 'big') {
         if (!selectedFile) {
             return (
