@@ -7,7 +7,6 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import SeeMore from '@/assets/icons/More.svg'
-import Avatar from '@/assets/icons/avatar.svg'
 import CatEarth from '@/assets/icons/catEarth.svg'
 import CatMoney from '@/assets/icons/catMoney.svg'
 import CatBrain from '@/assets/icons/catBrains.svg'
@@ -23,6 +22,7 @@ export default function TableProducts({data, dataShow}:any) {
         setIsOpen(!isOpen);
         setSelectedDropDown(id);
     }
+    console.log(data.data[0].category)
     return (
         <div className="mx-[24px] rounded-[8px] bg-primary-100 ">
             <Table>
@@ -47,7 +47,7 @@ export default function TableProducts({data, dataShow}:any) {
                                     <TableRow className={i%2 === 0? 'bg-neutral-50' : 'bg-neutral-200'} key={i}>
                                         <TableCell className="p-[12px]">{item.product_id}</TableCell>
                                         <TableCell className="p-[12px]">
-                                            <Avatar/>
+                                            <img src={item.image_url[0]} className="w-[24px] h-[24px] rounded-[24px]"></img>
                                         </TableCell>
                                         <TableCell className="p-[12px]">{item.name}</TableCell>
                                         <TableCell className="p-[12px]">{item.price}</TableCell>
@@ -56,15 +56,15 @@ export default function TableProducts({data, dataShow}:any) {
                                         <TableCell className="p-[12px]">{item.description}</TableCell>
                                         <TableCell className="py-[12px]">
                                             <div className="flex gap-[4px]">
-                                                <CatEarth/>
-                                                <CatMoney/>
-                                                <CatBrain/>
-                                                <CatRecycle/>
+                                                {item.category.includes('Mengurangi Pemanasan Global') ? <CatEarth/> : null}
+                                                {item.category.includes('Hemat Uang') ? <CatMoney/> : null}
+                                                {item.category.includes('Perluas Wawasan') ? <CatBrain/> : null}
+                                                {item.category.includes('Mengurangi Limbah') ? <CatRecycle/> : null}
                                             </div>
                                         </TableCell>
                                         <TableCell className="p-[12px]">{item.created_at}</TableCell>
                                         <TableCell className="p-[12px] relative">
-                                            <div className="flex gap-[12px]">
+                                            <div className="flex gap-[12px] items-center">
                                                 <span>12/05/24</span>
                                                 <div className="w-[24px] h-[24px] cursor-pointer" onClick={() => handleOpen(item.product_id)}>
                                                     <SeeMore/>

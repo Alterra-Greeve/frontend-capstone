@@ -1,8 +1,15 @@
 import Search from '@/assets/icons/Search.svg'
 import SearchFocus from '@/assets/icons/SearchFocus.svg'
 import { useState } from 'react'
+// import { useNavigate } from 'react-router-dom'
 
-export default function SearchBar() {
+type SearchProps = {
+  value?: any
+  onChange: (e: any) => void
+}
+
+export default function SearchBar({onChange, value}:SearchProps) {
+  // const navigate = useNavigate()
   const [placeHolder, setPlaceHolder] = useState("Cari data produk")
   const [result, setResult] = useState("")
   const [isFocus, setIsFocus] = useState(false)
@@ -10,6 +17,7 @@ export default function SearchBar() {
     const { value } = e.target
     setResult(value)
     setIsFocus(true)
+    onChange(e)
     if (!result) {
       handleBlur()
     }
@@ -31,7 +39,7 @@ export default function SearchBar() {
       </div>
       <input type="text" placeholder={placeHolder} className="w-[280px] h-[24px]
                 bg-transparent outline-none" onFocus={handleFocus} onBlur={handleInput}
-        onChange={handleInput} value={result} />
+        onChange={handleInput} value={value} />
     </div>
   )
 }

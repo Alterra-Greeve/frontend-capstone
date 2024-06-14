@@ -44,6 +44,7 @@ export default function App() {
           <Route path="challenge" element={<DataImpactChallenge />} />
         </Route>
       </Route>
+      <Route path="/" element={<Navigate to="/auth/login" />} />
       <Route path="/auth/login" element={<LoginPage />} />
     </Routes>
   );

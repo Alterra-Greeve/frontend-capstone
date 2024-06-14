@@ -8,6 +8,13 @@ export const GreeveApi = axios.create({
   },
 });
 
+export const GreeveApiMediaUpload = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  headers: {
+    "Content-Type": "multipart/form-data",
+  },
+});
+
 /**
  * 
  * Axios interceptor 
@@ -16,6 +23,13 @@ export const GreeveApi = axios.create({
  * kalau ada nanti langsung dimasukin ke headers authorization
  * 
  */
+GreeveApiMediaUpload.interceptors.request.use((config) => {
+  const token = getCookie("greeve-token");
+  if (token) {
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
+  return config;
+});
 
 GreeveApi.interceptors.request.use((config) => {
   const token = getCookie("greeve-token");

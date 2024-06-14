@@ -6,8 +6,20 @@ import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
 import ShowProfileIcon from "@/assets/icons/Iconly/Show.svg";
 import EditIcon from "@/assets/icons/Iconly/Union.svg";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@radix-ui/react-dropdown-menu";
 
 import DetailUserModal from "@/components/users/modal";
 import DeleteUserModal from "@/components/users/modal/delete";
@@ -21,13 +33,20 @@ const tableHeader: string[] = [
   "No.Telp",
   "Email",
   "Address",
-  "Create Date",
+  "Create At",
   "Membership",
   "",
 ];
 
-export default function TableUsers() {
+interface TableProductsProps {
+  dataUsersShow: { start: number; end: number };
+}
+
+export default function TableProducts({ dataUsersShow }: TableProductsProps) {
   const { data } = useAppSelector((state: RootState) => state.users);
+
+  // Slice the data array to only include the items from start to end
+  const displayedData = data.slice(dataUsersShow.start - 1, dataUsersShow.end);
 
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -47,18 +66,18 @@ export default function TableUsers() {
   const onShowDetail = (id: string) => {
     setUserId(id);
     onOpenDetail();
-  }
+  };
 
   const onShowEdit = (id: string) => {
     setUserId(id);
     onOpenEdit();
-  }
+  };
 
   const onShowDelete = (id: string) => {
     setUserId(id);
     onOpenDelete();
-  }
-  console.log(data)
+  };
+
   return (
     <>
       <DetailUserModal
@@ -95,29 +114,47 @@ export default function TableUsers() {
           </TableHeader>
 
           <TableBody className="bg-neutral-50">
-            {data.map((item, index) => (
-              <TableRow key={index}
-                className={`text-start text-xs leading-6 font-normal text-neutral-900 ${index % 2 != 0 ? "bg-neutral-200 " : ""}`}
+            {displayedData.map((item, index) => (
+              <TableRow
+                key={index}
+                className={`text-start text-xs leading-6 font-normal text-neutral-900 ${index % 2 !== 0 ? "bg-neutral-200 " : ""
+                  }`}
               >
                 <TableCell className="p-3 text-start">
-                  {item.id}
+                  {item.id.split("-")[0]}
                 </TableCell>
-                <TableCell className="p-3 text-start flex items-center gap-3">
-                  <div className="w-6 rounded-full bg-slate-300 border border-black">
-                    <img
-                      src={item.avatar_url || "@/assets/images/default-user.png"}
-                      className="w-full rounded-full"
-                    />
+                <TableCell className="px-3 text-start">
+                  <div className="flex justify-start gap-3">
+                    <div className="w-6 rounded-full bg-slate-300 border border-black">
+                      <img
+                        src={
+                          item.avatar_url || "@/assets/images/default-user.png"
+                        }
+                        className="rounded-full h-6 w-6"
+                      />
+                    </div>
+                    {item.name || "-"}
                   </div>
-                  {item.name || "-"}
                 </TableCell>
 
-                <TableCell className="p-3 text-start">{item.username || "-"}</TableCell>
-                <TableCell className="p-3 text-start">{item.gender || "-"}</TableCell>
-                <TableCell className="p-3 text-start">{item.phone || "-"}</TableCell>
-                <TableCell className="p-3 text-start">{item.email || "-"}</TableCell>
-                <TableCell className="p-3 text-start">{item.address || "-"}</TableCell>
-                <TableCell className="p-3 text-start">-</TableCell>
+                <TableCell className="p-3 text-start">
+                  {item.username || "-"}
+                </TableCell>
+                <TableCell className="p-3 text-start">
+                  {item.gender || "-"}
+                </TableCell>
+                <TableCell className="p-3 text-start">
+                  {item.phone || "-"}
+                </TableCell>
+                <TableCell className="p-3 text-start">
+                  {item.email || "-"}
+                </TableCell>
+                <TableCell className="p-3 text-start">
+                  {item.address || "-"}
+                </TableCell>
+                <TableCell className="p-3 text-start  min-w-[90px]">
+                  -
+                </TableCell>
                 <TableCell className="p-3 text-start">-</TableCell>
 
                 <TableCell className="p-3 text-center pe-4">
@@ -128,21 +165,27 @@ export default function TableUsers() {
                     <DropdownMenuContent className="bg-white rounded-lg absolute right-5 w-36 -top-7 p-3 text-neutral-900 flex flex-col  gap-1 shadow-md">
                       <DropdownMenuItem
                         className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer"
-                        onClick={() => { onShowEdit(item.id) }}
+                        onClick={() => {
+                          onShowEdit(item.id);
+                        }}
                       >
                         <EditIcon />
                         Edit
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer"
-                        onClick={() => { onShowDetail(item.id) }}
+                        onClick={() => {
+                          onShowDetail(item.id);
+                        }}
                       >
                         <ShowProfileIcon />
                         Lihat
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer"
-                        onClick={() => { onShowDelete(item.id) }}
+                        onClick={() => {
+                          onShowDelete(item.id);
+                        }}
                       >
                         <DeleteIcon />
                         Hapus
@@ -156,5 +199,5 @@ export default function TableUsers() {
         </Table>
       </div>
     </>
-  )
+  );
 }
