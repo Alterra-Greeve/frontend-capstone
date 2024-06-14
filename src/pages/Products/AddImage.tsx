@@ -16,6 +16,7 @@ type imageProp = {
 
 export default function AddImage({ imageSize, setNewData, newData, photo }: imageProp) {
     const [selectedFile, setSelectedFile] = useState<string>('');
+    const [selectedImg, setSelectedImg] = useState<any>()
     const fileRef = useRef<HTMLInputElement | null>(null);
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { files } = e.target;
@@ -32,6 +33,7 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
         try {
             const response = await GreeveApiMediaUpload.post('/media/upload', formData);
             setNewData({ ...newData, image_url: [...newData.image_url, response.data.data.image_url] })
+            setSelectedImg(response.data.data.image_url)
         } catch (error) {
             console.error('Error uploading file:', error);
         }
@@ -39,12 +41,11 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
     function onClickFile() {
         fileRef.current?.click()
     }
-    function handleClose() {
-
+    function handleClose(img:any) {
+        setSelectedImg(null)
+        setSelectedFile('')
+        setNewData({ ...newData, image_url: newData.image_url.filter((item: any) => item !== img) })
     }
-    // array yang dibalikin nanti jadi length yg nentuin pergerakan 
-    // style dari border add photo sama no photo
-    // console.log(photo)
     if (imageSize === 'big') {
         if (!selectedFile) {
             return (
@@ -53,7 +54,7 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
                         <div className='relative'>
                             <img src={photo} alt='' className="rounded-[8px] h-[300px] w-[531px] " />
                             <span className='absolute top-[1px] right-[1px] cursor-pointer'
-                                onClick={() => handleClose()}>
+                                onClick={() => handleClose(photo)}>
                                 <CloseIconBig />
                             </span>
                         </div>
@@ -75,9 +76,9 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
         } else if (selectedFile) {
             return (
                 <div className='relative'>
-                    <img src={selectedFile} alt='' className="rounded-[8px] h-[300px] w-[531px] " />
+                    <img src={selectedImg} alt='' className="rounded-[8px] h-[300px] w-[531px] " />
                     <span className='absolute top-[1px] right-[1px] cursor-pointer'
-                        onClick={() => handleClose()}>
+                        onClick={() => handleClose(selectedImg)}>
                         <CloseIconBig />
                     </span>
                 </div>
@@ -91,7 +92,7 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
                         <div className='relative'>
                             <img src={photo} alt='' className="rounded-[8px] h-[103px] w-[103px]" />
                             <span className='absolute top-[0.5px] right-[1px] cursor-pointer'
-                                onClick={() => handleClose()}>
+                                onClick={() => handleClose(photo)}>
                                 <CloseIconSmall />
                             </span>
                         </div>
@@ -113,9 +114,9 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
         } else if (selectedFile) {
             return (
                 <div className='relative'>
-                    <img src={selectedFile} alt='' className="rounded-[8px] h-[103px] w-[103px]" />
+                    <img src={selectedImg} alt='' className="rounded-[8px] h-[103px] w-[103px]" />
                     <span className='absolute top-[0.5px] right-[1px] cursor-pointer'
-                        onClick={() => handleClose()}>
+                        onClick={() => handleClose(selectedImg)}>
                         <CloseIconSmall />
                     </span>
                 </div>

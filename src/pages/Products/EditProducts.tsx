@@ -18,12 +18,6 @@ import YesOrNo from '@/assets/icons/YesOrNo.svg'
 export default function EditProducts() {
     const { id } = useParams()
     const navigate = useNavigate()
-    // const [checked, setChecked] = useState({
-    //     earth: false,
-    //     money: false,
-    //     brain: false,
-    //     recycle: false
-    // })
     const [isVisible, setIsVisible] = useState(false)
     const [isSaved, setIsSaved] = useState(false)
     const [isEmpty, setIsEmpty] = useState(false)
@@ -72,19 +66,7 @@ export default function EditProducts() {
             setNewData(response.data.data)
         } catch (err) {
             console.log(err)
-        } finally {
-            // newData?.category.forEach((item: any) => {
-            //     if(item.impact_category.name === 'Mengurangi Pemanasan Global'){
-            //         setChecked({...checked, earth: true})
-            //     }if(item.impact_category.name === 'Hemat Uang'){
-            //         setChecked({...checked, money: true})
-            //     }if(item.impact_category.name === 'Perluas Wawasan'){
-            //         setChecked({...checked, brain: true})
-            //     }if(item.impact_category.name === 'Mengurangi Limbah'){
-            //         setChecked({...checked, recycle: true})
-            //     }
-            // })
-        }
+        } 
     }
     useEffect(() => {
         if (id !== undefined) {
@@ -92,7 +74,7 @@ export default function EditProducts() {
         }
     }, [id]);
 
-    console.log()
+    console.log(newData?.image_url)
     return (
         <AdminLayout>
             {/* {loading? 'loading..' : */}
