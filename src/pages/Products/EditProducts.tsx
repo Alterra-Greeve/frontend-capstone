@@ -91,7 +91,6 @@ export default function EditProducts() {
     }, [id]);
     
     console.log(newData?.category)
-    console.log(newData?.category[0].impact_category.name)
     return(
         <AdminLayout>
             {/* {loading? 'loading..' : */}

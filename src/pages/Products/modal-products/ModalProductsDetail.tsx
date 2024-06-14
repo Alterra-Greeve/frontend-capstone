@@ -1,6 +1,10 @@
 import newUseFetch from "@/lib/hooks/newUseFetch";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
+import CatEarth from '@/assets/icons/catEarth.svg'
+import CatMoney from '@/assets/icons/catMoney.svg'
+import CatBrain from '@/assets/icons/catBrains.svg'
+import CatRecycle from '@/assets/icons/catRecycle.svg'
 import Coin from '@/assets/icons/Coin.svg'
 import Button from '@/components/Button/Button'
 
@@ -85,7 +89,10 @@ export default function ModalProductsDetail({ product_id }: any) {
                         <div className='flex gap-[26px] items-center'>
                             <span className='text-neutral-900 font-[500] text-[20px]'>Membantu</span>
                             <div className='flex gap-[8px]'>
-                                {productDetail?.category[0].impact_category.name}
+                                {productDetail?.category.includes('Mengurangi Pemanasan Global') ? <CatEarth/> : null}
+                                {productDetail?.category.includes('Hemat Uang') ? <CatMoney/> : null}
+                                {productDetail?.category.includes('Perluas Wawasan') ? <CatBrain/> : null}
+                                {productDetail?.category.includes('Mengurangi Limbah') ? <CatRecycle/> : null}
                             </div>
                         </div>
                         <div className='flex justify-end'>
