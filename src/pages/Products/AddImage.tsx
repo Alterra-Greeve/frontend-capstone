@@ -16,6 +16,8 @@ type imageProp = {
 
 export default function AddImage({ imageSize, setNewData, newData, photo }: imageProp) {
     const [selectedFile, setSelectedFile] = useState<string>('');
+    const [selectedImg, setSelectedImg] = useState<any>()
+    const [isLoading, setIsLoading] = useState(false)
     const fileRef = useRef<HTMLInputElement | null>(null);
     function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { files } = e.target;
@@ -27,25 +29,27 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
         }
     }
     async function handleUpload(file: File): Promise<void> {
+        setIsLoading(true)
         const formData = new FormData();
         formData.append("image", file);
         try {
             const response = await GreeveApiMediaUpload.post('/media/upload', formData);
             setNewData({ ...newData, image_url: [...newData.image_url, response.data.data.image_url] })
+            setSelectedImg(response.data.data.image_url)
         } catch (error) {
             console.error('Error uploading file:', error);
+        }finally{
+            setIsLoading(false)
         }
     }
     function onClickFile() {
         fileRef.current?.click()
     }
-    function handleClose() {
-
+    function handleClose(img: any) {
+        setSelectedImg('')
+        setSelectedFile('')
+        setNewData({ ...newData, image_url: newData.image_url.filter((item: any) => item !== img) })
     }
-    // array yang dibalikin nanti jadi length yg nentuin pergerakan 
-    // style dari border add photo sama no photo
-    // console.log('foto',photo)
-    console.log(photo)
     if (imageSize === 'big') {
         if (!selectedFile) {
             return (
@@ -54,8 +58,10 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
                         <div className='relative'>
                             <img src={photo} alt='' className="rounded-[8px] h-[300px] w-[531px] " />
                             <span className='absolute top-[1px] right-[1px] cursor-pointer'
-                                onClick={() => handleClose()}>
-                                <CloseIconBig />
+                                onClick={() => handleClose(photo)}>
+                                {photo === newData?.image_url[newData?.image_url.length - 1] ?
+                                    <CloseIconBig /> : null
+                                }
                             </span>
                         </div>
                         :
@@ -75,13 +81,24 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
             )
         } else if (selectedFile) {
             return (
-                <div className='relative'>
-                    <img src={selectedFile} alt='' className="rounded-[8px] h-[300px] w-[531px] " />
-                    <span className='absolute top-[1px] right-[1px] cursor-pointer'
-                        onClick={() => handleClose()}>
-                        <CloseIconBig />
-                    </span>
-                </div>
+                <>
+                    {isLoading ? 
+                        <div className="rounded-[8px] h-[300px] w-[531px] bg-neutral-200
+                        flex justify-center items-center">
+                            Loading...
+                        </div>
+                        :
+                        <div className='relative'>
+                            <img src={selectedImg} alt='' className="rounded-[8px] h-[300px] w-[531px]" />
+                            <span className='absolute top-[1px] right-[1px] cursor-pointer'
+                                onClick={() => handleClose(selectedImg)}>
+                                {selectedImg === newData?.image_url[newData?.image_url.length - 1] ?
+                                    <CloseIconBig /> : null
+                                }
+                            </span>
+                        </div>
+                    }
+                </>
             )
         }
     } else if (imageSize === 'small') {
@@ -92,8 +109,10 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
                         <div className='relative'>
                             <img src={photo} alt='' className="rounded-[8px] h-[103px] w-[103px]" />
                             <span className='absolute top-[0.5px] right-[1px] cursor-pointer'
-                                onClick={() => handleClose()}>
-                                <CloseIconSmall />
+                                onClick={() => handleClose(photo)}>
+                                {photo === newData?.image_url[newData?.image_url.length - 1] ?
+                                    <CloseIconBig /> : null
+                                }
                             </span>
                         </div>
                         :
@@ -113,13 +132,24 @@ export default function AddImage({ imageSize, setNewData, newData, photo }: imag
             )
         } else if (selectedFile) {
             return (
-                <div className='relative'>
-                    <img src={selectedFile} alt='' className="rounded-[8px] h-[103px] w-[103px]" />
-                    <span className='absolute top-[0.5px] right-[1px] cursor-pointer'
-                        onClick={() => handleClose()}>
-                        <CloseIconSmall />
-                    </span>
-                </div>
+                <>
+                    {isLoading ? 
+                        <div className="rounded-[8px] h-[103px] w-[103px] bg-neutral-200
+                        flex justify-center items-center">
+                            Loading...
+                        </div>
+                        :
+                        <div className='relative'>
+                            <img src={selectedImg} alt='' className="rounded-[8px] h-[103px] w-[103px]" />
+                            <span className='absolute top-[0.5px] right-[1px] cursor-pointer'
+                                onClick={() => handleClose(selectedImg)}>
+                                {selectedImg === newData?.image_url[newData?.image_url.length - 1] ?
+                                    <CloseIconSmall /> : null
+                                }
+                            </span>
+                        </div>
+                    }
+                </>
             )
         }
     }
