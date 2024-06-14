@@ -2,19 +2,24 @@ import { GreeveApi } from "@/lib/axios";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
-export const getUsers = createAsyncThunk("users/getUsers", async () => {
-  try {
-    const response = await GreeveApi.get("/admin/users");
-    if (response.status === 200) {
-      return response.data;
+export const getUsers = createAsyncThunk(
+  "users/getUsers",
+  async (usersPage?: string) => {
+    try {
+      const response = await GreeveApi.get(
+        `/admin/users?page=${usersPage || "1"}`
+      );
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw error.response ? error.response.status : error.message;
+      }
+      throw error;
     }
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      throw error.response ? error.response.status : error.message;
-    }
-    throw error;
   }
-});
+);
 
 export const deleteUser = createAsyncThunk(
   "users/deleteUser",
@@ -218,4 +223,3 @@ export const usersSlice = createSlice({
 export default usersSlice.reducer;
 export const { usersCurrentPage, filteredUsers, resetFilter } =
   usersSlice.actions;
-

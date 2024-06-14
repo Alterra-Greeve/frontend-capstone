@@ -38,15 +38,9 @@ const tableHeader: string[] = [
   "",
 ];
 
-interface TableProductsProps {
-  dataUsersShow: { start: number; end: number };
-}
 
-export default function TableProducts({ dataUsersShow }: TableProductsProps) {
+export default function TableProducts() {
   const { data } = useAppSelector((state: RootState) => state.users);
-
-  // Slice the data array to only include the items from start to end
-  const displayedData = data.slice(dataUsersShow.start - 1, dataUsersShow.end);
 
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -98,10 +92,10 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
         data={data.find((item) => item.id === userId)}
       />
 
-      <div className="mt-4 bg-primary-100 rounded-t-[8px] border-[1px] border-neutral-300">
+      <div className="mt-4 bg-primary-100 rounded-t-[8px] border-[1px] border-neutral-300 overflow-auto max-h-[65vh]">
         <Table>
           <TableHeader>
-            <TableRow className="text-start py-[10px]">
+            <TableRow className="text-start py-[10px] sticky top-0">
               {tableHeader.map((item, i) => (
                 <TableHead
                   className={`text-sm leading-5 text-black font-normal px-3 py-2`}
@@ -114,7 +108,7 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
           </TableHeader>
 
           <TableBody className="bg-neutral-50">
-            {displayedData.map((item, index) => (
+            {data?.map((item, index) => (
               <TableRow
                 key={index}
                 className={`text-start text-xs leading-6 font-normal text-neutral-900 ${
@@ -141,7 +135,7 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
                 <TableCell className="p-3 text-start">
                   {item.username || "-"}
                 </TableCell>
-                <TableCell className="p-3 text-start">
+                <TableCell className="p-3 text-start min-w-20">
                   {item.gender || "-"}
                 </TableCell>
                 <TableCell className="p-3 text-start">
