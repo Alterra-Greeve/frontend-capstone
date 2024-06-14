@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 const ForumTable = () => {
   const { discussions = [] } = useAppSelector((state) => state.forum);
-  
+
   const navigate = useNavigate();
 
   return (
@@ -46,11 +46,6 @@ const ForumTable = () => {
             <TableHead
               className={`text-sm leading-5 text-black font-normal px-3 py-2`}
             >
-              Author
-            </TableHead>
-            <TableHead
-              className={`text-sm leading-5 text-black font-normal px-3 py-2`}
-            >
               Avatar
             </TableHead>
           </TableRow>
@@ -67,9 +62,6 @@ const ForumTable = () => {
               <TableCell className="p-3 text-start">{item.title}</TableCell>
               <TableCell className="p-3 text-start">
                 {item.description}
-              </TableCell>
-              <TableCell className="p-3 text-start">
-                {item.author.name}
               </TableCell>
               <TableCell className=" p-3 text-start">
                 <div className="flex items-center gap-2">
