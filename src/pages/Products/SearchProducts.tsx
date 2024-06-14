@@ -8,15 +8,22 @@ import Button from '@/components/Button/Button'
 import Input from '@/components/Input/Input'
 import SearchBar from '@/components/SearchBar/SearchBar'
 import { useState } from 'react'
+// import useFetch from '@/lib/hooks/useFetch'
 
 export default function SearchProducts() {
   const [isOpen, setIsOpen] = useState(false)
+  const [searchName, setSearchName] = useState("")
+  // const { loading, error, data } = useFetch(`/products/search?name=${searchName}`, { method: 'get' });
+  function handleSearch(e:any){
+    setSearchName(e.target.value)
+  }
   function handleInput(){
 
   }
+  // console.log(data?.data)
   return (
     <div className='flex gap-[4px]'>
-      <SearchBar />
+      <SearchBar onChange={(e)=>handleSearch(e)} value={searchName}/>
       <div className='w-[40px] h-[40px] relative z-10'>
         <div onClick={() => setIsOpen(!isOpen)} className='cursor-pointer'>
           {isOpen? <Filter/> : <FilterOutline />}
