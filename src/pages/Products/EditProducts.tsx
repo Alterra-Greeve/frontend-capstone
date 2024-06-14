@@ -53,7 +53,7 @@ export default function EditProducts() {
         }
     }
     // const { postData } = useFetch("products", { method: "post" });
-    function handlePost(){
+    function handleEdit(){
         // const postDataCopy = { ...newData };
         // postDataCopy.price = parseInt(newData.price);
         // postDataCopy.stock = parseInt(newData.stock);
@@ -277,7 +277,7 @@ export default function EditProducts() {
                         <Button variant="secondary" children='Tidak' className='w-[206px] py-[12px]'
                             onClick={() => setIsVisible(false)} />
                         <Button variant="primary" children='Iya, Simpan' className='w-[206px] py-[12px]'
-                            onClick={() => handlePost()} />
+                            onClick={() => handleEdit()} />
                     </div>
                 </ModalAlerts>
             : null}
