@@ -57,17 +57,19 @@ export const editUser = createAsyncThunk(
 //edit user function reducer
 
 export interface UsersProps {
-  address: string;
-  avatar_url: string;
-  coin: number;
-  email: string;
-  exp: number;
-  gender: string;
   id: string;
   name: string;
-  password: string;
-  phone: string;
+  email: string;
   username: string;
+  password: string;
+  address: string;
+  gender: string;
+  phone: string;
+  coin: number;
+  exp: number;
+  avatar_url: string;
+  created_at: string;
+  updated_at: string;
 }
 export interface filterProps {
   name: string;

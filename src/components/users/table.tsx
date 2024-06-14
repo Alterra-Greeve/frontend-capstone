@@ -148,7 +148,7 @@ export default function TableProducts() {
                   {item.address || "-"}
                 </TableCell>
                 <TableCell className="p-3 text-start  min-w-[90px]">
-                  -
+                  {item.created_at || "-"}
                 </TableCell>
                 <TableCell className="p-3 text-start">-</TableCell>
 
