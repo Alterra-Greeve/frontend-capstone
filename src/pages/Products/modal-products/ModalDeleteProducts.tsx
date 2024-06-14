@@ -19,7 +19,7 @@ export default function ModalDeleteProducts({product_id}:any) {
             }catch{
                 console.error(error)
             }finally{
-                navigate('')
+                navigate('/dashboard/products')
                 location.reload()
             }
         }
