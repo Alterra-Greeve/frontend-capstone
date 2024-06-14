@@ -46,7 +46,7 @@ const ForumTable = () => {
             <TableHead
               className={`text-sm leading-5 text-black font-normal px-3 py-2`}
             >
-              Avatar
+              Author
             </TableHead>
           </TableRow>
         </TableHeader>
