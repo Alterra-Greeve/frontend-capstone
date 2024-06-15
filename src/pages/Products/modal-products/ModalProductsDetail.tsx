@@ -89,10 +89,10 @@ export default function ModalProductsDetail({ product_id }: any) {
                         <div className='flex gap-[26px] items-center'>
                             <span className='text-neutral-900 font-[500] text-[20px]'>Membantu</span>
                             <div className='flex gap-[8px]'>
-                                {productDetail?.category.includes('Mengurangi Pemanasan Global') ? <CatEarth/> : null}
-                                {productDetail?.category.includes('Hemat Uang') ? <CatMoney/> : null}
-                                {productDetail?.category.includes('Perluas Wawasan') ? <CatBrain/> : null}
-                                {productDetail?.category.includes('Mengurangi Limbah') ? <CatRecycle/> : null}
+                                {productDetail?.category.includes('b5d07366-3b31-4011-95e3-34735b0b61f8') ? <CatEarth/> : null}
+                                {productDetail?.category.includes('83808762-e2b8-4b34-a1eb-0ed8d4fda3dd') ? <CatMoney/> : null}
+                                {productDetail?.category.includes('e8e714bd-c34e-4278-980c-39bd1f55b5fb') ? <CatBrain/> : null}
+                                {productDetail?.category.includes('7d34a5fa-e2cf-466d-9f01-d731f6967082') ? <CatRecycle/> : null}
                             </div>
                         </div>
                         <div className='flex justify-end'>

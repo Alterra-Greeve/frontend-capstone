@@ -62,7 +62,7 @@ export default function AddProducts() {
 
     return (
         <AdminLayout>
-            <div className="flex flex-col gap-[16px] bg-neutral-100 p-[24px] h-[calc(100vh-90px)]">
+            <div className="flex flex-col gap-[16px] bg-primary-50 p-[24px] h-[calc(100vh-90px)]">
                 <div className="flex justify-between">
                     <button
                         className="p-[8px] flex gap-[4px] items-center text-neutral-900 
@@ -244,12 +244,12 @@ export default function AddProducts() {
                 </ModalAlerts>
             : null}
             {isSaved?
-                <ModalAlerts className="rounded-[20px] bg-neutral-50 max-w-[500px] 
-                max-h-[440px] p-[32px] flex flex-col items-center gap-[32px]">
+                <ModalAlerts className="rounded-[20px] bg-neutral-50 max-w-[400px] 
+                max-h-[460px] p-[32px] flex flex-col items-center gap-[32px]">
                     <ProductSaved/>
                     <div className="flex flex-col gap-[12px] items-center">
-                        <h1 className="font-[700] text-[24px] text-neutral-900">Data berhasil tersimpan!</h1>
-                        <h2 className="font-[400] text-[16px] text-neutral-900">Data tersimpan! Semua perubahan telah berhasil disimpan.</h2>
+                        <h1 className="font-[700] text-[24px] text-neutral-900 text-center">Data berhasil tersimpan!</h1>
+                        <h2 className="font-[400] text-[16px] text-neutral-900 text-center">Data tersimpan! Semua perubahan telah berhasil disimpan.</h2>
                     </div>
                     <div className="flex gap-[24px]">
                         <Link to='/dashboard/products/'>

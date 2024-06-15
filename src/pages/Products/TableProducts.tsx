@@ -56,10 +56,10 @@ export default function TableProducts({data, dataShow}:any) {
                                         <TableCell className="p-[12px]">{item.description}</TableCell>
                                         <TableCell className="py-[12px]">
                                             <div className="flex gap-[4px]">
-                                                {item.category.includes('Mengurangi Pemanasan Global') ? <CatEarth/> : null}
-                                                {item.category.includes('Hemat Uang') ? <CatMoney/> : null}
-                                                {item.category.includes('Perluas Wawasan') ? <CatBrain/> : null}
-                                                {item.category.includes('Mengurangi Limbah') ? <CatRecycle/> : null}
+                                                {item.category.includes('b5d07366-3b31-4011-95e3-34735b0b61f8') ? <CatEarth/> : null}
+                                                {item.category.includes('83808762-e2b8-4b34-a1eb-0ed8d4fda3dd') ? <CatMoney/> : null}
+                                                {item.category.includes('e8e714bd-c34e-4278-980c-39bd1f55b5fb') ? <CatBrain/> : null}
+                                                {item.category.includes('7d34a5fa-e2cf-466d-9f01-d731f6967082') ? <CatRecycle/> : null}
                                             </div>
                                         </TableCell>
                                         <TableCell className="p-[12px]">{item.created_at}</TableCell>
