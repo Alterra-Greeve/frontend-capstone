@@ -22,11 +22,11 @@ const FormSchema = z.object({
       message: "Name must be at least 3 characters.",
     }),
   email: z.string({
-    required_error: "Please select a gender.",
+    required_error: "Please type your email.",
   }),
   message: z
     .string({
-      required_error: "Please type your complaint.",
+      required_error: "Please type your message.",
     })
     .min(10, {
       message: "Complaint must be at least 10 characters.",

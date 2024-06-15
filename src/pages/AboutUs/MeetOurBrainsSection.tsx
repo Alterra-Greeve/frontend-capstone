@@ -79,7 +79,13 @@ const itemCorouselFlutter: ItemSwiperProps[] = [
   },
   { image: robiul, role: "Flutter", name: "Levian Dandra", link: "/" },
   { image: robiul, role: "Flutter", name: "Muhamad Ivan Fadillah", link: "/" },
-  { image: robiul, role: "Flutter", name: "M. Arif", link: "/" },
+  {
+    image:
+      "https://storage.googleapis.com/alterra-greeve/greeve/933b0c24-6575-4772-8b75-e3eafa90466b_DSC3385.JPG",
+    role: "Flutter",
+    name: "M. Arif",
+    link: "/",
+  },
   { image: robiul, role: "Flutter", name: "Aisyah Gasna Aulia", link: "/" },
 ];
 
@@ -91,19 +97,26 @@ const itemCorouselGolang: ItemSwiperProps[] = [
     name: "Nur Faid Prasetyo",
     link: "/",
   },
-  { image: robiul, role: "Golang", name: "Chandra Wahyu Rafialdi", link: "/" },
+  {
+    image:
+      "https://storage.googleapis.com/alterra-greeve/greeve/75b648ea-25e4-4578-ba50-98a449bf0878Chandra.jpg",
+    role: "Golang",
+    name: "Chandra Wahyu Rafialdi",
+    link: "/",
+  },
 ];
 
 const itemCorouselQA: ItemSwiperProps[] = [
   {
-    image: robiul,
+    image:
+      "https://storage.googleapis.com/alterra-greeve/greeve/40f1eb90-a1be-4cde-8eff-d3ffd5d9fea0IMG_20240223_024516.jpg",
     role: "Quality Engineer",
     name: "Alsa Yanima Choirul Fikri",
     link: "/",
   },
   {
     image:
-      "https://storage.googleapis.com/alterra-greeve/greeve/40f1eb90-a1be-4cde-8eff-d3ffd5d9fea0IMG_20240223_024516.jpg",
+      "https://storage.googleapis.com/alterra-greeve/greeve/d337a0dd-ca8e-4905-9557-3b3f49161124aku.jpg",
     role: "Quality Engineer",
     name: "Ahmad Syifa Ar Rizqi Hermawan",
     link: "/",

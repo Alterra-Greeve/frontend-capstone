@@ -1,6 +1,7 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import logoPrimary from "../../assets/images/greeveLogo.png";
 import greevePrimary from "../../assets/images/greeveText.png";
+import { useEffect, useState } from "react";
 
 interface NavItemProps {
   link: string;
@@ -16,6 +17,7 @@ const navItems: NavItemProps[] = [
 
 export default function Navbar() {
   const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -24,8 +26,27 @@ export default function Navbar() {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="py-[34px] bg-transparent px-[64px] w-full h-[124px] flex flex-row justify-between z-50">
+    <nav
+      className={` fixed py-[34px] transition-colors duration-300 ease-in-out ${
+        scrolled ? "bg-[white]" : "bg-transparent"
+      } px-[64px] w-full h-[124px] flex flex-row justify-between z-50`}
+    >
       <Link className="flex justify-center items-center" to={"/"}>
         <div className="flex justify-center items-center gap-[10px] h-auto w-auto">
           <img src={logoPrimary} alt="logo" />
@@ -42,6 +63,8 @@ export default function Navbar() {
               (item.label == "Home" && location.pathname == "/") ||
               (item.label == "About Us" && location.pathname == "/about-us")
                 ? "text-primary-500 border-b-2 border-primary-500"
+                : scrolled
+                ? "text-neutral-900"
                 : "text-neutral-50"
             }
           >
