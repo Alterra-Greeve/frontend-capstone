@@ -58,7 +58,7 @@ export default function EditChallengePage() {
           </div>
 
           <div className="col-span-3">
-            <FormEditChallenge submitRef={submitRef} />
+            <FormEditChallenge submitRef={submitRef} file={file} />
           </div>
         </div>
       </section>

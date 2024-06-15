@@ -5,8 +5,13 @@ import { Button } from "@/components/ui/button";
 
 import IllustrationSuccess from "@/assets/icons/success-edit.svg";
 import IllustrationDelete from "@/assets/icons/modal-delete.svg";
-import { updateChallengeById } from "@/lib/redux/api/challenges";
+import { createChallenge } from "@/lib/redux/api/challenges";
 import { GreeveApi } from "@/lib/axios";
+import { useNavigate } from "react-router-dom";
+
+import CheckCircle from "@/assets/icons/checkCircle";
+import CrossCircle from "@/assets/icons/crossCircle";
+import { useToast } from "@/components/ui/use-toast";
 
 interface DetailChallengeModalProps {
   isOpen: boolean;
@@ -36,7 +41,7 @@ const Modal = ({ isOpen, title, message, illustration, actions, className }: Mod
   </Dialog>
 );
 
-const ModalSuccessEdit = ({ isOpen, onClose }: DetailChallengeModalProps) => (
+const ModalSuccessAdd = ({ isOpen, onClose }: DetailChallengeModalProps) => (
   <Modal
     isOpen={isOpen}
     title="Data berhasil disimpan!"
@@ -68,15 +73,18 @@ const uploadImage = async (file: File) => {
   }
 }
 
-export default function ModalConfirmEdit({ isOpen, onClose, file }: DetailChallengeModalProps) {
+export default function ModalConfirmAdd({ isOpen, onClose, file }: DetailChallengeModalProps) {
+  const navigate = useNavigate();
+
   const dispatch = useAppDispatch();
   const { singleData } = useAppSelector((state: RootState) => state.challenges);
 
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const onSuccess = () => setIsSuccess(true);
   const onCloseSuccess = () => setIsSuccess(false);
+
+  const { toast } = useToast();
 
   const onSubmit = async () => {
     if (!singleData) {
@@ -88,18 +96,32 @@ export default function ModalConfirmEdit({ isOpen, onClose, file }: DetailChalle
     try {
       const imageUrl = file ? await uploadImage(file) : singleData.image_url;
 
-      await dispatch(updateChallengeById({
-        id: singleData.id,
-        data: {
-          ...singleData,
-          image_url: imageUrl,
-          // @ts-expect-error types not match
-          category: singleData.categories
-        }
+      const response = await dispatch(createChallenge({
+        ...singleData,
+        image_url: imageUrl,
+        // @ts-expect-error types not match
+        category: singleData.categories
       }));
 
-      onSuccess();
-      onClose();
+      if (response.meta.requestStatus === "fulfilled") {
+        navigate("../");
+        onClose();
+
+        return toast({
+          icon: <CheckCircle />,
+          variant: "default",
+          description: "Berhasil menambahkan challenge baru!"
+        });
+
+      } else {
+        onClose();
+        return toast({
+          icon: <CrossCircle />,
+          variant: "default",
+          description: "Challenge gagal ditambahkan!"
+        });
+      }
+
     } catch (error) {
       console.error("Failed to update challenge:", error);
     } finally {
@@ -109,7 +131,7 @@ export default function ModalConfirmEdit({ isOpen, onClose, file }: DetailChalle
 
   return (
     <Dialog open={isOpen}>
-      <ModalSuccessEdit isOpen={isSuccess} onClose={onCloseSuccess} />
+      <ModalSuccessAdd isOpen={isSuccess} onClose={onCloseSuccess} />
       <Modal
         className="max-w-lg"
         isOpen={isOpen}

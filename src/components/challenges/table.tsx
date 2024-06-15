@@ -105,11 +105,12 @@ export default function TableChallenges({ dataChallengeShow }: TableChallengesPr
                 <TableCell className="text-start">{item.exp}</TableCell>
                 <TableCell className="text-start">{item.coin}</TableCell>
                 <TableCell className="text-start">{item.difficulty}</TableCell>
-                <TableCell className="text-start">
-                  <div className="flex gap-2 items-center">
+                <TableCell>
+                  <div className="flex gap-2 items-center flex-wrap">
                     {item.categories.map((category, index) => (
                       <img key={index}
                         src={category.impact_category.icon_url}
+                        className="w-8 h-8"
                       />
                     ))}
                   </div>

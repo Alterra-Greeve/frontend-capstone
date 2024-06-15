@@ -2,6 +2,11 @@ import { GreeveApi } from "@/lib/axios";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
+const convertDate = (date: string): string => {
+  const [day, month, year] = date.split('/');
+  return `20${year}-${month}-${day}`;
+};
+
 export const getChallenges = createAsyncThunk(
   "challenges/getChallenges",
   async () => {
@@ -45,26 +50,33 @@ export const updateChallengeById = createAsyncThunk(
   }) => {
     try {
       console.log(data);
-      const response = await GreeveApi.put(`/admin/challenges/${id}`,
-        {
-          title: data.title,
-          description: data.description,
-          exp: data.exp,
-          coin: data.coin,
-          difficulty: data.difficulty,
-          date_start: data.date_start,
-          date_end: data.date_end,
-          image_url: data.image_url,
-          category: data.category
-        },
-        { headers: { 'Content-Type': 'application/json' } }
-      );
+      const response = await GreeveApi.put(`/admin/challenges/${id}`, data);
       console.log(response);
       if (response.status === 200) {
         return response.data;
       }
     } catch (error) {
       console.log(error);
+      if (error instanceof AxiosError) {
+        throw error.response ? error.response.status : error.message;
+      }
+      throw error;
+    }
+  }
+);
+
+export const createChallenge = createAsyncThunk(
+  "challenges/createChallenge",
+  async (data: Omit<ChallengeProps, "id" | "participant" | "categories" | "image_url"> & {
+    categories: string[],
+    image_url?: string
+  }) => {
+    try {
+      const response = await GreeveApi.post('/admin/challenges', data);
+      if (response.status === 201) {
+        return response.data;
+      }
+    } catch (error) {
       if (error instanceof AxiosError) {
         throw error.response ? error.response.status : error.message;
       }
@@ -266,10 +278,10 @@ export const challengesSlice = createSlice({
       })
       .addCase(getChallengeById.fulfilled, (state, { payload }) => {
         state.isLoading = false;
+        console.log(payload.data);
 
-        // format tanggal sesuai ISO
-        payload.data.date_start = new Date(payload.data.date_start).toISOString().split('T')[0];
-        payload.data.date_end = new Date(payload.data.date_end).toISOString().split('T')[0];
+        payload.data.date_start = convertDate(payload.data.date_start);
+        payload.data.date_end = convertDate(payload.data.date_end);
 
         state.singleData = payload.data;
       })

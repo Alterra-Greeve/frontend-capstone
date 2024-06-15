@@ -11,8 +11,8 @@ import { Input } from "@/components/ui/input";
 
 import { EditChallengeSchema } from "@/lib/zod/challenges";
 import { setNewSingleData } from "@/lib/redux/api/challenges";
-import ModalConfirmEdit from "@/components/challenges/edit/ModalConfirm";
 import { Checkbox } from "@/components/ui/checkbox";
+import ModalConfirmAdd from "./ModalConfirm";
 
 const difficulties = [
   { id: "mudah", label: "Mudah" },
@@ -44,7 +44,7 @@ export default function FormAddChallenge({ submitRef }: FormEditChallengeProps) 
 
   return (
     <FormProvider {...form}>
-      <ModalConfirmEdit isOpen={isOpen} onClose={onClose} />
+      <ModalConfirmAdd isOpen={isOpen} onClose={onClose} />
 
       <form
         className="flex flex-col gap-5"
@@ -58,6 +58,7 @@ export default function FormAddChallenge({ submitRef }: FormEditChallengeProps) 
               <FormLabel>Judul</FormLabel>
               <FormControl>
                 <Input
+                  placeholder="Masukkan judul challenge"
                   className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
                   {...field}
                 />
@@ -77,6 +78,7 @@ export default function FormAddChallenge({ submitRef }: FormEditChallengeProps) 
               <FormLabel>Deskripsi</FormLabel>
               <FormControl>
                 <Textarea
+                  placeholder="Masukkan deskripsi challenge"
                   className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent min-h-44"
                   {...field}
                 />
@@ -97,6 +99,7 @@ export default function FormAddChallenge({ submitRef }: FormEditChallengeProps) 
                 <FormLabel>EXP</FormLabel>
                 <FormControl>
                   <Input
+                    placeholder="Masukkan jumlah EXP"
                     className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
                     type="number"
                     {...field}
@@ -117,6 +120,7 @@ export default function FormAddChallenge({ submitRef }: FormEditChallengeProps) 
                 <FormLabel>Koin</FormLabel>
                 <FormControl>
                   <Input
+                    placeholder="Masukkan jumlah koin"
                     className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
                     type="number"
                     {...field}

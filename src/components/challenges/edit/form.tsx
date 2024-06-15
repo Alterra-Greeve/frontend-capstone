@@ -22,9 +22,10 @@ const difficulties = [
 
 interface FormEditChallengeProps {
   submitRef: React.RefObject<HTMLButtonElement>;
+  file: File | null;
 }
 
-export default function FormEditChallenge({ submitRef }: FormEditChallengeProps) {
+export default function FormEditChallenge({ submitRef, file }: FormEditChallengeProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
@@ -56,7 +57,7 @@ export default function FormEditChallenge({ submitRef }: FormEditChallengeProps)
 
   return (
     <FormProvider {...form}>
-      <ModalConfirmEdit isOpen={isOpen} onClose={onClose} />
+      <ModalConfirmEdit isOpen={isOpen} onClose={onClose} file={file} />
 
       <form
         className="flex flex-col gap-5"
