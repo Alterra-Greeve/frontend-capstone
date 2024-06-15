@@ -6,6 +6,15 @@ import { useEffect } from "react";
 import { fetchDiscussionById } from "@/lib/redux/api/forum";
 import Loading from "@/components/loading";
 
+import MoreIcon from "@/assets/icons/More.svg";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@radix-ui/react-dropdown-menu";
+import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
+
 const ForumDetail = () => {
   const { forum_id } = useParams();
   const navigate = useNavigate();
@@ -24,7 +33,7 @@ const ForumDetail = () => {
       {loading ? (
         <Loading />
       ) : (
-        <section className="p-6">
+        <section className="p-6  max-h-[85vh] overflow-auto">
           <div className="pb-6 border-b-[0.3px] border-neutral-300">
             <button
               className="flex gap-3 justify-center items-center text-neutral-900"
@@ -39,6 +48,7 @@ const ForumDetail = () => {
               <h1 className="text-3xl font-medium text-neutral-900">
                 {discussionsDetail?.title}
               </h1>
+              <p>{discussionsDetail.description}</p>
               <p className="mx-[0.5px] text-xs font-normal text-neutral-600">
                 Create by {discussionsDetail?.author?.name}
               </p>
@@ -49,14 +59,40 @@ const ForumDetail = () => {
             {discussionsDetail?.forum_messages?.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col gap-2 p-4 rounded-[7px] border-[0.3px] border-neutral-300 bg-neutral-50"
+                className="bg-neutral-50 rounded-[8px] p-6 relative"
               >
-                <p className="text-xl leading-5 font-normal text-neutral-900">
-                  {item.message}
-                </p>
-                <p className="text-xs leading-5 font-semibold text-neutral-500">
-                  Created by {item.user_id}
-                </p>
+                <div className="flex gap-3 items-center">
+                  <div className="rounded-full border-[0.5px] w-[40px] h-[40px] ">
+                    <img
+                      src={item.user.avatar_url}
+                      className="rounded-full w-full"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <h5 className="text-lg font-semibold leading-5">
+                      {item.user.username !== " "
+                        ? item.user.username
+                        : item.user.name !== " "
+                        ? item.user.name
+                        : "Undefined"}
+                    </h5>
+                    <p className="text-neutral-500 text-sm font-medium">
+                      {item.user.email}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-6 text-2xl font-light">{item.message}</div>
+                <DropdownMenu>
+                  <DropdownMenuTrigger className="hover:bg-neutral-300 rounded-lg p-2 absolute top-6 right-4">
+                    <MoreIcon />
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="bg-white rounded-lg absolute right-5 w-36 -top-10 p-3 text-neutral-900 flex flex-col  gap-1 shadow-md">
+                    <DropdownMenuItem className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer">
+                      <DeleteIcon />
+                      Hapus
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
             ))}
           </div>
