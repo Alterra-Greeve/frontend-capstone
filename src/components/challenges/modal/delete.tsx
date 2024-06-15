@@ -3,19 +3,44 @@ import IllustrationDelete from "@/assets/icons/modal-delete.svg";
 import { Button } from "@/components/ui/button";
 import { useAppDispatch } from "@/lib/redux";
 import { deleteChallenge } from "@/lib/redux/api/challenges";
+import { useToast } from "@/components/ui/use-toast";
 
-interface DeleteUserModalProps {
+import CheckCircle from "@/assets/icons/checkCircle";
+import CrossCircle from "@/assets/icons/crossCircle";
+import { useNavigate } from "react-router-dom";
+
+interface DetailChallengeModalProps {
   isOpen: boolean;
   onClose: () => void;
   id: string;
+  onBackHref?: string;
 }
 
-export default function DeleteChallengeModal({ isOpen, onClose, id }: DeleteUserModalProps) {
+export default function DeleteChallengeModal({ isOpen, onClose, id, onBackHref }: DetailChallengeModalProps) {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const { toast } = useToast();
 
   const onDelete = async () => {
-    await dispatch(deleteChallenge(id));
-    onClose();
+    const response = await dispatch(deleteChallenge(id));
+
+    if (response.meta.requestStatus === "fulfilled") {
+      toast({
+        icon: <CheckCircle />,
+        variant: "default",
+        description: "Data berhasil dihapus!"
+      });
+
+      onClose();
+      onBackHref && navigate(onBackHref);
+    } else {
+      toast({
+        icon: <CrossCircle />,
+        variant: "default",
+        description: "Data gagal dihapus!"
+      });
+    }
   }
 
   return (

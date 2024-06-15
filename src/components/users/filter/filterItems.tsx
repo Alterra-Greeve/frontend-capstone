@@ -9,6 +9,7 @@ function FilterOption({
   value,
 }: {
   children: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onAction: any;
   value: string;
 }) {

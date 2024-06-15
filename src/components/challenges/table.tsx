@@ -9,6 +9,7 @@ import ShowProfileIcon from "@/assets/icons/Iconly/Show.svg";
 import EditIcon from "@/assets/icons/Iconly/Union.svg";
 import DeleteChallengeModal from "@/components/challenges/modal/delete";
 import { useNavigate } from "react-router-dom";
+import DetailChallengeModal from "./modal/detail";
 
 const tableHeader: string[] = [
   "ID Tantangan",
@@ -23,11 +24,19 @@ const tableHeader: string[] = [
   "Tanggal Berakhir",
   ""
 ]
+interface TableChallengesProps {
+  dataChallengeShow: {
+    start: number;
+    end: number;
+  }
+}
 
-export default function TableChallenges() {
+export default function TableChallenges({ dataChallengeShow }: TableChallengesProps) {
   const navigate = useNavigate();
 
   const { data } = useAppSelector((state: RootState) => state.challenges);
+  console.log(data);
+  const displayedData = data.slice(dataChallengeShow.start - 1, dataChallengeShow.end);
 
   const [id, setId] = useState<string | null>(null);
 
@@ -45,8 +54,19 @@ export default function TableChallenges() {
     onOpenDelete();
   }
 
+  const onShowDetail = (id: string) => {
+    setId(id);
+    onOpenDetail();
+  }
+
   return (
     <>
+      <DetailChallengeModal
+        id={id || ""}
+        isOpen={showDetailModal}
+        onClose={onCloseDetail}
+      />
+
       <DeleteChallengeModal
         id={id || ""}
         isOpen={showDeleteModal}
@@ -67,7 +87,7 @@ export default function TableChallenges() {
             </TableRow>
           </TableHeader>
           <TableBody className="bg-neutral-50">
-            {data.map((item, index) => (
+            {displayedData.map((item, index) => (
               <TableRow key={index}
                 className={`text-start text-xs leading-6 font-normal text-neutral-900 ${index % 2 != 0 ? "bg-neutral-200 " : ""}`}
               >
@@ -82,10 +102,18 @@ export default function TableChallenges() {
                 </TableCell>
                 <TableCell className="text-start">{item.title}</TableCell>
                 <TableCell className="text-start">{item.description}</TableCell>
-                <TableCell className="text-start">-</TableCell>
-                <TableCell className="text-start">-</TableCell>
-                <TableCell className="text-start">-</TableCell>
-                <TableCell className="text-start">-</TableCell>
+                <TableCell className="text-start">{item.exp}</TableCell>
+                <TableCell className="text-start">{item.coin}</TableCell>
+                <TableCell className="text-start">{item.difficulty}</TableCell>
+                <TableCell className="text-start">
+                  <div className="flex gap-2 items-center">
+                    {item.categories.map((category, index) => (
+                      <img key={index}
+                        src={category.impact_category.icon_url}
+                      />
+                    ))}
+                  </div>
+                </TableCell>
                 <TableCell className="text-start">{item.date_start}</TableCell>
                 <TableCell className="text-start">{item.date_end}</TableCell>
                 <TableCell>
@@ -103,7 +131,7 @@ export default function TableChallenges() {
                       </DropdownMenuItem>
                       <DropdownMenuItem
                         className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer"
-                      // onClick={() => { onShowDetail(item.id) }}
+                        onClick={() => { onShowDetail(item.id) }}
                       >
                         <ShowProfileIcon />
                         Lihat

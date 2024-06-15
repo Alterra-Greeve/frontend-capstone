@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import FilterIcon from "@/assets/icons/Filter.svg";
 import { FormProvider, useForm } from "react-hook-form";
@@ -16,6 +16,8 @@ import CatEarth from '@/assets/icons/catEarth.svg'
 import CatMoney from '@/assets/icons/catMoney.svg'
 import CatBrain from '@/assets/icons/catBrains.svg'
 import CatRecycle from '@/assets/icons/catRecycle.svg'
+import { filterChallenges } from "@/lib/redux/api/challenges";
+import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 
 const difficulty = [
   { id: "mudah", label: "Mudah" },
@@ -24,29 +26,29 @@ const difficulty = [
 ] as const;
 
 const helper = [
-  { id: "earth", icon: <CatEarth /> },
-  { id: "money", icon: <CatMoney /> },
-  { id: "brain", icon: <CatBrain /> },
-  { id: "recycle", icon: <CatRecycle /> },
+  { id: "mengurangi pemanasan global", icon: <CatEarth /> },
+  { id: "hemat uang", icon: <CatMoney /> },
+  { id: "perluas wawasan", icon: <CatBrain /> },
+  { id: "mengurangi limbah", icon: <CatRecycle /> },
 ] as const;
 
 export default function ChallengesFilter() {
+  const dispatch = useAppDispatch();
+  const { filter } = useAppSelector((state: RootState) => state.challenges);
+
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof ChallengesFilterSchema>>({
-    resolver: zodResolver(ChallengesFilterSchema),
-    defaultValues: {
-      difficulty: [],
-      exp_min: undefined,
-      exp_max: undefined,
-      coin_min: undefined,
-      coin_max: undefined,
-      helper: [],
-    },
+    resolver: zodResolver(ChallengesFilterSchema)
   });
 
+  useEffect(() => {
+    form.reset(filter);
+  }, [filter, form]);
+
   const onSubmit = (data: z.infer<typeof ChallengesFilterSchema>) => {
-    console.log(data);
+    setIsOpen(false);
+    dispatch(filterChallenges(data));
   };
 
   return (
@@ -81,7 +83,8 @@ export default function ChallengesFilter() {
                             <Checkbox
                               checked={(field?.value ?? []).includes(item.id)}
                               onCheckedChange={(checked) => {
-                                const currentValue = field?.value ?? [];
+                                const currentValue = field?.value ?? undefined;
+                                if (currentValue === undefined) return form.setValue("difficulty", [item.id]);
                                 if (checked) {
                                   form.setValue("difficulty", [...currentValue, item.id]);
                                 } else {
@@ -109,24 +112,29 @@ export default function ChallengesFilter() {
                   control={form.control}
                   name="exp_min"
                   render={({ field }) => (
-                    <Input
-                      type="number"
-                      className="p-2 rounded-[7px] border-[0.5px] border-neutral-300 focus:border-neutral-800 outline-none placeholder:text-neutral-300 focus-visible:ring-transparent transition-all duration-300"
-                      placeholder={"Min"}
-                      {...field}
-                    />
+                    <FormControl>
+                      <Input
+                        type="number"
+                        className="p-2 rounded-[7px] border-[0.5px] border-neutral-300 focus:border-neutral-800 outline-none placeholder:text-neutral-300 focus-visible:ring-transparent transition-all duration-300"
+                        placeholder={"Min"}
+                        {...field}
+                      />
+                    </FormControl>
                   )}
                 />
                 <FormField
                   control={form.control}
                   name="exp_max"
                   render={({ field }) => (
-                    <Input
-                      type="number"
-                      className="p-2 rounded-[7px] border-[0.5px] border-neutral-300 focus:border-neutral-800 outline-none placeholder:text-neutral-300 focus-visible:ring-transparent transition-all duration-300"
-                      placeholder={"Max"}
-                      {...field}
-                    />
+                    <FormControl>
+                      <Input
+                        type="number" inputMode="numeric"
+                        pattern="[0-9]*"
+                        className="p-2 rounded-[7px] border-[0.5px] border-neutral-300 focus:border-neutral-800 outline-none placeholder:text-neutral-300 focus-visible:ring-transparent transition-all duration-300"
+                        placeholder={"Max"}
+                        {...field}
+                      />
+                    </FormControl>
                   )}
                 />
               </div>
@@ -183,7 +191,8 @@ export default function ChallengesFilter() {
                               <Checkbox
                                 checked={(field?.value ?? []).includes(item.id)}
                                 onCheckedChange={(checked) => {
-                                  const currentValue = field?.value ?? [];
+                                  const currentValue = field?.value ?? undefined;
+                                  if (currentValue === undefined) return form.setValue("helper", [item.id]);
                                   if (checked) {
                                     form.setValue("helper", [...currentValue, item.id]);
                                   } else {
@@ -204,7 +213,7 @@ export default function ChallengesFilter() {
             />
 
             <div className="mt-5 flex w-full">
-              <Button type="submit" className="w-full" onClick={() => setIsOpen(false)}>
+              <Button type="submit" className="w-full">
                 Simpan
               </Button>
             </div>

@@ -11,13 +11,15 @@ const ForumDetail = () => {
   const navigate = useNavigate();
   const { discussionsDetail, loading } = useAppSelector((state) => state.forum);
   console.log(discussionsDetail);
-  
+
 
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (forum_id) {
       dispatch(fetchDiscussionById(forum_id));
     }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [forum_id]);
 
   return (
@@ -27,7 +29,7 @@ const ForumDetail = () => {
       ) : (
         <section className="p-6">
           <div className="pb-6 border-b-[0.3px] border-neutral-300">
-            <button className="flex gap-3 justify-center items-center text-neutral-900" onClick={()=>navigate("/dashboard/forum-discussion")}>
+            <button className="flex gap-3 justify-center items-center text-neutral-900" onClick={() => navigate("/dashboard/forum-discussion")}>
               <ArrowLeft />
               Forum Discussion
             </button>

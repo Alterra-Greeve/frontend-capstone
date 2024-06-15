@@ -165,4 +165,3 @@ export const forumSlice = createSlice({
 });
 
 export default forumSlice.reducer;
-export const {} = forumSlice.actions;
