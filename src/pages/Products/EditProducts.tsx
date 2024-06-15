@@ -81,6 +81,7 @@ export default function EditProducts() {
         } finally {
             setIsLoading(false)
         }
+        
     }
     useEffect(() => {
         if (id !== undefined) {
@@ -88,7 +89,7 @@ export default function EditProducts() {
         }
     }, [id]);
 
-    console.log(newData)
+    console.log(newData?.category)
     return (
         <>
             <AdminLayout>
@@ -216,8 +217,8 @@ export default function EditProducts() {
                                     <label htmlFor="">Membantu</label>
                                     <ul className="flex flex-col">
                                         <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                            <input type="checkbox" name="Pemanasan Global" value="Mengurangi Pemanasan Global"
-                                                onChange={(e) => handleCheck(e)} checked={newData?.category.includes('Mengurangi Pemanasan Global')} />
+                                            <input type="checkbox" name="Pemanasan Global" value="b5d07366-3b31-4011-95e3-34735b0b61f8" onChange={(e) => handleCheck(e)} 
+                                                checked={newData?.category.includes("b5d07366-3b31-4011-95e3-34735b0b61f8")} />
                                             <div className="p-[4px] flex gap-[4px] items-center">
                                                 <CatEarth />
                                                 <span className="text-neutral-900 text-[16px] font-[500]">
@@ -226,8 +227,8 @@ export default function EditProducts() {
                                             </div>
                                         </li>
                                         <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                            <input type="checkbox" name="Hemat Uang" value="Hemat Uang" onChange={(e) => handleCheck(e)}
-                                                checked={newData?.category.includes('Hemat Uang')} />
+                                            <input type="checkbox" name="Hemat Uang" value="83808762-e2b8-4b34-a1eb-0ed8d4fda3dd" onChange={(e) => handleCheck(e)}
+                                                checked={newData?.category.includes("83808762-e2b8-4b34-a1eb-0ed8d4fda3dd")} />
                                             <div className="p-[4px] flex gap-[4px] items-center">
                                                 <CatMoney />
                                                 <span className="text-neutral-900 text-[16px] font-[500]">
@@ -236,8 +237,8 @@ export default function EditProducts() {
                                             </div>
                                         </li>
                                         <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                            <input type="checkbox" name="Memperluas Wawasan" value="Perluas Wawasan" onChange={(e) => handleCheck(e)}
-                                                checked={newData?.category.includes('Perluas Wawasan')} />
+                                            <input type="checkbox" name="Memperluas Wawasan" value="e8e714bd-c34e-4278-980c-39bd1f55b5fb" onChange={(e) => handleCheck(e)}
+                                                checked={newData?.category.includes("e8e714bd-c34e-4278-980c-39bd1f55b5fb")} />
                                             <div className="p-[4px] flex gap-[4px] items-center">
                                                 <CatBrain />
                                                 <span className="text-neutral-900 text-[16px] font-[500]">
@@ -246,8 +247,8 @@ export default function EditProducts() {
                                             </div>
                                         </li>
                                         <li className="flex gap-[8px] py-[4px] px-[8px] items-center">
-                                            <input type="checkbox" name="Mengurangi Limbah" value="Mengurangi Limbah" onChange={(e) => handleCheck(e)}
-                                                checked={newData?.category.includes('Mengurangi Limbah')} />
+                                            <input type="checkbox" name="Mengurangi Limbah" value="7d34a5fa-e2cf-466d-9f01-d731f6967082" onChange={(e) => handleCheck(e)}
+                                                checked={newData?.category.includes("7d34a5fa-e2cf-466d-9f01-d731f6967082")} />
                                             <div className="p-[4px] flex gap-[4px] items-center">
                                                 <CatRecycle />
                                                 <span className="text-neutral-900 text-[16px] font-[500]">
