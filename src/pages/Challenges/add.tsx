@@ -36,7 +36,7 @@ export default function AddChallengePage() {
           </div>
 
           <div className="col-span-3">
-            <FormAddChallenge submitRef={submitRef} />
+            <FormAddChallenge submitRef={submitRef} file={file} />
           </div>
         </div>
       </section>

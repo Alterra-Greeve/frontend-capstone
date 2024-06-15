@@ -124,6 +124,11 @@ export default function ModalConfirmAdd({ isOpen, onClose, file }: DetailChallen
 
     } catch (error) {
       console.error("Failed to update challenge:", error);
+      return toast({
+        icon: <CrossCircle />,
+        variant: "default",
+        description: "Challenge gagal ditambahkan!"
+      });
     } finally {
       setLoading(false);
     }
