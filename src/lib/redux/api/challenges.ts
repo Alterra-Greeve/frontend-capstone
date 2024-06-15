@@ -89,11 +89,10 @@ export const deleteChallenge = createAsyncThunk(
   "challenges/deleteChallenge",
   async (id: string) => {
     try {
-      // const response = await GreeveApi.delete(`/admin/challenges/${id}`);
-      // if (response.status === 200) {
-      //   return id;
-      // }
-      return id;
+      const response = await GreeveApi.delete(`/admin/challenges/${id}`);
+      if (response.status === 200) {
+        return id;
+      }
     } catch (error) {
       if (error instanceof AxiosError) {
         throw error.response ? error.response.status : error.message;
