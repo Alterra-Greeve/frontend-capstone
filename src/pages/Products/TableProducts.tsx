@@ -14,7 +14,7 @@ import CatRecycle from '@/assets/icons/catRecycle.svg'
 import ManageProducts from "./ManageProducts";
 import { useState } from "react";
 
-export default function TableProducts({ data, dataShow }: any) {
+export default function TableProducts({ data, dataShow, filterValue, isFiltered}: any) {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedDropDown, setSelectedDropDown] = useState("");
     const tableHeadStyle = "text-neutral-900 text-[12px] font-[400] leading-[24px] py-[8px] min-w-[90px]"
@@ -22,6 +22,8 @@ export default function TableProducts({ data, dataShow }: any) {
         setIsOpen(!isOpen);
         setSelectedDropDown(id);
     }
+    console.log(filterValue)
+    console.log(isFiltered)
     return (
         <div className="mx-[24px] rounded-[8px] bg-primary-100 ">
             <Table>
