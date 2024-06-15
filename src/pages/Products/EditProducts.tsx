@@ -14,7 +14,7 @@ import AddImage from "./AddImage";
 import ModalAlerts from "./modal-products/ModalAlerts";
 import ProductSaved from '@/assets/icons/ProductSaved.svg'
 import YesOrNo from '@/assets/icons/YesOrNo.svg'
-import Modal from "./modal";
+import Modal from "./modal-products/modal";
 
 export default function EditProducts() {
     const { id } = useParams()

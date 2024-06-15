@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
-import ModalDeleteProducts from "./modal-products/ModalDeleteProducts";
-import ModalProductsDetail from "./modal-products/ModalProductsDetail";
+import ModalDeleteProducts from "./ModalDeleteProducts";
+import ModalProductsDetail from "./ModalProductsDetail";
 // import { useNavigate } from "react-router-dom";
 
 
