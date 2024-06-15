@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import FormAddChallenge from "@/components/challenges/add/form";
 import { AddChallengeHeader } from "@/components/challenges/header";
 import AdminLayout from "@/layouts/AdminLayout";
-import { useAppDispatch } from "@/lib/redux";
+import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { getAllDataImpact } from "@/lib/redux/api/impact";
 import ChallengeImage from "@/components/challenges/image";
 import { deleteCurrentImage } from "@/lib/redux/api/challenges";
@@ -10,6 +10,8 @@ import { deleteCurrentImage } from "@/lib/redux/api/challenges";
 export default function AddChallengePage() {
   const dispatch = useAppDispatch();
   const submitRef = useRef<HTMLButtonElement | null>(null);
+
+  const { isLoading } = useAppSelector((state: RootState) => state.impact);
 
   const [file, setFile] = useState<File | null>(null);
   const onSaveFile = (file: File) => setFile(file);
@@ -22,6 +24,8 @@ export default function AddChallengePage() {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (isLoading) return <AdminLayout>Loading...</AdminLayout>
 
   return (
     <AdminLayout>
