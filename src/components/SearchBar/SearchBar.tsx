@@ -30,7 +30,7 @@ export default function SearchBar({onChange, value}:SearchProps) {
     setIsFocus(false)
     setPlaceHolder("Cari data produk")
   }
-  console.log(result)
+  // console.log(result)
   return (
     <div className={`w-[328px] h-[40px] rounded-[7px] border-solid border-[0.5px]
             ${isFocus ? 'border-neutral-800' : 'border-neutral-400'} bg-transparent flex gap-[8px] items-center p-[8px]`}>
