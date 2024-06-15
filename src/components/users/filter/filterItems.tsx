@@ -28,6 +28,7 @@ function FilterOption({
 const FilterItem = () => {
   const dispatch = useDispatch();
   const { filter } = useSelector((state: RootState) => state.users);
+  console.log(filter);
 
   function deleteSelectedFilter({ ...props }) {
     dispatch(filteredUsers(props));
@@ -44,7 +45,7 @@ const FilterItem = () => {
               name: "",
               username: filter.username,
               gender: filter.gender,
-              membership: "",
+              membership: filter.membership,
             });
           }}
         />
@@ -60,7 +61,7 @@ const FilterItem = () => {
               name: filter.name,
               username: "",
               gender: filter.gender,
-              membership: "",
+              membership: filter.membership,
             });
           }}
         />
@@ -76,7 +77,23 @@ const FilterItem = () => {
               name: filter.name,
               username: filter.username,
               gender: "",
-              membership: "",
+              membership: filter.membership,
+            });
+          }}
+        />
+      ) : (
+        ""
+      )}
+      {filter.membership !== undefined ? (
+        <FilterOption
+          children="Membership"
+          value={filter.membership ? "Yes" : "No"}
+          onAction={() => {
+            deleteSelectedFilter({
+              name: filter.name,
+              username: filter.username,
+              gender: filter.gender,
+              membership: undefined,
             });
           }}
         />

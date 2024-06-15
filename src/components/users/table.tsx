@@ -38,7 +38,6 @@ const tableHeader: string[] = [
   "",
 ];
 
-
 export default function TableProducts() {
   const { data } = useAppSelector((state: RootState) => state.users);
 
@@ -70,6 +69,24 @@ export default function TableProducts() {
   const onShowDelete = (id: string) => {
     setUserId(id);
     onOpenDelete();
+  };
+
+  const Membership = ({ isMembership }: { isMembership: boolean }) => {
+    return (
+      <div
+        className={`px-[22px] py-1 rounded-full text-center ${
+          isMembership ? "bg-success-100" : "bg-danger-100"
+        }`}
+      >
+        <p
+          className={`text-xs font-normal ${
+            isMembership ? "text-success-500" : "text-danger-500"
+          }`}
+        >
+          {isMembership ? "Yes" : "No"}
+        </p>
+      </div>
+    );
   };
 
   return (
@@ -150,7 +167,13 @@ export default function TableProducts() {
                 <TableCell className="p-3 text-start  min-w-[90px]">
                   {item.created_at || "-"}
                 </TableCell>
-                <TableCell className="p-3 text-start">-</TableCell>
+                <TableCell className="p-3 text-start">
+                  {item.membership !== undefined ? (
+                    <Membership isMembership={item.membership} />
+                  ) : (
+                    "-"
+                  )}
+                </TableCell>
 
                 <TableCell className="p-3 text-center pe-4">
                   <DropdownMenu>

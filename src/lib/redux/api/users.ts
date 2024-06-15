@@ -67,6 +67,7 @@ export interface UsersProps {
   phone: string;
   coin: number;
   exp: number;
+  membership: boolean;
   avatar_url: string;
   created_at: string;
   updated_at: string;
@@ -75,6 +76,7 @@ export interface filterProps {
   name: string;
   username: string;
   gender: string;
+  membership: boolean | undefined;
 }
 
 interface InitialState {
@@ -93,7 +95,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   data: [],
-  filter: { name: "", username: "", gender: "" },
+  filter: { name: "", username: "", gender: "", membership: undefined },
   originalData: [],
   metadata: {
     current_page: 0,
@@ -127,9 +129,10 @@ export const usersSlice = createSlice({
         name?: string | undefined;
         username?: string | undefined;
         gender?: string | undefined;
+        membership?: boolean | undefined;
       }>
     ) => {
-      const { name, username, gender } = action.payload;
+      const { name, username, gender, membership } = action.payload;
 
       const lowercasedName = name?.toLowerCase() || "";
       const lowercasedUsername = username?.toLowerCase() || "";
@@ -139,6 +142,7 @@ export const usersSlice = createSlice({
         name: lowercasedName,
         username: lowercasedUsername,
         gender: lowercasedGender,
+        membership: membership,
       };
 
       state.data = state.originalData.filter((item) => {
@@ -151,8 +155,11 @@ export const usersSlice = createSlice({
         const isGenderMatch = lowercasedGender
           ? item.gender.toLowerCase() === lowercasedGender
           : true;
+        const isMembershipMatch = membership !== undefined
+          ? item.membership === membership
+          : true;
 
-        return isNameMatch && isUsernameMatch && isGenderMatch;
+        return isNameMatch && isUsernameMatch && isGenderMatch && isMembershipMatch;
       });
     },
     resetFilter: (state) => {
