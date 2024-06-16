@@ -32,7 +32,7 @@ const DataImpactOrder = () => {
   
   return (
     <AdminLayout>
-      tes
+      order
     </AdminLayout>
   )
 };
