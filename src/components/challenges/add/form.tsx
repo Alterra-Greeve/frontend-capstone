@@ -210,7 +210,12 @@ export default function FormAddChallenge({ submitRef, file }: FormEditChallengeP
           name="categories"
           render={() => (
             <FormItem className="w-full">
-              <FormLabel>Membantu</FormLabel>
+              <div className="flex items-center gap-2">
+                <FormLabel>Membantu</FormLabel>
+                <FormMessage>
+                  {form.formState.errors.categories?.message}
+                </FormMessage>
+              </div>
               {categories.map((item, index) => (
                 <FormField key={index}
                   control={form.control}

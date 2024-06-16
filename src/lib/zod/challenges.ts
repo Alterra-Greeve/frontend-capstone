@@ -26,5 +26,8 @@ export const EditChallengeSchema = z.object({
     .min(1, { message: "Tanggal Mulai tidak boleh kosong" }),
   date_end: z.string({ required_error: "Tanggal Berakhir Harus Diisi" })
     .min(1, { message: "Tanggal Berakhir tidak boleh kosong" }),
-  categories: z.array(z.string()),
+  categories: z.array(z.string({
+    required_error: "Harus Diisi",
+    message: "Tidak boleh kosong",
+  })).min(1, { message: "Harus Diisi" }),
 });
