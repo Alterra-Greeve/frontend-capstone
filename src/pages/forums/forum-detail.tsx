@@ -7,20 +7,18 @@ import { fetchDiscussionById } from "@/lib/redux/api/forum";
 import Loading from "@/components/loading";
 
 const ForumDetail = () => {
-  const { forum_id } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
   const { discussionsDetail, loading } = useAppSelector((state) => state.forum);
-  console.log(discussionsDetail);
-
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    if (forum_id) {
-      dispatch(fetchDiscussionById(forum_id));
+    if (id) {
+      dispatch(fetchDiscussionById(id));
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [forum_id]);
+  }, [id]);
 
   return (
     <AdminLayout>
