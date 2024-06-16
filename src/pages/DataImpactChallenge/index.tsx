@@ -1,54 +1,90 @@
 import { GreeveApi } from "@/lib/axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import AdminLayout from "@/layouts/AdminLayout";
-import Filter from "@/assets/icons/Filter.svg";
-import Download from "@/assets/icons/Export.svg"
-import FilterOutline from '@/assets/icons/FilterOutline.svg'
-import NoData from '@/assets/icons/NoData.svg'
-import SearchBar from "@/components/SearchBar/SearchBar";
-import Button from "@/components/Button/Button";
-import Input from "@/components/Input/Input";
-import TableImpactChallenge from "./TableImpactChallenge";
+import NoDataImage from '@/assets/images/no-data-challenges.png'
 import Loading from "@/components/loading";
+import TableImpactChallenge from "@/components/DataImpact/challenges/table";
+import Paging from "@/components/pagination";
+import { DataImpactProps } from "@/components/DataImpact/type";
+import { DataImpactChallengeHeaders } from "@/components/DataImpact/headers";
+
+const NoData = () => (
+  <div className="flex flex-col gap-3 items-center justify-center w-full min-h-[80dvh]">
+    <img src={NoDataImage} alt="No Data Challenges" />
+    <h1 className="font-bold text-2xl">
+      Belum ada data yang dimasukkan
+    </h1>
+  </div>
+)
+
+interface DataProps {
+  data: DataImpactProps[];
+  originalData: DataImpactProps[];
+  filtered?: {
+    username: string | undefined;
+    tantangan: string | undefined;
+  }
+}
 
 const DataImpactChallenge = () => {
-
-  const [data, setData] = useState()
-  const [dataShow, setDataShow] = useState({})
-  const [searchName, setSearchName] = useState("")
-  const [toggleOpen, setToggleOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isFiltered, setIsFiltered] = useState(false)
-  const [filterValue, setFilterValue] = useState({});
-
-  async function fetchDataImpactChallenge() {
-    setIsLoading(true)
-    try {
-      const response = await GreeveApi.get(`/order/challenge`)
-      setData(response.data.data)
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setIsLoading(false)
+  const [isLoading, setIsLoading] = useState(false);
+  const [datas, setDatas] = useState<DataProps>({
+    data: [],
+    originalData: [],
+    filtered: {
+      username: undefined,
+      tantangan: undefined
     }
+  });
+  const [dataShow, setDataShow] = useState({
+    start: 1,
+    end: 10
+  });
+
+  const onFilter = (data: { username?: string | undefined; tantangan?: string | undefined; }) => {
+    const { username, tantangan } = data;
+
+    const filteredData = datas.originalData.filter((item) => {
+      const itemUsername = item.username.toLowerCase();
+      const itemChallengeName = item.challenge_name.toLowerCase();
+
+      if (username && tantangan) {
+        return itemUsername.includes(username.toLowerCase()) && itemChallengeName.includes(tantangan.toLowerCase());
+      }
+      if (username) {
+        return itemUsername.includes(username.toLowerCase());
+      }
+      if (tantangan) {
+        return itemChallengeName.includes(tantangan.toLowerCase());
+      }
+      return true;
+    });
+
+    setDatas({
+      ...datas,
+      data: filteredData,
+      filtered: { username, tantangan }
+    })
   }
-  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
-    setSearchName(e.target.value)
-  }
-  function handleFilterInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const { value, name } = e.target;
-    setFilterValue({ ...filterValue, [name]: value })
-  }
-  function handleSaveFilter() {
-    setToggleOpen(!toggleOpen)
-    if (filterValue) {
-      setIsFiltered(true)
-    } else {
-      setIsFiltered(false)
-    }
-  }
+
   useEffect(() => {
-    fetchDataImpactChallenge()
+    const fetchData = async () => {
+      setIsLoading(true)
+      try {
+        const response = await GreeveApi.get(`/order/challenge`);
+        setDatas({
+          data: response.data.data,
+          originalData: response.data.data
+        });
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+
   }, [])
 
   if (isLoading) {
@@ -61,75 +97,24 @@ const DataImpactChallenge = () => {
 
   return (
     <AdminLayout>
-      <div className="bg-primary-50 flex flex-col gap-[16px] 
-        relative">
-        <div className="flex justify-between pt-[24px] mx-[24px] border-b-[0.5px] pb-[16px]">
-          <div className='flex gap-[4px]'>
-            <SearchBar onChange={handleSearch} value={searchName} />
-            <div className='w-[40px] h-[40px] relative z-10'>
-              <div onClick={() => setToggleOpen(!toggleOpen)} className='cursor-pointer'>
-                {toggleOpen ? <Filter /> : <FilterOutline />}
-              </div>
-              {toggleOpen ?
-                <div className='absolute p-[12px] rounded-[8px] bg-neutral-50 shadow-custom'>
-                  <div className='flex flex-col gap-[12px] text-[16px] font-[800] text-neutral-900'>
-                    <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
-                      <label>Username</label>
-                      <Input
-                        type='text'
-                        style='w-full text-[12px] font-[500]'
-                        id="username"
-                        name="username"
-                        onChange={handleFilterInput}
-                        placeholder='Ex: Orion'
-                        value={filterValue?.username}
-                      />
-                    </div>
-                    <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
-                      <label>Product Name</label>
-                      <Input type='text' style='w-full text-[12px] font-[500]' id="productName" name="productName"
-                        onChange={(e) => handleFilterInput(e)} placeholder='Ex: Sedotan Besi' value={filterValue?.productName} />
-                    </div>
-                  </div>
-                  <Button variant='primary' children='Simpan' className='w-[228px] py-[8px] mt-[20px]' onClick={() => handleSaveFilter()} />
-                </div>
-                : null
-              }
-            </div>
-          </div>
-          <div className="flex gap-[8px]">
-            <Button variant="secondary" className='p-[8px]' icon={<Download />}>Export</Button>
-          </div>
-        </div>
-        {/* {isFiltered &&
-          <div className="flex gap-[12px] mx-[24px]">
-            {filterValue?. ?
-              <Filtered type='input' children={`${filterValue.}`}
-                filter='Username' /> : null}
-            {filterValue?. ?
-              <Filtered type='input' children={`${filterValue.}`}
-                filter='Product Name' /> : null}
-          </div>} */}
-        {data ?
-          <>
-            <TableImpactChallenge data={data} dataShow={dataShow} filterValue={filterValue} isFiltered={isFiltered} />
-            <div className="mx-[24px]">
-              {/* <Pagination
-                // @ts-expect-error data is type unknown
-                dataLength={data.data.length}
+      <section className="p-6">
+        <DataImpactChallengeHeaders onFilter={onFilter} />
+        {!datas.data
+          ? <NoData />
+          : (
+            <>
+              <TableImpactChallenge data={datas.data} dataShow={dataShow} />
+              <Paging
+                dataLength={datas.data.length}
                 amouthDataDisplayed={10}
+                className="my-4"
                 setDataShow={(event: { start: number; end: number }) => {
-                  setDataShow({ Start: event.start, end: event.end });
-                }} /> */}
-            </div>
-          </>
-          :
-          <div className="flex flex-col justify-center items-center mx-[24px] h-[78vh]">
-            <NoData />
-            <h1 className="text-neutral-900 text-[28px] font-[700] text-center">Belum ada data yang dimasukkan</h1>
-          </div>
-        }
-      </div>
+                  setDataShow({ start: event.start, end: event.end });
+                }}
+              />
+            </>
+          )}
+      </section>
     </AdminLayout>
   );
 };
