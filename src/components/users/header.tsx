@@ -6,10 +6,13 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 import UsersFilter from "@/components/users/filter";
 
 export default function Header() {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value);
+  }
   return (
     <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
       <div className="flex gap-4 items-center">
-        <SearchBar onChange={(e) => console.log(e)} />
+        <SearchBar onChange={handleSearch} />
         <UsersFilter />
       </div>
       <div className="flex gap-[10px] items-center ps-[18px] py-1 ">

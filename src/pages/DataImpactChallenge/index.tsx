@@ -1,39 +1,41 @@
 import { GreeveApi } from "@/lib/axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "@/layouts/AdminLayout";
 import Filter from "@/assets/icons/Filter.svg";
 import Download from "@/assets/icons/Export.svg"
 import FilterOutline from '@/assets/icons/FilterOutline.svg'
 import NoData from '@/assets/icons/NoData.svg'
 import SearchBar from "@/components/SearchBar/SearchBar";
-import Pagination from "@/components/pagination";
 import Button from "@/components/Button/Button";
 import Input from "@/components/Input/Input";
 import TableImpactChallenge from "./TableImpactChallenge";
+import Loading from "@/components/loading";
 
 const DataImpactChallenge = () => {
-  const [data, setData] = useState<any>()
+
+  const [data, setData] = useState()
   const [dataShow, setDataShow] = useState({})
   const [searchName, setSearchName] = useState("")
   const [toggleOpen, setToggleOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isFiltered, setIsFiltered] = useState(false)
-  const [filterValue, setFilterValue] = useState<any>({});
+  const [filterValue, setFilterValue] = useState({});
+
   async function fetchDataImpactChallenge() {
     setIsLoading(true)
-    try{
+    try {
       const response = await GreeveApi.get(`/order/challenge`)
       setData(response.data.data)
-    }catch(error){
+    } catch (error) {
       console.log(error)
-    }finally{
+    } finally {
       setIsLoading(false)
     }
   }
-  function handleSearch(e: any) {
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchName(e.target.value)
   }
-  function handleFilterInput(e: any) {
+  function handleFilterInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { value, name } = e.target;
     setFilterValue({ ...filterValue, [name]: value })
   }
@@ -49,15 +51,21 @@ const DataImpactChallenge = () => {
     fetchDataImpactChallenge()
   }, [])
 
-  if (isLoading) return <AdminLayout>Loading...</AdminLayout>;
-  // console.log(data)
+  if (isLoading) {
+    return (
+      <AdminLayout>
+        <Loading />
+      </AdminLayout>
+    )
+  }
+
   return (
     <AdminLayout>
       <div className="bg-primary-50 flex flex-col gap-[16px] 
         relative">
         <div className="flex justify-between pt-[24px] mx-[24px] border-b-[0.5px] pb-[16px]">
           <div className='flex gap-[4px]'>
-            <SearchBar onChange={(e) => handleSearch(e)} value={searchName} />
+            <SearchBar onChange={handleSearch} value={searchName} />
             <div className='w-[40px] h-[40px] relative z-10'>
               <div onClick={() => setToggleOpen(!toggleOpen)} className='cursor-pointer'>
                 {toggleOpen ? <Filter /> : <FilterOutline />}
@@ -67,8 +75,15 @@ const DataImpactChallenge = () => {
                   <div className='flex flex-col gap-[12px] text-[16px] font-[800] text-neutral-900'>
                     <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
                       <label>Username</label>
-                      <Input type='text' style='w-full text-[12px] font-[500]' id="username" name="username"
-                        onChange={(e) => handleFilterInput(e)} placeholder='Ex: Orion' value={filterValue?.username} />
+                      <Input
+                        type='text'
+                        style='w-full text-[12px] font-[500]'
+                        id="username"
+                        name="username"
+                        onChange={handleFilterInput}
+                        placeholder='Ex: Orion'
+                        value={filterValue?.username}
+                      />
                     </div>
                     <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
                       <label>Product Name</label>

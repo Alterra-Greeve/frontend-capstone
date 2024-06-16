@@ -1,45 +1,47 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import DangerIcon from '@/assets/icons/DangerSquare.svg'
 
 type InputProps = {
-    type: string;
-    style: string;
-    id: string;
-    name: string;
-    isEmpty?: boolean;
-    value?: any;
-    placeholder?: any;
-    onChange: (e: string | number) => void;
+  style: string;
+  isEmpty?: boolean;
 };
 
-export default function Input({type, style, id, name, isEmpty, value, placeholder, onChange}:InputProps) {
-    const [result, setResult] = useState("")
-    const [isFocus, setIsFocus] = useState(false)
-    function handleInput(e:any) {
-        const {value} = e.target
-        setResult(value)
-        setIsFocus(true)
-        onChange(e)
-        if(!result){
-            handleBlur()
-        }
+export default function Input({ style, isEmpty, ...rest }: InputProps) {
+  const [result, setResult] = useState("")
+  const [isFocus, setIsFocus] = useState(false)
+
+  function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value } = e.target
+    setResult(value)
+    setIsFocus(true)
+    if (!result) {
+      handleBlur()
     }
-    function handleBlur() {
-        setIsFocus(false)
-    }
-    return (
-        <div className="relative">
-            <input type={type} className={isEmpty && !value || isEmpty && !value.length? 
-            `rounded-[7px] p-[8px] border-[0.5px] border-solid border-danger-500 outline-none ${style}`
-            :
-            `rounded-[7px] p-[8px] border-[0.5px] border-solid ${isFocus? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`} 
-            onFocus={() => setIsFocus(true)} onBlur={handleInput} onChange={handleInput} id={id} name={name}
-            placeholder={placeholder} value={value}/>
-            {isEmpty && !value || isEmpty && !value.length?
-                <span className="absolute right-[6px] top-[6px] w-[24px] h-[24px]">
-                    <DangerIcon/>
-                </span>
-            :<></>}
-        </div>
-    )
-};
+  }
+
+  function handleBlur() {
+    setIsFocus(false)
+  }
+
+  const onBlur = () => setIsFocus(false)
+  const onFocus = () => setIsFocus(true)
+
+  return (
+    <div className="relative">
+      <input className={isEmpty && !value || isEmpty && !value.length ?
+        `rounded-[7px] p-[8px] border-[0.5px] border-solid border-danger-500 outline-none ${style}`
+        :
+        `rounded-[7px] p-[8px] border-[0.5px] border-solid ${isFocus ? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={handleInput}
+        {...rest}
+      />
+      {isEmpty && !value || isEmpty && !value.length ?
+        <span className="absolute right-[6px] top-[6px] w-[24px] h-[24px]">
+          <DangerIcon />
+        </span>
+        : <></>}
+    </div>
+  )
+}
