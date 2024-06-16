@@ -11,3 +11,16 @@ export interface DataImpactProps {
   impact_point: number;
   helps: DataImpactHelpsProps[];
 }
+
+export interface DataImpactOrderProps {
+  username: string;
+  email: string;
+  coin: number;
+  qty: number;
+  product_name: string;
+  total: number;
+  helps: DataImpactHelpsProps[];
+  impact_point: number;
+  createdAt: string;
+  updatedAt: string;
+}

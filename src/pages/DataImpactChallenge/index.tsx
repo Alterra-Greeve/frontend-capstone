@@ -27,6 +27,11 @@ interface DataProps {
   }
 }
 
+interface DataShowProps {
+  start: number;
+  end: number;
+}
+
 export default function DataImpactChallenge() {
   const [isLoading, setIsLoading] = useState(false);
   const [datas, setDatas] = useState<DataProps>({
@@ -37,7 +42,7 @@ export default function DataImpactChallenge() {
       tantangan: undefined
     }
   });
-  const [dataShow, setDataShow] = useState({
+  const [dataShow, setDataShow] = useState<DataShowProps>({
     start: 1,
     end: 10
   });

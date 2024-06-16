@@ -1,16 +1,10 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { DataImpactProps } from "@/components/DataImpact/type";
+
 import CatEarth from '@/assets/icons/catEarth.svg'
 import CatMoney from '@/assets/icons/catMoney.svg'
 import CatBrain from '@/assets/icons/catBrains.svg'
 import CatRecycle from '@/assets/icons/catRecycle.svg'
-import { DataImpactProps } from "../type";
 
 const headers = [
   "No",
@@ -20,9 +14,7 @@ const headers = [
   "Helps",
   "EXP",
   "Point Impact"
-]
-
-
+] as const;
 
 interface TableImpactChallengeProps {
   data: DataImpactProps[];
