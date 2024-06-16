@@ -117,9 +117,8 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
             {displayedData.map((item, index) => (
               <TableRow
                 key={index}
-                className={`text-start text-xs leading-6 font-normal text-neutral-900 ${
-                  index % 2 !== 0 ? "bg-neutral-200 " : ""
-                }`}
+                className={`text-start text-xs leading-6 font-normal text-neutral-900 ${index % 2 !== 0 ? "bg-neutral-200 " : ""
+                  }`}
               >
                 <TableCell className="p-3 text-start">
                   {item.id.split("-")[0]}

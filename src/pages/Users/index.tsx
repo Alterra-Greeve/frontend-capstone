@@ -6,7 +6,6 @@ import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { getUsers } from "@/lib/redux/api/users";
 import { useEffect, useState } from "react";
 
-import TableProducts from "@/components/users/table";
 import Header from "@/components/users/header";
 import Paging from "@/components/pagination";
 import FilterItem from "@/components/users/filter/filterItems";
@@ -15,6 +14,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import CheckCircle from "@/assets/icons/checkCircle";
 import CrossCircle from "@/assets/icons/crossCircle";
+import TableUsers from "@/components/users/table";
 
 export default function UsersPage() {
   const dispatch = useAppDispatch();
@@ -43,6 +43,7 @@ export default function UsersPage() {
         description: message,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isError, message]);
 
   if (isLoading) {
@@ -58,7 +59,7 @@ export default function UsersPage() {
       <div className="p-6">
         <Header />
         <FilterItem />
-        <TableProducts dataUsersShow={dataUsersShow} />
+        <TableUsers dataUsersShow={dataUsersShow} />
         <Paging
           dataLength={data?.length}
           amouthDataDisplayed={10}

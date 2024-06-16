@@ -35,7 +35,8 @@ export const deleteUser = createAsyncThunk(
 //edit user function reducer
 export const editUser = createAsyncThunk(
   "users/editUsers",
-  async ({ userId, data }: { userId: any; data: any }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async ({ userId, data }: { userId: string; data: any }) => {
     try {
       const response = await GreeveApi.put(`/admin/users/${userId}`, data);
       if (response.status == 200) {
