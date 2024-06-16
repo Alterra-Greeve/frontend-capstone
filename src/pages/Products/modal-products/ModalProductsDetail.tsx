@@ -1,10 +1,10 @@
 import newUseFetch from "@/lib/hooks/newUseFetch";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
-import CatEarth from '@/assets/icons/catEarth.svg'
-import CatMoney from '@/assets/icons/catMoney.svg'
-import CatBrain from '@/assets/icons/catBrains.svg'
-import CatRecycle from '@/assets/icons/catRecycle.svg'
+import CatEarth from '@/assets/icons/catEarthBig.svg'
+import CatMoney from '@/assets/icons/catMoneyBig.svg'
+import CatBrain from '@/assets/icons/catBrainsBig.svg'
+import CatRecycle from '@/assets/icons/catRecycleBig.svg'
 import Coin from '@/assets/icons/Coin.svg'
 import Button from '@/components/Button/Button'
 
