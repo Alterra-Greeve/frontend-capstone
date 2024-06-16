@@ -26,7 +26,6 @@ export default function DataImpactChallengeFilter({ onFilter }: DataImpactChalle
   });
 
   const onSubmit = (data: z.infer<typeof FilterDataImpactChallengeSchema>) => {
-    console.log(data)
     onFilter(data);
     onClose();
   }

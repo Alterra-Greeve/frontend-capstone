@@ -7,6 +7,7 @@ import TableImpactChallenge from "@/components/DataImpact/challenges/table";
 import Paging from "@/components/pagination";
 import { DataImpactProps } from "@/components/DataImpact/type";
 import { DataImpactChallengeHeaders } from "@/components/DataImpact/headers";
+import FilterItemsImpactChallenge from "@/components/DataImpact/challenges/filter/items";
 
 const NoData = () => (
   <div className="flex flex-col gap-3 items-center justify-center w-full min-h-[80dvh]">
@@ -26,7 +27,7 @@ interface DataProps {
   }
 }
 
-const DataImpactChallenge = () => {
+export default function DataImpactChallenge() {
   const [isLoading, setIsLoading] = useState(false);
   const [datas, setDatas] = useState<DataProps>({
     data: [],
@@ -49,7 +50,8 @@ const DataImpactChallenge = () => {
       const itemChallengeName = item.challenge_name.toLowerCase();
 
       if (username && tantangan) {
-        return itemUsername.includes(username.toLowerCase()) && itemChallengeName.includes(tantangan.toLowerCase());
+        return itemUsername.includes(username.toLowerCase()) &&
+          itemChallengeName.includes(tantangan.toLowerCase());
       }
       if (username) {
         return itemUsername.includes(username.toLowerCase());
@@ -65,6 +67,18 @@ const DataImpactChallenge = () => {
       data: filteredData,
       filtered: { username, tantangan }
     })
+  }
+
+  const onDeleteFilter = (key: keyof { username: string | undefined; tantangan: string | undefined; }) => {
+    // @ts-expect-error property does not exist
+    const { username, tantangan } = datas.filtered;
+
+    if (key === "username") {
+      onFilter({ username: undefined, tantangan });
+    }
+    if (key === "tantangan") {
+      onFilter({ username, tantangan: undefined });
+    }
   }
 
   useEffect(() => {
@@ -83,8 +97,7 @@ const DataImpactChallenge = () => {
       }
     }
 
-    fetchData()
-
+    fetchData();
   }, [])
 
   if (isLoading) {
@@ -99,6 +112,8 @@ const DataImpactChallenge = () => {
     <AdminLayout>
       <section className="p-6">
         <DataImpactChallengeHeaders onFilter={onFilter} />
+        <FilterItemsImpactChallenge filter={datas.filtered} onDeleteFilter={onDeleteFilter} />
+
         {!datas.data
           ? <NoData />
           : (
@@ -116,7 +131,5 @@ const DataImpactChallenge = () => {
           )}
       </section>
     </AdminLayout>
-  );
-};
-
-export default DataImpactChallenge;
+  )
+}
