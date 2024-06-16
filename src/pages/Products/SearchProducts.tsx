@@ -14,73 +14,73 @@ export default function SearchProducts() {
   const [isOpen, setIsOpen] = useState(false)
   const [searchName, setSearchName] = useState("")
   // const { loading, error, data } = useFetch(`/products/search?name=${searchName}`, { method: 'get' });
-  function handleSearch(e:any){
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     setSearchName(e.target.value)
   }
-  function handleInput(){
+  function handleInput() {
 
   }
   // console.log(data?.data)
   return (
     <div className='flex gap-[4px]'>
-      <SearchBar onChange={(e)=>handleSearch(e)} value={searchName}/>
+      <SearchBar onChange={handleSearch} value={searchName} />
       <div className='w-[40px] h-[40px] relative z-10'>
         <div onClick={() => setIsOpen(!isOpen)} className='cursor-pointer'>
-          {isOpen? <Filter/> : <FilterOutline />}
+          {isOpen ? <Filter /> : <FilterOutline />}
         </div>
-        {isOpen?
-        <div className='absolute p-[12px] rounded-[8px] bg-neutral-50 shadow-custom'>
-          <div className='flex flex-col gap-[4px] mb-[20px] text-[16px] font-[800] text-neutral-900'>
-            <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
-              <label>Harga</label>
-              <div className='flex gap-[4px]'>
-                <Input type='number' style='w-[100px] text-[12px] font-[500]' id="harga" name="harga" onChange={handleInput} placeholder='Min'/>
-                <Input type='number' style='w-[100px] text-[12px] font-[500]' id="harga" name="harga" onChange={handleInput} placeholder='Max'/>
-              </div>
-            </div>
-            <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
-              <label>Stok</label>
-              <div className='flex gap-[4px]'>
-                <Input type='number' style='w-[100px] text-[12px] font-[500]' id="Stok" name="Stok" onChange={handleInput} placeholder='Min'/>
-                <Input type='number' style='w-[100px] text-[12px] font-[500]' id="Stok" name="Stok" onChange={handleInput} placeholder='Max'/>
-              </div>
-            </div>
-            <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
-              <label>Koin</label>
-              <div className='flex gap-[4px]'>
-                <Input type='number' style='w-[100px] text-[12px] font-[500]' id="Koin" name="Koin" onChange={handleInput} placeholder='Min'/>
-                <Input type='number' style='w-[100px] text-[12px] font-[500]' id="Koin" name="Koin" onChange={handleInput} placeholder='Max'/>
-              </div>
-            </div>
-            <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
-              <label>Membantu</label>
-              <div className='flex flex-col gap-[12px]'>
-                <div className='flex gap-[20px]'>
-                    <div className='flex gap-[12px] items-center justify-center py-[4px] px-[12px]'>
-                      <input type="checkbox"/>
-                      <CatMoney/>
-                    </div>
-                    <div className='flex gap-[12px] items-center justify-center py-[4px] px-[12px]'>
-                      <input type="checkbox"/>
-                      <CatEarth/>
-                    </div>
-                </div>
-                <div className='flex gap-[20px]'>
-                    <div className='flex gap-[12px] items-center justify-center py-[4px] px-[12px]'>
-                      <input type="checkbox"/>
-                      <CatBrains/>
-                    </div>
-                    <div className='flex gap-[12px] items-center justify-center py-[4px] px-[12px]'>
-                      <input type="checkbox"/>
-                      <CatRecycle/>
-                    </div>
+        {isOpen ?
+          <div className='absolute p-[12px] rounded-[8px] bg-neutral-50 shadow-custom'>
+            <div className='flex flex-col gap-[4px] mb-[20px] text-[16px] font-[800] text-neutral-900'>
+              <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
+                <label>Harga</label>
+                <div className='flex gap-[4px]'>
+                  <Input type='number' style='w-[100px] text-[12px] font-[500]' id="harga" name="harga" onChange={handleInput} placeholder='Min' />
+                  <Input type='number' style='w-[100px] text-[12px] font-[500]' id="harga" name="harga" onChange={handleInput} placeholder='Max' />
                 </div>
               </div>
+              <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
+                <label>Stok</label>
+                <div className='flex gap-[4px]'>
+                  <Input type='number' style='w-[100px] text-[12px] font-[500]' id="Stok" name="Stok" onChange={handleInput} placeholder='Min' />
+                  <Input type='number' style='w-[100px] text-[12px] font-[500]' id="Stok" name="Stok" onChange={handleInput} placeholder='Max' />
+                </div>
+              </div>
+              <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
+                <label>Koin</label>
+                <div className='flex gap-[4px]'>
+                  <Input type='number' style='w-[100px] text-[12px] font-[500]' id="Koin" name="Koin" onChange={handleInput} placeholder='Min' />
+                  <Input type='number' style='w-[100px] text-[12px] font-[500]' id="Koin" name="Koin" onChange={handleInput} placeholder='Max' />
+                </div>
+              </div>
+              <div className='flex flex-col gap-[12px] p-[12px] rounded-[8px] border-[0.5px] border-solid border-neutral-200'>
+                <label>Membantu</label>
+                <div className='flex flex-col gap-[12px]'>
+                  <div className='flex gap-[20px]'>
+                    <div className='flex gap-[12px] items-center justify-center py-[4px] px-[12px]'>
+                      <input type="checkbox" />
+                      <CatMoney />
+                    </div>
+                    <div className='flex gap-[12px] items-center justify-center py-[4px] px-[12px]'>
+                      <input type="checkbox" />
+                      <CatEarth />
+                    </div>
+                  </div>
+                  <div className='flex gap-[20px]'>
+                    <div className='flex gap-[12px] items-center justify-center py-[4px] px-[12px]'>
+                      <input type="checkbox" />
+                      <CatBrains />
+                    </div>
+                    <div className='flex gap-[12px] items-center justify-center py-[4px] px-[12px]'>
+                      <input type="checkbox" />
+                      <CatRecycle />
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+            <Button variant='primary' children='Simpan' className='w-[228px] py-[8px]' />
           </div>
-          <Button variant='primary' children='Simpan' className='w-[228px] py-[8px]'/>
-        </div>
-        : <></>
+          : <></>
         }
       </div>
     </div>
