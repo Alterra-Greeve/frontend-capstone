@@ -1,13 +1,13 @@
+import { GreeveApi } from "@/lib/axios";
+import { useEffect, useState } from "react";
+import AdminLayout from "@/layouts/AdminLayout";
+import TableProductsMeasurement from "./Table";
 import Filter from "@/assets/icons/Filter.svg";
 import Download from "@/assets/icons/Export.svg"
 import FilterOutline from '@/assets/icons/FilterOutline.svg'
 import NoData from '@/assets/icons/NoData.svg'
-import AdminLayout from "@/layouts/AdminLayout";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import Pagination from "@/components/pagination";
-import TableProductsMeasurement from "./Table";
-import { GreeveApi } from "@/lib/axios";
-import { useEffect, useState } from "react";
 import Button from "@/components/Button/Button";
 import Input from "@/components/Input/Input";
 
@@ -16,11 +16,19 @@ const DataImpactOrder = () => {
   const [dataShow, setDataShow] = useState({})
   const [searchName, setSearchName] = useState("")
   const [toggleOpen, setToggleOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [isFiltered, setIsFiltered] = useState(false)
   const [filterValue, setFilterValue] = useState<any>({});
   async function fetchDataImpactOrder() {
-    const response = await GreeveApi.get(`/order/product`)
-    setData(response.data.data)
+    setIsLoading(true)
+    try{
+      const response = await GreeveApi.get(`/order/product`)
+      setData(response.data.data)
+    }catch(error){
+      console.log(error)
+    }finally{
+      setIsLoading(false)
+    }
   }
   function handleSearch(e: any) {
     setSearchName(e.target.value)
@@ -40,6 +48,8 @@ const DataImpactOrder = () => {
   useEffect(() => {
     fetchDataImpactOrder()
   }, [])
+
+  if (isLoading) return <AdminLayout>Loading...</AdminLayout>;
   // console.log(data)
   return (
     <AdminLayout>
