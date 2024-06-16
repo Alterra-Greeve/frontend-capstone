@@ -255,6 +255,9 @@ export const challengesSlice = createSlice({
         ...action.payload
       };
     },
+    clearSingleData: state => {
+      state.singleData = null;
+    }
   },
   extraReducers: builder => {
     builder
@@ -304,5 +307,6 @@ export const {
   deleteCurrentImage,
   setImageUrl,
   setNewSingleData,
+  clearSingleData
 } = challengesSlice.actions;
 

@@ -9,6 +9,7 @@ import ArrowLeft from "@/assets/icons/Arrow - Left.svg";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import ChallengesFilter from "@/components/challenges/filter";
 import DeleteChallengeModal from "@/components/challenges/modal/delete";
+import ConfirmLeaveChallengeModal from "./modal/ConfirmLeave";
 
 export const ChallengesHeader = () => {
   const navigate = useNavigate();
@@ -35,16 +36,17 @@ export const ChallengesHeader = () => {
 
 export const EditChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<HTMLButtonElement> }) => {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const [open, setOpen] = useState<boolean>(false);
+  const [confirm, setConfirm] = useState<boolean>(false);
+
+  const onConfirm = () => setConfirm(true);
+  const onCloseConfirm = () => setConfirm(false);
 
   const onClose = () => setOpen(false);
   const onOpen = () => setOpen(true);
 
-  const onSubmit = () => {
-    submitRef.current?.click();
-  }
+  const onSubmit = () => submitRef.current?.click()
 
   return (
     <div className="flex items-center justify-between px-6">
@@ -55,7 +57,13 @@ export const EditChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<
         onBackHref={"../"}
       />
 
-      <div className="flex gap-3 cursor-pointer hover:underline" onClick={() => navigate("../")}>
+      <ConfirmLeaveChallengeModal
+        isOpen={confirm}
+        onClose={onCloseConfirm}
+        onBackHref={"../"}
+      />
+
+      <div className="flex gap-3 cursor-pointer hover:underline" onClick={onConfirm}>
         <ArrowLeft />
         <span>
           Edit Challenge
@@ -75,15 +83,22 @@ export const EditChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<
 }
 
 export const AddChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<HTMLButtonElement> }) => {
-  const navigate = useNavigate();
+  const [open, setOpen] = useState<boolean>(false);
 
-  const onSubmit = () => {
-    submitRef.current?.click();
-  }
+  const onOpen = () => setOpen(true)
+  const onClose = () => setOpen(false)
+
+  const onSubmit = () => submitRef.current?.click()
 
   return (
     <div className="flex items-center justify-between px-6">
-      <div className="flex gap-3 cursor-pointer hover:underline" onClick={() => navigate("../")}>
+      <ConfirmLeaveChallengeModal
+        isOpen={open}
+        onClose={onClose}
+        onBackHref={"../"}
+      />
+
+      <div className="flex gap-3 cursor-pointer hover:underline" onClick={onOpen}>
         <ArrowLeft />
         <span>
           Add Challenge

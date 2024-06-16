@@ -59,7 +59,7 @@ export default function AddImageChallenge({ onSaveFile }: { onSaveFile: (file: F
   return (
     <div
       onClick={onSelectImage}
-      className="border-[2px] border-dashed border-primary-500  bg-primary-50 flex justify-center items-center rounded-xl w-full h-96 transition-all hover:cursor-pointer hover:bg-neutral-100"
+      className="border-[2px] border-dashed border-primary-500 bg-primary-50 flex justify-center items-center rounded-xl w-full h-96 transition-all hover:cursor-pointer hover:bg-neutral-100"
     >
       <div className="relative">
         <EmptyPhoto />
