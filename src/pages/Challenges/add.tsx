@@ -6,6 +6,7 @@ import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { getAllDataImpact } from "@/lib/redux/api/impact";
 import ChallengeImage from "@/components/challenges/image";
 import { deleteCurrentImage } from "@/lib/redux/api/challenges";
+import Loading from "@/components/loading";
 
 export default function AddChallengePage() {
   const dispatch = useAppDispatch();
@@ -25,7 +26,13 @@ export default function AddChallengePage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  if (isLoading) return <AdminLayout>Loading...</AdminLayout>
+  if (isLoading) {
+    return (
+      <AdminLayout>
+        <Loading />
+      </AdminLayout>
+    )
+  }
 
   return (
     <AdminLayout>

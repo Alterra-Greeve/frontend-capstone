@@ -9,6 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import FormEditChallenge from "@/components/challenges/edit/form";
 import { getAllDataImpact } from "@/lib/redux/api/impact";
 import ChallengeImage from "@/components/challenges/image";
+import Loading from "@/components/loading";
 
 export default function EditChallengePage() {
   const { id } = useParams();
@@ -42,7 +43,11 @@ export default function EditChallengePage() {
     loadingChallenge ||
     loadingImpact
   ) {
-    return <AdminLayout>loading</AdminLayout>
+    return (
+      <AdminLayout>
+        <Loading />
+      </AdminLayout>
+    )
   }
 
   return (

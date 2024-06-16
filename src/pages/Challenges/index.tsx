@@ -8,6 +8,7 @@ import TableChallenges from "@/components/challenges/table";
 import Paging from "@/components/pagination";
 import FilterItemsChallenge from "@/components/challenges/filter/items";
 import { Toaster } from "@/components/ui/toaster";
+import Loading from "@/components/loading";
 
 interface DataChallengeShowProps {
   start: number;
@@ -25,6 +26,7 @@ const NoData = () => (
 
 export default function ChallengesPage() {
   const dispatch = useAppDispatch();
+
   const { data, isLoading } = useAppSelector((state: RootState) => state.challenges);
 
   const [dataChallengeShow, setDataChallengeShow] = useState<DataChallengeShowProps>({
@@ -41,7 +43,11 @@ export default function ChallengesPage() {
   }, []);
 
   if (isLoading) {
-    return <AdminLayout>loading</AdminLayout>
+    return (
+      <AdminLayout>
+        <Loading />
+      </AdminLayout>
+    )
   }
 
   return (

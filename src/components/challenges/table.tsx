@@ -35,7 +35,7 @@ export default function TableChallenges({ dataChallengeShow }: TableChallengesPr
   const navigate = useNavigate();
 
   const { data } = useAppSelector((state: RootState) => state.challenges);
-  console.log(data);
+
   const displayedData = data.slice(dataChallengeShow.start - 1, dataChallengeShow.end);
 
   const [id, setId] = useState<string | null>(null);
