@@ -4,6 +4,21 @@ import EmptyPhoto from '@/assets/icons/EmptyPhoto.svg'
 import PlusIcon from '@/assets/icons/PlusPhoto.svg'
 import { useAppDispatch } from '@/lib/redux';
 import { setImageUrl } from '@/lib/redux/api/challenges';
+import { useToast } from '@/components/ui/use-toast';
+import CrossCircle from "@/assets/icons/crossCircle";
+
+const validationImage = (file: File) => {
+  const validImageTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/webp'];
+  if (!validImageTypes.includes(file.type)) {
+    throw new Error('Invalid file type, only JPEG, PNG, JPG, and WEBP are allowed');
+  }
+
+  if (file.size > 1024 * 1024 * 2) {
+    throw new Error('File size too large, max 2MB');
+  }
+
+  return true;
+}
 
 export default function AddImageChallenge({ onSaveFile }: { onSaveFile: (file: File) => void }) {
   const dispatch = useAppDispatch();
@@ -11,12 +26,34 @@ export default function AddImageChallenge({ onSaveFile }: { onSaveFile: (file: F
   const fileRef = useRef<HTMLInputElement | null>(null);
   const onSelectImage = () => fileRef.current?.click();
 
+  const { toast } = useToast();
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    const urlImage = URL.createObjectURL(file!);
+    try {
+      if (!file) {
+        throw new Error('File not found');
+      }
+      validationImage(file);
+      const urlImage = URL.createObjectURL(file!);
 
-    dispatch(setImageUrl(urlImage));
-    onSaveFile(file!);
+      dispatch(setImageUrl(urlImage));
+      onSaveFile(file);
+
+    } catch (error) {
+      if (error instanceof Error) {
+        return toast({
+          icon: <CrossCircle />,
+          variant: "destructive",
+          description: error.message as string
+        });
+      }
+      return toast({
+        icon: <CrossCircle />,
+        variant: "destructive",
+        description: "Failed to upload image"
+      });
+    }
   }
 
   return (

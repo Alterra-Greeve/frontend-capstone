@@ -7,6 +7,7 @@ import { getAllDataImpact } from "@/lib/redux/api/impact";
 import ChallengeImage from "@/components/challenges/image";
 import { deleteCurrentImage } from "@/lib/redux/api/challenges";
 import Loading from "@/components/loading";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function AddChallengePage() {
   const dispatch = useAppDispatch();
@@ -50,6 +51,8 @@ export default function AddChallengePage() {
             <FormAddChallenge submitRef={submitRef} file={file} />
           </div>
         </div>
+
+        <Toaster />
       </section>
     </AdminLayout>
   )
