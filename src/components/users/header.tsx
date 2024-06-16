@@ -9,15 +9,18 @@ export default function Header() {
   return (
     <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
       <div className="flex gap-4 items-center">
-        <SearchBar />
+        <SearchBar onChange={(e) => console.log(e)} />
         <UsersFilter />
       </div>
       <div className="flex gap-[10px] items-center ps-[18px] py-1 ">
-        <Button variant="outline_primary" className="gap-2 w-fit rounded-lg px-2 text-primary-500">
+        <Button
+          variant="outline_primary"
+          className="gap-2 w-fit rounded-lg px-2 text-primary-500"
+        >
           <ExportIcon />
           Export
         </Button>
       </div>
     </div>
-  )
+  );
 }
