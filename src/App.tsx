@@ -13,6 +13,7 @@ import DashboardPage from "@/pages/Dashboard";
 import EditChallengePage from "@/pages/Challenges/edit";
 import AddChallengePage from "@/pages/Challenges/add";
 import ForumPage from "@/pages/forums";
+import ForumDetail from "./pages/forums/forum-detail";
 
 export default function App() {
   return (
@@ -47,6 +48,7 @@ export default function App() {
 
         <Route path="forum-discussion">
           <Route index element={<ForumPage />} />
+          <Route path=":id" element={<ForumDetail />} />
         </Route>
       </Route>
 
