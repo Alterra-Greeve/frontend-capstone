@@ -2,6 +2,7 @@ import SearchBar from "../SearchBar/SearchBar";
 import Download from "@/assets/icons/Export.svg"
 import { Button } from "../ui/button";
 import DataImpactChallengeFilter from "./challenges/filter";
+import DataImpactOrderFilter from "./order/filter";
 
 interface DataImpactChallengeHeadersProps {
   onFilter: (data: {
@@ -45,7 +46,7 @@ export const DataImpactOrderHeaders = ({ onFilter }: DataImpactOrderHeaderProps)
     <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
       <div className="flex gap-4 items-center">
         <SearchBar onChange={handleSearch} />
-        <DataImpactChallengeFilter onFilter={onFilter} />
+        <DataImpactOrderFilter onFilter={onFilter} />
       </div>
 
       <div className="flex">

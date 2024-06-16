@@ -6,6 +6,8 @@ import { DataImpactOrderProps } from "@/components/DataImpact/type";
 import Loading from "@/components/loading";
 import TableImpactProduct from "@/components/DataImpact/order/table";
 import Paging from "@/components/pagination";
+import { DataImpactOrderHeaders } from "@/components/DataImpact/headers";
+import FilterItemsImpactOrder from "@/components/DataImpact/order/filter/items";
 
 const NoData = () => (
   <div className="flex flex-col gap-3 items-center justify-center w-full min-h-[80dvh]">
@@ -15,7 +17,6 @@ const NoData = () => (
     </h1>
   </div>
 )
-
 
 interface DatasProps {
   data: DataImpactOrderProps[];
@@ -46,6 +47,45 @@ const DataImpactOrder = () => {
     end: 10
   });
 
+  const onFilter = (data: { username?: string | undefined; productName?: string | undefined; }) => {
+    const { username, productName } = data;
+
+    const filteredData = datas.originalData.filter((item) => {
+      const itemUsername = item.username.toLowerCase();
+      const itemProductName = item.product_name.toLowerCase();
+
+      if (username && productName) {
+        return itemUsername.includes(username.toLowerCase()) &&
+          itemProductName.includes(productName.toLowerCase());
+      }
+      if (username) {
+        return itemUsername.includes(username.toLowerCase());
+      }
+      if (productName) {
+        return itemProductName.includes(productName.toLowerCase());
+      }
+      return true;
+    });
+
+    setDatas({
+      ...datas,
+      data: filteredData,
+      filtered: { username, productName }
+    })
+  }
+
+  const onDeleteFilter = (key: keyof { username: string | undefined; productName: string | undefined; }) => {
+    // @ts-expect-error property does not exist
+    const { username, productName } = datas.filtered;
+
+    if (key === "username") {
+      onFilter({ username: undefined, productName });
+    }
+    if (key === "productName") {
+      onFilter({ username, productName: undefined });
+    }
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true)
@@ -71,9 +111,12 @@ const DataImpactOrder = () => {
       </AdminLayout>
     )
   }
+
   return (
     <AdminLayout>
       <section className="p-6">
+        <DataImpactOrderHeaders onFilter={onFilter} />
+        <FilterItemsImpactOrder filter={datas.filtered} onDeleteFilter={onDeleteFilter} />
 
         {!datas.data
           ? <NoData />
