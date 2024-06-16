@@ -42,10 +42,16 @@ export default function TableProductsMeasurement({ data, dataShow, filterValue, 
                                     <TableCell className="p-[12px]">{item.total}</TableCell>
                                     <TableCell className="py-[12px]">
                                         <div className="flex gap-[4px]">
-                                            {item.helps[0].impact_category.name === 'Mengurangi Pemanasan Global' ? <CatEarth /> : null}
-                                            {item.helps[0].impact_category.name === 'Hemat Uang' ? <CatMoney /> : null}
-                                            {item.helps[0].impact_category.name === 'Perluas Wawasan' ? <CatBrain /> : null}
-                                            {item.helps[0].impact_category.name === 'Mengurangi Limbah' ? <CatRecycle /> : null}
+                                        <div className="flex gap-[4px]">
+                                        {item.helps?.map((cat: any) => 
+                                            <>
+                                                { cat.impact_category.name === 'Mengurangi Pemanasan Global' ? <CatEarth /> : null }
+                                                { cat.impact_category.name === 'Hemat Uang' ? <CatMoney /> : null }
+                                                { cat.impact_category.name === 'Perluas Wawasan' ? <CatBrain /> : null }
+                                                { cat.impact_category.name === 'Mengurangi Limbah' ? <CatRecycle /> : null }
+                                            </>
+                                        )}
+                                    </div>
                                         </div>
                                     </TableCell>
                                     <TableCell className="p-[12px]">{item.createdAt}</TableCell>

@@ -16,7 +16,6 @@ export default function TableImpactChallenge({ data, dataShow, filterValue, isFi
     const tableHeadStyle = "text-neutral-900 text-[12px] font-[400] leading-[24px] py-[8px] min-w-[90px]"
     console.log(filterValue)
     console.log(isFiltered)
-    // console.log(data[0].helps[0].impact_category.name)
     console.log(data)
     return (
         <div className="mx-[24px] rounded-[8px] bg-primary-100 ">
@@ -42,15 +41,15 @@ export default function TableImpactChallenge({ data, dataShow, filterValue, isFi
                                 <TableCell className="p-[12px]">{item.challenge_name}</TableCell>
                                 <TableCell className="p-[12px]">Tingkat Kesulitan</TableCell>
                                 <TableCell className="py-[12px]">
-                                    {/* {item.helps[1].impact_category.name} */}
-                                    {/* {item?.helps.map((cat: any) => 
-                                        <h1>{cat.impact_category.name}</h1>
-                                    )} */}
                                     <div className="flex gap-[4px]">
-                                        {/* {item.helps[0].impact_category.name === 'Mengurangi Pemanasan Global' ? <CatEarth /> : null}
-                                        {item.helps[0].impact_category.name === 'Hemat Uang' ? <CatMoney /> : null}
-                                        {item.helps[0].impact_category.name === 'Perluas Wawasan' ? <CatBrain /> : null}
-                                        {item.helps[0].impact_category.name === 'Mengurangi Limbah' ? <CatRecycle /> : null} */}
+                                        {item.helps?.map((cat: any) => 
+                                            <>
+                                                { cat.impact_category.name === 'Mengurangi Pemanasan Global' ? <CatEarth /> : null }
+                                                { cat.impact_category.name === 'Hemat Uang' ? <CatMoney /> : null }
+                                                { cat.impact_category.name === 'Perluas Wawasan' ? <CatBrain /> : null }
+                                                { cat.impact_category.name === 'Mengurangi Limbah' ? <CatRecycle /> : null }
+                                            </>
+                                        )}
                                     </div>
                                 </TableCell>
                                 <TableCell className="p-[12px]">EXP</TableCell>
