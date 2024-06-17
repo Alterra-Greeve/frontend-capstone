@@ -177,10 +177,10 @@ export default function TableProducts() {
 
                 <TableCell className="p-3 text-center pe-4">
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="hover:bg-neutral-300 rounded-lg p-2">
+                    <DropdownMenuTrigger className="hover:bg-neutral-300 rounded-lg p-2 ">
                       <MoreIcon />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-white rounded-lg absolute right-5 w-36 -top-7 p-3 text-neutral-900 flex flex-col  gap-1 shadow-md">
+                    <DropdownMenuContent className="bg-white rounded-lg absolute right-5 w-36 -top-7 p-3 text-neutral-900 flex flex-col  gap-1 shadow-md z-10">
                       <DropdownMenuItem
                         className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer"
                         onClick={() => {
