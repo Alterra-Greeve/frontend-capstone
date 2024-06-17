@@ -34,12 +34,13 @@ const ForumDetail = () => {
     if (id) {
       dispatch(fetchDiscussionById(id));
     }
-  }, [forum_id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   async function handleDelete() {
-    if (forum_id) {
+    if (id) {
       setIsOpenDelete(false);
-      await dispatch(deleteForumById(forum_id));
+      await dispatch(deleteForumById(id));
       toast({
         icon: error ? <CrossCircle /> : <CheckCircle />,
         variant: error ? "destructive" : "default",
