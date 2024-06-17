@@ -51,7 +51,7 @@ export default function UsersPage() {
 
   return (
     <AdminLayout>
-      <div className="p-6">
+      <div className="p-6 relative overflow-hidden">
         <Header />
         <FilterItem />
         <TableProducts />
