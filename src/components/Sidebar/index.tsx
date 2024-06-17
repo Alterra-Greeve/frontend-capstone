@@ -2,8 +2,8 @@ import { Link, useLocation } from "react-router-dom";
 
 import logo from "@/assets/images/logo-landscape.png";
 import { ChallengesIcon, DashboardIconCustom, DataImpactIcon, ProductIcon, UserIcon } from "@/assets/icons";
-import { ButtonSignOut, NavItem } from "./items";
-import DropdownNav from "./DropdownNav";
+import { ButtonSignOut, NavItem } from "@/components/Sidebar/items";
+import DropdownNav from "@/components/Sidebar/DropdownNav";
 
 export interface NavItemProps {
   link: string;

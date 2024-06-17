@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { ArrowIcon, LogoutIcon } from "@/assets/icons";
-import type { NavItemProps } from ".";
+import type { NavItemProps } from "@/components/Sidebar";
 import { useAppDispatch } from "@/lib/redux";
 import { signOut } from "@/lib/redux/api/auth";
 
 export const NavItem = ({ link, icon, iconActive, label }: NavItemProps) => {
   const location = useLocation();
   const [isVisible, setIsVisible] = useState<boolean>(false);
+
   const isActive = location.pathname === link ||
     (link === "/dashboard" && location.pathname === "/dashboard") ||
     (link === "/dashboard/challenges" && (
@@ -43,8 +44,6 @@ export const NavItem = ({ link, icon, iconActive, label }: NavItemProps) => {
     </NavLink>
   );
 }
-
-
 
 export const ButtonSignOut = () => {
   const dispatch = useAppDispatch();
