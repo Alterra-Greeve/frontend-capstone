@@ -20,11 +20,11 @@ const DropdownLabel = ({ isActive, isOpen, isHover, ...rest }: DropdownLabelProp
     {...rest}
   >
     <div className="flex items-center gap-[10px]">
-      <DataImpactIcon color={isHover || isActive || isOpen ? "#FAFAFA" : ""} />
+      <DataImpactIcon color={isHover || isOpen || isActive ? "#FAFAFA" : ""} />
       <h5 className="font-semibold">Data Impact</h5>
     </div>
-    <div className={`transition-all duration-300 ${isOpen ? "rotate-90" : ""}`}>
-      <ArrowIcon color={isHover || isActive || isOpen ? "#FAFAFA" : ""} />
+    <div className={`transition-all duration-300 ${isOpen || isOpen ? "rotate-90" : ""}`}>
+      <ArrowIcon color={isHover || isOpen || isActive ? "#FAFAFA" : ""} />
     </div>
   </button>
 )
@@ -41,9 +41,9 @@ export default function DropdownNav({ isActive }: { isActive: boolean }) {
   const activeNav = "border-l-2 border-primary-500 text-neutral-900 bg-primary-200"
 
   return (
-    <div className={`flex flex-col ${isActive || isOpen ? "bg-primary-100" : ""} transition-all duration-300 w-[200px] h-fit mx-auto rounded-lg`}>
+    <div className={`flex flex-col ${isOpen ? "bg-primary-100" : ""} transition-all duration-300 w-[200px] h-fit mx-auto rounded-lg`}>
       <DropdownLabel
-        isActive={location.pathname === "/dashboard/data-impact"}
+        isActive={isActive}
         isOpen={isOpen}
         isHover={isHover}
         onClick={onToggle}
@@ -51,7 +51,7 @@ export default function DropdownNav({ isActive }: { isActive: boolean }) {
         onMouseLeave={onLeave}
       />
 
-      <div className={`flex flex-col pt-2 transition-none duration-300 ${isActive || isOpen ? "visible" : "invisible"}`}>
+      <div className={`flex flex-col pt-2 transition-none duration-300 ${isOpen ? "visible" : "invisible"}`}>
         <Link
           to="/dashboard/data-impact/challenge"
           className={`p-5 ${location.pathname === "/dashboard/data-impact/challenge" ? activeNav : "text-primary-600 hover:text-primary-900 transition-all"}`}
