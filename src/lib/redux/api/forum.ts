@@ -10,8 +10,14 @@ interface Author {
 }
 interface ForumMessage {
   id: string;
-  user_id: string;
   message: string;
+  user: {
+    id: string;
+    username: string;
+    name: string;
+    avatar_url: string;
+    email: string;
+  };
 }
 
 interface Discussion {
@@ -35,6 +41,10 @@ interface ForumState {
   error: string | null;
   status: boolean;
   message: string;
+  metadata: {
+    current_page: number;
+    total_page: number;
+  };
 }
 
 const initialState: ForumState = {
@@ -51,6 +61,10 @@ const initialState: ForumState = {
     },
     forum_messages: [],
   },
+  metadata: {
+    current_page: 0,
+    total_page: 0,
+  },
   loading: false,
   error: null,
   status: false,
@@ -59,9 +73,9 @@ const initialState: ForumState = {
 
 export const fetchDiscussions = createAsyncThunk(
   "forum/fetchDiscussions",
-  async () => {
+  async (forumPage?: string) => {
     try {
-      const response = await GreeveApi.get("/forums");
+      const response = await GreeveApi.get(`/forums?page=${forumPage || "1"}`);
       if (response.status === 200) {
         return response.data;
       }
@@ -120,8 +134,12 @@ export const forumSlice = createSlice({
       .addCase(fetchDiscussions.fulfilled, (state, action) => {
         state.discussions = action.payload.data;
         state.loading = false;
-        state.status = true;
-        state.message = "Get Forum Success";
+        state.status = action.payload.status;
+        state.message = action.payload.message;
+        state.metadata = {
+          current_page: action.payload.metadata.current_page,
+          total_page: action.payload.metadata.total_page,
+        };
       })
       .addCase(fetchDiscussions.rejected, (state, action) => {
         state.error = action.payload as string | null;

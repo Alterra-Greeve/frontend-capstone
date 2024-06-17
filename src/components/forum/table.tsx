@@ -6,7 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useAppSelector } from "@/lib/redux";
+import { useAppDispatch, useAppSelector } from "@/lib/redux";
 import MoreIcon from "@/assets/icons/More.svg";
 import {
   DropdownMenu,
@@ -17,14 +17,39 @@ import {
 import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
 import ShowProfileIcon from "@/assets/icons/Iconly/Show.svg";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import DeleteDialog from "./deleteDialog";
+import { deleteForumById } from "@/lib/redux/api/forum";
+import { useToast } from "../ui/use-toast";
+import CheckCircle from "@/assets/icons/checkCircle";
+import CrossCircle from "@/assets/icons/crossCircle";
 
 const ForumTable = () => {
-  const { discussions = [] } = useAppSelector((state) => state.forum);
-  
+  const {
+    discussions = [],
+    error,
+  } = useAppSelector((state) => state.forum);
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+  const [forumId, setForumId] = useState<string>();
+
+  const { toast } = useToast();
+
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  async function handleDelete() {
+    if (forumId) {
+      await dispatch(deleteForumById(forumId));
+      toast({
+        icon: error ? <CrossCircle /> : <CheckCircle />,
+        variant: error ? "destructive" : "default",
+        description: "Forum deleted !",
+      });
+      setIsOpenDelete(false);
+    }
+  }
 
   return (
-    <div className="mt-4 bg-primary-100 rounded-t-[8px] border-[1px] border-neutral-300">
+    <div className="mt-4 bg-primary-100 rounded-t-[8px] border-[1px] border-neutral-300 overflow-auto max-h-[65vh]">
       <Table>
         <TableHeader>
           <TableRow className="text-start py-[10px]">
@@ -48,11 +73,6 @@ const ForumTable = () => {
             >
               Author
             </TableHead>
-            <TableHead
-              className={`text-sm leading-5 text-black font-normal px-3 py-2`}
-            >
-              Avatar
-            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody className="bg-neutral-50">
@@ -68,9 +88,6 @@ const ForumTable = () => {
               <TableCell className="p-3 text-start">
                 {item.description}
               </TableCell>
-              <TableCell className="p-3 text-start">
-                {item.author.name}
-              </TableCell>
               <TableCell className=" p-3 text-start">
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-full bg-slate-300 border border-black">
@@ -85,9 +102,9 @@ const ForumTable = () => {
                   {item.author.name || "-"}
                 </div>
               </TableCell>
-              <TableCell className="max-w-6 p-3 text-center pe-8">
+              <TableCell className="w-6 text-center">
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="outline-none hover:bg-neutral-300 py-2 rounded-lg flex justify-center items-center">
+                  <DropdownMenuTrigger className="hover:bg-neutral-300 rounded-lg p-2">
                     <MoreIcon />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="bg-white rounded-lg absolute right-5 w-36 -top-7 p-3 text-neutral-900 flex flex-col  gap-1 shadow-md">
@@ -98,7 +115,13 @@ const ForumTable = () => {
                       <ShowProfileIcon />
                       Lihat
                     </DropdownMenuItem>
-                    <DropdownMenuItem className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer">
+                    <DropdownMenuItem
+                      className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer"
+                      onClick={() => {
+                        setIsOpenDelete(true);
+                        setForumId(item.id);
+                      }}
+                    >
                       <DeleteIcon />
                       Hapus
                     </DropdownMenuItem>
@@ -109,6 +132,11 @@ const ForumTable = () => {
           ))}
         </TableBody>
       </Table>
+      <DeleteDialog
+        isOpen={isOpenDelete}
+        onClose={() => setIsOpenDelete(false)}
+        onDelete={handleDelete}
+      />
     </div>
   );
 };
