@@ -80,6 +80,9 @@ const NavItem = ({ link, icon, iconActive, label }: NavItemProps) => {
     )) ||
     (link === "/dashboard/products" && (
       location.pathname.includes("/dashboard/products")
+    )) ||
+    (link === "/dashboard/forum-discussion" && (
+      location.pathname.includes("/dashboard/forum-discussion")
     ));
 
   return (
