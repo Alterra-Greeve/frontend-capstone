@@ -7,12 +7,7 @@ import { deleteForumById, fetchDiscussionById } from "@/lib/redux/api/forum";
 import Loading from "@/components/loading";
 
 import MoreIcon from "@/assets/icons/More.svg";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
 import Button from "@/components/Button/Button";
 import { useToast } from "@/components/ui/use-toast";
