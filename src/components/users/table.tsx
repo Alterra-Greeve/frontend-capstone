@@ -38,15 +38,8 @@ const tableHeader: string[] = [
   "",
 ];
 
-interface TableProductsProps {
-  dataUsersShow: { start: number; end: number };
-}
-
-export default function TableProducts({ dataUsersShow }: TableProductsProps) {
+export default function TableProducts() {
   const { data } = useAppSelector((state: RootState) => state.users);
-
-  // Slice the data array to only include the items from start to end
-  const displayedData = data.slice(dataUsersShow.start - 1, dataUsersShow.end);
 
   const [userId, setUserId] = useState<string | null>(null);
 
@@ -78,6 +71,24 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
     onOpenDelete();
   };
 
+  const Membership = ({ isMembership }: { isMembership: boolean }) => {
+    return (
+      <div
+        className={`px-[22px] py-1 rounded-full text-center ${
+          isMembership ? "bg-success-100" : "bg-danger-100"
+        }`}
+      >
+        <p
+          className={`text-xs font-normal ${
+            isMembership ? "text-success-500" : "text-danger-500"
+          }`}
+        >
+          {isMembership ? "Yes" : "No"}
+        </p>
+      </div>
+    );
+  };
+
   return (
     <>
       <DetailUserModal
@@ -98,10 +109,10 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
         data={data.find((item) => item.id === userId)}
       />
 
-      <div className="mt-4 bg-primary-100 rounded-t-[8px] border-[1px] border-neutral-300">
+      <div className="mt-4 bg-primary-100 rounded-t-[8px] border-[1px] border-neutral-300 overflow-auto max-h-[65vh]">
         <Table>
           <TableHeader>
-            <TableRow className="text-start py-[10px]">
+            <TableRow className="text-start py-[10px] sticky top-0">
               {tableHeader.map((item, i) => (
                 <TableHead
                   className={`text-sm leading-5 text-black font-normal px-3 py-2`}
@@ -114,7 +125,7 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
           </TableHeader>
 
           <TableBody className="bg-neutral-50">
-            {displayedData.map((item, index) => (
+            {data?.map((item, index) => (
               <TableRow
                 key={index}
                 className={`text-start text-xs leading-6 font-normal text-neutral-900 ${index % 2 !== 0 ? "bg-neutral-200 " : ""
@@ -124,13 +135,13 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
                   {item.id.split("-")[0]}
                 </TableCell>
                 <TableCell className="px-3 text-start">
-                  <div className="flex justify-start gap-3">
-                    <div className="w-6 rounded-full bg-slate-300 border border-black">
+                  <div className="flex justify-start items-center gap-3">
+                    <div className="w-6 h-6 rounded-full bg-slate-300 border border-black">
                       <img
                         src={
                           item.avatar_url || "@/assets/images/default-user.png"
                         }
-                        className="rounded-full h-6 w-6"
+                        className="rounded-full object-contain"
                       />
                     </div>
                     {item.name || "-"}
@@ -140,7 +151,7 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
                 <TableCell className="p-3 text-start">
                   {item.username || "-"}
                 </TableCell>
-                <TableCell className="p-3 text-start">
+                <TableCell className="p-3 text-start min-w-20">
                   {item.gender || "-"}
                 </TableCell>
                 <TableCell className="p-3 text-start">
@@ -153,16 +164,22 @@ export default function TableProducts({ dataUsersShow }: TableProductsProps) {
                   {item.address || "-"}
                 </TableCell>
                 <TableCell className="p-3 text-start  min-w-[90px]">
-                  -
+                  {item.created_at || "-"}
                 </TableCell>
-                <TableCell className="p-3 text-start">-</TableCell>
+                <TableCell className="p-3 text-start">
+                  {item.membership !== undefined ? (
+                    <Membership isMembership={item.membership} />
+                  ) : (
+                    "-"
+                  )}
+                </TableCell>
 
                 <TableCell className="p-3 text-center pe-4">
                   <DropdownMenu>
-                    <DropdownMenuTrigger className="hover:bg-neutral-300 rounded-lg p-2">
+                    <DropdownMenuTrigger className="hover:bg-neutral-300 rounded-lg p-2 ">
                       <MoreIcon />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="bg-white rounded-lg absolute right-5 w-36 -top-7 p-3 text-neutral-900 flex flex-col  gap-1 shadow-md">
+                    <DropdownMenuContent className="bg-white rounded-lg absolute right-5 w-36 -top-7 p-3 text-neutral-900 flex flex-col  gap-1 shadow-md z-10">
                       <DropdownMenuItem
                         className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer"
                         onClick={() => {

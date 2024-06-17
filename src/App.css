@@ -39,3 +39,13 @@
 .read-the-docs {
   color: #888;
 }
+
+.radio-inner-circle {
+  background-color: transparent;
+  border: 2px solid #ccc; /* Adjust the border color as needed */
+}
+
+.radio-inner-circle:checked {
+  background-color: var(--primary-500); /* Use your primary color variable */
+  border-color: var(--primary-500);
+}
