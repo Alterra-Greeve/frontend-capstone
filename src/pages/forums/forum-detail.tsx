@@ -2,8 +2,8 @@ import AdminLayout from "@/layouts/AdminLayout";
 import ArrowLeft from "@/assets/icons/Arrow - Left.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/lib/redux";
-import { useEffect } from "react";
-import { fetchDiscussionById } from "@/lib/redux/api/forum";
+import { useEffect, useState } from "react";
+import { deleteForumById, fetchDiscussionById } from "@/lib/redux/api/forum";
 import Loading from "@/components/loading";
 
 import MoreIcon from "@/assets/icons/More.svg";
@@ -14,12 +14,20 @@ import {
   DropdownMenuTrigger,
 } from "@radix-ui/react-dropdown-menu";
 import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
+import Button from "@/components/Button/Button";
+import { useToast } from "@/components/ui/use-toast";
+import CheckCircle from "@/assets/icons/checkCircle";
+import CrossCircle from "@/assets/icons/crossCircle";
+import DeleteDialog from "@/components/forum/deleteDialog";
 
 const ForumDetail = () => {
   const { forum_id } = useParams();
   const navigate = useNavigate();
-  const { discussionsDetail, loading } = useAppSelector((state) => state.forum);
-  console.log(discussionsDetail);
+  const { discussionsDetail, loading, error } = useAppSelector(
+    (state) => state.forum
+  );
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+  const { toast } = useToast();
 
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -28,13 +36,26 @@ const ForumDetail = () => {
     }
   }, [forum_id]);
 
+  async function handleDelete() {
+    if (forum_id) {
+      setIsOpenDelete(false);
+      await dispatch(deleteForumById(forum_id));
+      toast({
+        icon: error ? <CrossCircle /> : <CheckCircle />,
+        variant: error ? "destructive" : "default",
+        description: "Forum deleted !",
+      });
+      navigate("/dashboard/forum-discussion")
+    }
+  }
+
   return (
     <AdminLayout>
       {loading ? (
         <Loading />
       ) : (
-        <section className="p-6  max-h-[85vh] overflow-auto">
-          <div className="pb-6 border-b-[0.3px] border-neutral-300">
+        <section className="p-6">
+          <div className="pb-6 border-b-[0.3px] border-neutral-300 flex justify-between items-center">
             <button
               className="flex gap-3 justify-center items-center text-neutral-900"
               onClick={() => navigate("/dashboard/forum-discussion")}
@@ -42,6 +63,12 @@ const ForumDetail = () => {
               <ArrowLeft />
               Forum Discussion
             </button>
+            <Button
+              variant="secondary"
+              children="Hapus Forum"
+              onClick={() => setIsOpenDelete(true)}
+              className={"py-2 px-3"}
+            />
           </div>
           <div className="py-6">
             <div className="flex flex-col gap-3">
@@ -96,6 +123,11 @@ const ForumDetail = () => {
               </div>
             ))}
           </div>
+          <DeleteDialog
+            isOpen={isOpenDelete}
+            onClose={() => setIsOpenDelete(false)}
+            onDelete={handleDelete}
+          />
         </section>
       )}
     </AdminLayout>
