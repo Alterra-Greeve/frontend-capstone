@@ -45,7 +45,7 @@ export default function FilterItemsImpactOrder({ filter, onDeleteFilter }: Filte
 
       {filter !== undefined && filter.productName && (
         <FilterOption
-          label="Tantangan"
+          label="Product Name"
           onAction={() => onDeleteFilter("productName")}
           value={filter.productName}
         />

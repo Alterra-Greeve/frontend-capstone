@@ -22,8 +22,8 @@ interface DataProps {
   data: DataImpactProps[];
   originalData: DataImpactProps[];
   filtered?: {
-    username: string | undefined;
-    tantangan: string | undefined;
+    username?: string | undefined;
+    tantangan?: string | undefined;
   }
 }
 
@@ -86,6 +86,23 @@ export default function DataImpactChallenge() {
     }
   }
 
+  const onSearch = (value: string) => {
+    const filteredData = datas.originalData.filter((item) => {
+      const itemChallengeName = item.challenge_name.toLowerCase();
+
+      return itemChallengeName.includes(value.toLowerCase());
+    });
+
+    setDatas({
+      ...datas,
+      data: filteredData,
+      filtered: {
+        ...datas.filtered,
+        tantangan: value
+      }
+    })
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true)
@@ -116,7 +133,7 @@ export default function DataImpactChallenge() {
   return (
     <AdminLayout>
       <section className="p-6">
-        <DataImpactChallengeHeaders onFilter={onFilter} />
+        <DataImpactChallengeHeaders onFilter={onFilter} onSearch={onSearch} />
         <FilterItemsImpactChallenge filter={datas.filtered} onDeleteFilter={onDeleteFilter} />
 
         {!datas.data

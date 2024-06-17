@@ -2,9 +2,9 @@ import Search from '@/assets/icons/Search.svg'
 import SearchFocus from '@/assets/icons/SearchFocus.svg'
 import { useState } from 'react'
 
-export default function SearchBar({ ...rest }) {
-  const [result, setResult] = useState("")
-  const [isFocus, setIsFocus] = useState(false)
+export default function SearchBar({ ...rest }: React.InputHTMLAttributes<HTMLInputElement>) {
+  const [result, setResult] = useState<string>("")
+  const [isFocus, setIsFocus] = useState<boolean>(false)
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { value } = e.target

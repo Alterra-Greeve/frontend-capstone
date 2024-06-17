@@ -86,6 +86,26 @@ const DataImpactOrder = () => {
     }
   }
 
+  const onSearch = (value: string) => {
+    /**
+     * Searchnya berdasarkan product name saja
+     * karena lebih enak nyarinya
+     */
+    const filteredData = datas.originalData.filter((item) => {
+      const itemProductName = item.product_name.toLowerCase();
+      return itemProductName.includes(value.toLowerCase());
+    });
+
+    setDatas({
+      ...datas,
+      data: filteredData,
+      filtered: {
+        ...datas.filtered,
+        productName: value
+      }
+    })
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true)
@@ -115,7 +135,7 @@ const DataImpactOrder = () => {
   return (
     <AdminLayout>
       <section className="p-6">
-        <DataImpactOrderHeaders onFilter={onFilter} />
+        <DataImpactOrderHeaders onFilter={onFilter} onSearch={onSearch} />
         <FilterItemsImpactOrder filter={datas.filtered} onDeleteFilter={onDeleteFilter} />
 
         {!datas.data

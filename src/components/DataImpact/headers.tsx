@@ -9,15 +9,19 @@ interface DataImpactChallengeHeadersProps {
     username?: string | undefined;
     tantangan?: string | undefined;
   }) => void;
+  onSearch: (value: string) => void;
 }
-export const DataImpactChallengeHeaders = ({ onFilter }: DataImpactChallengeHeadersProps) => {
-  const handleSearch = (value: string) => {
+export const DataImpactChallengeHeaders = ({ onFilter, onSearch }: DataImpactChallengeHeadersProps) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
     console.log(value)
+    onSearch(value);
   }
+
   return (
     <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
       <div className="flex gap-4 items-center">
-        <SearchBar onChange={handleSearch} />
+        <SearchBar onChange={handleSearch} placeholder="Cari nama tantangan..." />
         <DataImpactChallengeFilter onFilter={onFilter} />
       </div>
 
@@ -36,16 +40,18 @@ interface DataImpactOrderHeaderProps {
     username?: string | undefined;
     productName?: string | undefined;
   }) => void;
+  onSearch: (value: string) => void;
 }
 
-export const DataImpactOrderHeaders = ({ onFilter }: DataImpactOrderHeaderProps) => {
-  const handleSearch = (value: string) => {
-    console.log(value)
+export const DataImpactOrderHeaders = ({ onSearch, onFilter }: DataImpactOrderHeaderProps) => {
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    onSearch(value);
   }
   return (
     <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
       <div className="flex gap-4 items-center">
-        <SearchBar onChange={handleSearch} />
+        <SearchBar onChange={handleSearch} placeholder="Cari Product Name..." />
         <DataImpactOrderFilter onFilter={onFilter} />
       </div>
 
