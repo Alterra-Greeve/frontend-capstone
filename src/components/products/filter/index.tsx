@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import FilterIcon from "@/assets/icons/Filter.svg";
 import { FormProvider, useForm } from "react-hook-form";
-import { ChallengesFilterSchema } from "@/lib/zod/challenges";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
@@ -12,27 +11,23 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
-import CatEarth from '@/assets/icons/catEarth.svg'
-import CatMoney from '@/assets/icons/catMoney.svg'
-import CatBrain from '@/assets/icons/catBrains.svg'
-import CatRecycle from '@/assets/icons/catRecycle.svg'
-
-const helper = [
-  { id: "mengurangi pemanasan global", icon: <CatEarth /> },
-  { id: "hemat uang", icon: <CatMoney /> },
-  { id: "perluas wawasan", icon: <CatBrain /> },
-  { id: "mengurangi limbah", icon: <CatRecycle /> },
-] as const;
+import { FilterProductSchema } from "@/lib/zod/products";
+import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
+import { filteredProducts } from "@/lib/redux/api/products";
 
 export default function ChallengesProducts() {
+  const dispatch = useAppDispatch();
+
+  const { data: impacts } = useAppSelector((state: RootState) => state.impact);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const form = useForm<z.infer<typeof ChallengesFilterSchema>>({
-    resolver: zodResolver(ChallengesFilterSchema)
+  const form = useForm<z.infer<typeof FilterProductSchema>>({
+    resolver: zodResolver(FilterProductSchema)
   });
 
-  const onSubmit = (data: z.infer<typeof ChallengesFilterSchema>) => {
+  const onSubmit = (data: z.infer<typeof FilterProductSchema>) => {
     console.log(data);
+    dispatch(filteredProducts(data));
     setIsOpen(false);
   };
 
@@ -57,7 +52,7 @@ export default function ChallengesProducts() {
               <div className="flex items-center gap-3">
                 <FormField
                   control={form.control}
-                  name="exp_min"
+                  name="harga_min"
                   render={({ field }) => (
                     <FormControl>
                       <Input
@@ -71,7 +66,7 @@ export default function ChallengesProducts() {
                 />
                 <FormField
                   control={form.control}
-                  name="exp_max"
+                  name="harga_max"
                   render={({ field }) => (
                     <FormControl>
                       <Input
@@ -94,7 +89,7 @@ export default function ChallengesProducts() {
               <div className="flex items-center gap-3">
                 <FormField
                   control={form.control}
-                  name="exp_min"
+                  name="stok_min"
                   render={({ field }) => (
                     <FormControl>
                       <Input
@@ -108,7 +103,7 @@ export default function ChallengesProducts() {
                 />
                 <FormField
                   control={form.control}
-                  name="exp_max"
+                  name="stok_max"
                   render={({ field }) => (
                     <FormControl>
                       <Input
@@ -131,7 +126,7 @@ export default function ChallengesProducts() {
               <div className="flex items-center gap-3">
                 <FormField
                   control={form.control}
-                  name="coin_min"
+                  name="harga_min"
                   render={({ field }) => (
                     <Input
                       type="number"
@@ -143,7 +138,7 @@ export default function ChallengesProducts() {
                 />
                 <FormField
                   control={form.control}
-                  name="coin_max"
+                  name="harga_max"
                   render={({ field }) => (
                     <Input
                       type="number"
@@ -158,17 +153,17 @@ export default function ChallengesProducts() {
 
             <FormField
               control={form.control}
-              name="helper"
+              name="category"
               render={() => (
                 <FormItem className="border border-neutral-200 p-3 rounded-lg">
                   <FormLabel className="text-base text-neutral-900 font-extrabold leading-5">
                     Membantu
                   </FormLabel>
                   <div className="grid grid-cols-2">
-                    {helper.map((item, index) => (
+                    {impacts.map((item, index) => (
                       <FormField key={index}
                         control={form.control}
-                        name="helper"
+                        name="category"
                         render={({ field }) => (
                           <FormItem className="flex gap-3 items-center p-2 rounded-lg text-neutral-900">
                             <FormControl>
@@ -176,17 +171,19 @@ export default function ChallengesProducts() {
                                 checked={(field?.value ?? []).includes(item.id)}
                                 onCheckedChange={(checked) => {
                                   const currentValue = field?.value ?? undefined;
-                                  if (currentValue === undefined) return form.setValue("helper", [item.id]);
+                                  if (currentValue === undefined) return form.setValue("category", [item.id]);
                                   if (checked) {
-                                    form.setValue("helper", [...currentValue, item.id]);
+                                    form.setValue("category", [...currentValue, item.id]);
                                   } else {
-                                    form.setValue("helper", currentValue.filter((v) => v !== item.id));
+                                    form.setValue("category", currentValue.filter((v) => v !== item.id));
                                   }
                                 }}
                                 className="border-2 border-primary-500"
                               />
                             </FormControl>
-                            <FormLabel className="font-normal">{item.icon}</FormLabel>
+                            <FormLabel className="font-normal">
+                              <img src={item.icon_url} />
+                            </FormLabel>
                           </FormItem>
                         )}
                       />

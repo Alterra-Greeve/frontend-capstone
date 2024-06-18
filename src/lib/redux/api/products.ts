@@ -1,5 +1,5 @@
 import { GreeveApi } from "@/lib/axios";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export const getAllProducts = createAsyncThunk(
   "products/getAllProducts",
@@ -47,7 +47,7 @@ export interface ProductsProps {
 interface initialStateProps {
   data: ProductsProps[];
   originialData: ProductsProps[];
-  filteredData?: {
+  filteredData: {
     harga_min?: number;
     harga_max?: number;
     stok_min?: number;
@@ -63,6 +63,7 @@ interface initialStateProps {
 const initialState: initialStateProps = {
   data: [],
   originialData: [],
+  filteredData: {},
   isLoading: false,
   error: null,
 };
@@ -70,7 +71,48 @@ const initialState: initialStateProps = {
 export const productsSlice = createSlice({
   name: "products",
   initialState,
-  reducers: {},
+  reducers: {
+    filteredProducts: (
+      state,
+      action: PayloadAction<initialStateProps['filteredData']>
+    ) => {
+      state.filteredData = action.payload;
+
+      state.data = state.originialData.filter((product) => {
+        const isHarga = (state.filteredData?.harga_min && state.filteredData?.harga_max)
+          ? product.price >= state.filteredData.harga_min && product.price <= state.filteredData.harga_max
+          : (state.filteredData?.harga_min !== undefined)
+            ? product.price >= state.filteredData.harga_min
+            : (state.filteredData?.harga_max !== undefined)
+              ? product.price <= state.filteredData.harga_max
+              : true;
+
+        const isStok = (state.filteredData?.stok_min && state.filteredData?.stok_max)
+          ? product.stock >= state.filteredData.stok_min && product.stock <= state.filteredData.stok_max
+          : (state.filteredData?.stok_min !== undefined)
+            ? product.stock >= state.filteredData.stok_min
+            : (state.filteredData?.stok_max !== undefined)
+              ? product.stock <= state.filteredData.stok_max
+              : true;
+
+        const isKoin = (state.filteredData?.koin_min && state.filteredData?.koin_max)
+          ? product.coin >= state.filteredData.koin_min && product.coin <= state.filteredData.koin_max
+          : (state.filteredData?.koin_min !== undefined)
+            ? product.coin >= state.filteredData.koin_min
+            : (state.filteredData?.koin_max !== undefined)
+              ? product.coin <= state.filteredData.koin_max
+              : true;
+
+        const isHelper = state.filteredData?.category && state.filteredData?.category.length
+          ? state.filteredData.category.some(helper => product.category.some(
+            category => category === helper
+          ))
+          : true;
+
+        return isHarga && isStok && isKoin && isHelper;
+      });
+    },
+  },
   extraReducers: builder => {
     builder.addCase(getAllProducts.pending, (state) => {
       state.isLoading = true;
@@ -90,3 +132,5 @@ export const productsSlice = createSlice({
     })
   }
 });
+
+export const { filteredProducts } = productsSlice.actions;

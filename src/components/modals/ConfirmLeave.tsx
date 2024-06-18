@@ -1,25 +1,14 @@
 import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
 import IllustrationDelete from "@/assets/icons/modal-delete.svg";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch } from "@/lib/redux";
-import { clearSingleData } from "@/lib/redux/api/challenges";
 
-interface DetailChallengeModalProps {
+interface ConfirmLeaveModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onBackHref?: string;
+  onBack: () => void;
 }
 
-export default function ConfirmLeaveChallengeModal({ isOpen, onClose, onBackHref }: DetailChallengeModalProps) {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
-  const handleBack = () => {
-    dispatch(clearSingleData());
-    navigate(onBackHref!);
-  }
-
+export default function ConfirmLeaveModal({ isOpen, onClose, onBack }: ConfirmLeaveModalProps) {
   return (
     <Dialog open={isOpen}>
       <DialogContent className="bg-neutral-50 flex flex-col items-center md:rounded-2xl">
@@ -37,7 +26,7 @@ export default function ConfirmLeaveChallengeModal({ isOpen, onClose, onBackHref
             <Button
               className="min-w-full py-6 rounded-lg"
               variant={"outline_primary"}
-              onClick={handleBack}
+              onClick={onBack}
             >
               Keluar
             </Button>

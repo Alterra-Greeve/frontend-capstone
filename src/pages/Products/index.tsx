@@ -8,6 +8,7 @@ import Paging from "@/components/pagination";
 import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { getAllDataImpact } from "@/lib/redux/api/impact";
 import { getAllProducts } from "@/lib/redux/api/products";
+import FilterItemsProduct from "@/components/products/filter/items";
 
 const NoData = () => (
   <div className="flex flex-col gap-3 items-center justify-center w-full min-h-[80dvh]">
@@ -58,6 +59,7 @@ export default function ProductsPage() {
     <AdminLayout>
       <section className="p-6">
         <HeaderProducts />
+        <FilterItemsProduct />
 
         {products && products.length === 0
           ? <NoData />

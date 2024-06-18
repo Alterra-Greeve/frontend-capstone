@@ -9,9 +9,9 @@ import ArrowLeft from "@/assets/icons/Arrow - Left.svg";
 import SearchBar from "@/components/SearchBar/SearchBar";
 import ChallengesFilter from "@/components/challenges/filter";
 import DeleteChallengeModal from "@/components/challenges/modal/delete";
-import ConfirmLeaveChallengeModal from "./modal/ConfirmLeave";
 import { useAppDispatch } from "@/lib/redux";
-import { searchChallenges } from "@/lib/redux/api/challenges";
+import { clearSingleData, searchChallenges } from "@/lib/redux/api/challenges";
+import ConfirmLeaveModal from "@/components/modals/ConfirmLeave";
 
 export const ChallengesHeader = () => {
   const dispatch = useAppDispatch();
@@ -44,6 +44,8 @@ export const ChallengesHeader = () => {
 
 export const EditChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<HTMLButtonElement> }) => {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState<boolean>(false);
   const [confirm, setConfirm] = useState<boolean>(false);
@@ -56,6 +58,11 @@ export const EditChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<
 
   const onSubmit = () => submitRef.current?.click()
 
+  const onBack = () => {
+    dispatch(clearSingleData());
+    navigate("../");
+  }
+
   return (
     <div className="flex items-center justify-between px-6">
       <DeleteChallengeModal
@@ -65,10 +72,10 @@ export const EditChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<
         onBackHref={"../"}
       />
 
-      <ConfirmLeaveChallengeModal
+      <ConfirmLeaveModal
         isOpen={confirm}
         onClose={onCloseConfirm}
-        onBackHref={"../"}
+        onBack={onBack}
       />
 
       <div className="flex gap-3 cursor-pointer hover:underline" onClick={onConfirm}>
@@ -91,6 +98,9 @@ export const EditChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<
 }
 
 export const AddChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<HTMLButtonElement> }) => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+
   const [open, setOpen] = useState<boolean>(false);
 
   const onOpen = () => setOpen(true)
@@ -98,12 +108,17 @@ export const AddChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<H
 
   const onSubmit = () => submitRef.current?.click()
 
+  const onBack = () => {
+    dispatch(clearSingleData());
+    navigate("../");
+  }
+
   return (
     <div className="flex items-center justify-between px-6">
-      <ConfirmLeaveChallengeModal
+      <ConfirmLeaveModal
         isOpen={open}
         onClose={onClose}
-        onBackHref={"../"}
+        onBack={onBack}
       />
 
       <div className="flex gap-3 cursor-pointer hover:underline" onClick={onOpen}>
