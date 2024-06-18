@@ -2,27 +2,18 @@ import AdminLayout from "@/layouts/AdminLayout";
 import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { getChallenges } from "@/lib/redux/api/challenges";
 import { useEffect, useState } from "react";
-import NoDataImages from "@/assets/images/no-data-challenges.png";
 import { ChallengesHeader } from "@/components/challenges/header";
 import TableChallenges from "@/components/challenges/table";
 import Paging from "@/components/pagination";
 import FilterItemsChallenge from "@/components/challenges/filter/items";
 import { Toaster } from "@/components/ui/toaster";
 import Loading from "@/components/loading";
+import NoData from "@/components/NoData";
 
 interface DataChallengeShowProps {
   start: number;
   end: number;
 }
-
-const NoData = () => (
-  <div className="flex flex-col gap-3 items-center justify-center w-full min-h-[80dvh]">
-    <img src={NoDataImages} alt="No Data Challenges" />
-    <h1 className="font-bold text-2xl">
-      Belum ada data yang dimasukkan
-    </h1>
-  </div>
-)
 
 export default function ChallengesPage() {
   const dispatch = useAppDispatch();

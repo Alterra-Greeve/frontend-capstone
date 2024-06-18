@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import NoDataImage from '@/assets/images/no-data-challenges.png'
 import AdminLayout from "@/layouts/AdminLayout";
 import { HeaderProducts } from "@/components/products/header";
 import Loading from "@/components/loading";
@@ -9,15 +8,7 @@ import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { getAllDataImpact } from "@/lib/redux/api/impact";
 import { getAllProducts } from "@/lib/redux/api/products";
 import FilterItemsProduct from "@/components/products/filter/items";
-
-const NoData = () => (
-  <div className="flex flex-col gap-3 items-center justify-center w-full min-h-[80dvh]">
-    <img src={NoDataImage} alt="No Data Challenges" />
-    <h1 className="font-bold text-2xl">
-      Belum ada data yang dimasukkan
-    </h1>
-  </div>
-)
+import NoData from "@/components/NoData";
 
 interface DataShowProps {
   start: number;

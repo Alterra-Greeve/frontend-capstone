@@ -1,22 +1,13 @@
 import { GreeveApi } from "@/lib/axios";
 import { useEffect, useState } from "react";
 import AdminLayout from "@/layouts/AdminLayout";
-import NoDataImage from '@/assets/images/no-data-challenges.png'
 import Loading from "@/components/loading";
 import TableImpactChallenge from "@/components/DataImpact/challenges/table";
 import Paging from "@/components/pagination";
 import { DataImpactProps } from "@/components/DataImpact/type";
 import { DataImpactChallengeHeaders } from "@/components/DataImpact/headers";
 import FilterItemsImpactChallenge from "@/components/DataImpact/challenges/filter/items";
-
-const NoData = () => (
-  <div className="flex flex-col gap-3 items-center justify-center w-full min-h-[80dvh]">
-    <img src={NoDataImage} alt="No Data Challenges" />
-    <h1 className="font-bold text-2xl">
-      Belum ada data yang dimasukkan
-    </h1>
-  </div>
-)
+import NoData from "@/components/NoData";
 
 interface DataProps {
   data: DataImpactProps[];
@@ -136,7 +127,7 @@ export default function DataImpactChallenge() {
         <DataImpactChallengeHeaders onFilter={onFilter} onSearch={onSearch} />
         <FilterItemsImpactChallenge filter={datas.filtered} onDeleteFilter={onDeleteFilter} />
 
-        {!datas.data
+        {datas.data && datas.data.length === 0
           ? <NoData />
           : (
             <>

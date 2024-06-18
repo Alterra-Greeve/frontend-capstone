@@ -1,5 +1,3 @@
-"use client";
-
 import AdminLayout from "@/layouts/AdminLayout";
 
 import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
@@ -14,10 +12,11 @@ import { Toaster } from "@/components/ui/toaster";
 import CheckCircle from "@/assets/icons/checkCircle";
 import CrossCircle from "@/assets/icons/crossCircle";
 import UsersPagination from "@/components/users/usersPagination";
+import NoData from "@/components/NoData";
 
 export default function UsersPage() {
   const dispatch = useAppDispatch();
-  const { isLoading, message, isError } = useAppSelector(
+  const { data, isLoading, message, isError } = useAppSelector(
     (state: RootState) => state.users
   );
   const [page, setPage] = useState<number>(1);
@@ -55,13 +54,22 @@ export default function UsersPage() {
       <div className="p-6">
         <Header />
         <FilterItem />
-        <TableProducts />
-        <UsersPagination
-          className={"my-4"}
-          setPage={(e: number) => setPage(e)}
-        />
+
+        {data && data.length === 0
+          ? <NoData />
+          : (
+            <>
+              <TableProducts />
+              <UsersPagination
+                className={"my-4"}
+                setPage={(e: number) => setPage(e)}
+              />
+            </>
+          )
+        }
+
         <Toaster />
       </div>
     </AdminLayout>
-  );
+  )
 }

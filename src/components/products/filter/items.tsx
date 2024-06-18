@@ -105,7 +105,7 @@ export default function FilterItemsProduct() {
     },
     {
       key: "name",
-      label: "Nama",
+      label: "Product Name",
       value: filteredData.name
     }
   ];

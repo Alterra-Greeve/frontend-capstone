@@ -8,10 +8,11 @@ import Loading from "@/components/loading";
 import AdminLayout from "@/layouts/AdminLayout";
 import ForumHeader from "@/components/forum/header";
 import ForumPagination from "@/components/forum/forumPagination";
+import NoData from "@/components/NoData";
 
 export default function ForumPage() {
   const dispatch = useAppDispatch();
-  const { loading } = useAppSelector((state: RootState) => state.forum);
+  const { discussions, loading } = useAppSelector((state: RootState) => state.forum);
 
   const [page, setPage] = useState<number>(1);
 
@@ -35,8 +36,15 @@ export default function ForumPage() {
     <AdminLayout>
       <section className="p-6">
         <ForumHeader />
-        <ForumTable />
-        <ForumPagination setPage={(e) => setPage(e)} className="my-4" />
+        {discussions && discussions.length === 0
+          ? <NoData />
+          : (
+            <>
+              <ForumTable />
+              <ForumPagination setPage={(e) => setPage(e)} className="my-4" />
+            </>
+          )
+        }
       </section>
       <Toaster />
     </AdminLayout>
