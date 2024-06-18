@@ -103,6 +103,11 @@ export default function FilterItemsProduct() {
         <img src={impacts.find((impact) => impact.id === category)?.icon_url} className="w-8" />
       ))
     },
+    {
+      key: "name",
+      label: "Nama",
+      value: filteredData.name
+    }
   ];
 
   return (

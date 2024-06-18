@@ -5,18 +5,23 @@ import PlusIcon from "@/assets/icons/plus.svg";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import ChallengesProducts from "./filter";
+import { searchProducts } from "@/lib/redux/api/products";
+import { useAppDispatch } from "@/lib/redux";
 
 export const HeaderProducts = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     console.log(value);
+    dispatch(searchProducts(value));
   }
 
   return (
     <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
       <div className="flex gap-4 items-center">
-        <SearchBar placeholder="Cari Judul Tantangan..." onChange={onSearch} />
+        <SearchBar placeholder="Cari Nama Product..." onChange={onSearch} />
         <ChallengesProducts />
       </div>
       <div className="flex gap-[10px] items-center ps-[18px] py-1 ">

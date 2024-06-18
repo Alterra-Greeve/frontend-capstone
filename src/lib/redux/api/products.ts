@@ -48,6 +48,7 @@ interface initialStateProps {
   data: ProductsProps[];
   originialData: ProductsProps[];
   filteredData: {
+    name?: string;
     harga_min?: number;
     harga_max?: number;
     stok_min?: number;
@@ -112,6 +113,14 @@ export const productsSlice = createSlice({
         return isHarga && isStok && isKoin && isHelper;
       });
     },
+    searchProducts: (state, action: PayloadAction<string>) => {
+      state.filteredData.name = action.payload;
+      state.data = state.originialData.filter((product) => {
+        const isName = product.name.toLowerCase().includes(action.payload.toLowerCase());
+
+        return isName
+      });
+    },
   },
   extraReducers: builder => {
     builder.addCase(getAllProducts.pending, (state) => {
@@ -133,4 +142,7 @@ export const productsSlice = createSlice({
   }
 });
 
-export const { filteredProducts } = productsSlice.actions;
+export const {
+  filteredProducts,
+  searchProducts
+} = productsSlice.actions;
