@@ -1,5 +1,4 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import DataImpact from "@/pages/DataImpact";
 import ProtectedRoutes from "@/pages/ProtectedRoutes";
 import LoginPage from "@/pages/auth/login";
 import AddProducts from "@/pages/Products/AddProducts";
@@ -41,7 +40,6 @@ export default function App() {
         </Route>
 
         <Route path="data-impact">
-          <Route index element={<DataImpact />} />
           <Route path="order" element={<DataImpactOrder />} />
           <Route path="challenge" element={<DataImpactChallenge />} />
         </Route>
