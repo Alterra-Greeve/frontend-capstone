@@ -29,8 +29,8 @@ export default function App() {
 
         <Route path="products">
           <Route index element={<ProductsPage />} />
-          <Route path="add-products" element={<AddProducts />} />
-          <Route path="edit-products/:id" element={<EditProducts />} />
+          <Route path="add" element={<AddProducts />} />
+          <Route path="edit/:id" element={<EditProducts />} />
         </Route>
 
         <Route path="challenges">

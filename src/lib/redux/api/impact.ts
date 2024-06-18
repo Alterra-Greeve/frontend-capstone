@@ -19,7 +19,7 @@ export const getAllDataImpact = createAsyncThunk(
   }
 )
 
-interface ImpactProps {
+export interface ImpactProps {
   id: string;
   name: string;
   impact_poin: number;
