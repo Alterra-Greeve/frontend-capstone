@@ -1,5 +1,5 @@
 import { GreeveApi } from "@/lib/axios";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
 interface Author {
@@ -36,6 +36,10 @@ interface DiscussionDetail {
 
 interface ForumState {
   discussions: Discussion[];
+  originalDiscussions: Discussion[];
+  filteredDiscussions: {
+    search: string;
+  };
   discussionsDetail: DiscussionDetail;
   loading: boolean;
   error: string | null;
@@ -49,6 +53,8 @@ interface ForumState {
 
 const initialState: ForumState = {
   discussions: [],
+  originalDiscussions: [],
+  filteredDiscussions: { search: "" },
   discussionsDetail: {
     id: "",
     title: "",
@@ -73,9 +79,9 @@ const initialState: ForumState = {
 
 export const fetchDiscussions = createAsyncThunk(
   "forum/fetchDiscussions",
-  async (forumPage?: string) => {
+  async (forumPage?: number) => {
     try {
-      const response = await GreeveApi.get(`/forums?page=${forumPage || "1"}`);
+      const response = await GreeveApi.get(`/forums?page=${forumPage || 1}`);
       if (response.status === 200) {
         return response.data;
       }
@@ -125,7 +131,19 @@ export const deleteForumById = createAsyncThunk(
 export const forumSlice = createSlice({
   name: "forum",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    searchForums: (state, action: PayloadAction<string>) => {
+      state.filteredDiscussions.search = action.payload;
+      // filter the discussions based on the search keyword, title, description, and author name
+      state.discussions = state.originalDiscussions.filter((discussion) => {
+        return (
+          discussion.title.toLowerCase().includes(action.payload.toLowerCase()) ||
+          discussion.description.toLowerCase().includes(action.payload.toLowerCase()) ||
+          discussion.author.name.toLowerCase().includes(action.payload.toLowerCase())
+        );
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchDiscussions.pending, (state) => {
@@ -133,6 +151,7 @@ export const forumSlice = createSlice({
       })
       .addCase(fetchDiscussions.fulfilled, (state, action) => {
         state.discussions = action.payload.data;
+        state.originalDiscussions = action.payload.data;
         state.loading = false;
         state.status = action.payload.status;
         state.message = action.payload.message;
@@ -183,3 +202,5 @@ export const forumSlice = createSlice({
 });
 
 export default forumSlice.reducer;
+
+export const { searchForums } = forumSlice.actions;

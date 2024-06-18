@@ -1,7 +1,7 @@
 import AdminLayout from "@/layouts/AdminLayout";
 import ArrowLeft from "@/assets/icons/Arrow - Left.svg";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/lib/redux";
+import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { useEffect, useState } from "react";
 import { deleteForumById, fetchDiscussionById } from "@/lib/redux/api/forum";
 import Loading from "@/components/loading";
@@ -18,13 +18,13 @@ import DeleteDialog from "@/components/forum/deleteDialog";
 const ForumDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { discussionsDetail, loading, error } = useAppSelector(
-    (state) => state.forum
-  );
-  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
-  const { toast } = useToast();
 
   const dispatch = useAppDispatch();
+  const { toast } = useToast();
+
+  const { discussionsDetail, loading, error } = useAppSelector((state: RootState) => state.forum);
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+
   useEffect(() => {
     if (id) {
       dispatch(fetchDiscussionById(id));
@@ -32,7 +32,7 @@ const ForumDetail = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
-  async function handleDelete() {
+  const handleDelete = async () => {
     if (id) {
       setIsOpenDelete(false);
       await dispatch(deleteForumById(id));
