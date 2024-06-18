@@ -130,6 +130,7 @@ interface InitialState {
   data: ChallengeProps[];
   originalData: ChallengeProps[];
   filter: {
+    title?: string;
     difficulty?: string[];
     exp_min?: number;
     exp_max?: number;
@@ -183,6 +184,12 @@ export const challengesSlice = createSlice({
       ) {
         state.metadata.current_page = newPage;
       }
+    },
+    searchChallenges: (state, action: PayloadAction<string>) => {
+      state.filter = { title: action.payload };
+      state.data = state.originalData.filter((item: ChallengeProps) => {
+        return item.title.toLowerCase().includes(action.payload.toLowerCase());
+      });
     },
     filterChallenges: (state, action: PayloadAction<InitialState["filter"]>) => {
       state.filter = action.payload;
@@ -307,6 +314,7 @@ export const {
   deleteCurrentImage,
   setImageUrl,
   setNewSingleData,
-  clearSingleData
+  clearSingleData,
+  searchChallenges
 } = challengesSlice.actions;
 

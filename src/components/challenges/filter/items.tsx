@@ -116,6 +116,11 @@ export default function FilterItemsChallenge() {
       label: 'Membantu',
       value: filter.helper ? filter.helper.map(parsingHelper) as JSX.Element[] : undefined,
     },
+    {
+      key: 'title',
+      label: 'Judul Tantangan',
+      value: filter.title
+    }
   ];
 
   return (

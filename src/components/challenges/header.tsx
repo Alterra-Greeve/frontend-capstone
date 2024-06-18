@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -10,14 +10,22 @@ import SearchBar from "@/components/SearchBar/SearchBar";
 import ChallengesFilter from "@/components/challenges/filter";
 import DeleteChallengeModal from "@/components/challenges/modal/delete";
 import ConfirmLeaveChallengeModal from "./modal/ConfirmLeave";
+import { useAppDispatch } from "@/lib/redux";
+import { searchChallenges } from "@/lib/redux/api/challenges";
 
 export const ChallengesHeader = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    dispatch(searchChallenges(value));
+  }
 
   return (
     <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
       <div className="flex gap-4 items-center">
-        <SearchBar />
+        <SearchBar placeholder="Cari Judul Tantangan..." onChange={onSearch} />
         <ChallengesFilter />
       </div>
       <div className="flex gap-[10px] items-center ps-[18px] py-1 ">
