@@ -78,6 +78,7 @@ export interface filterProps {
   username: string;
   gender: string;
   membership: boolean | undefined;
+  search?: string;
 }
 
 interface InitialState {
@@ -96,7 +97,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   data: [],
-  filter: { name: "", username: "", gender: "", membership: undefined },
+  filter: { name: "", username: "", gender: "", membership: undefined, search: "" },
   originalData: [],
   metadata: {
     current_page: 0,
@@ -123,6 +124,20 @@ export const usersSlice = createSlice({
       ) {
         state.metadata.current_page = newPage;
       }
+    },
+    searchUsers: (state, action: PayloadAction<string>) => {
+      const search = action.payload;
+      state.filter.search = search;
+
+      state.data = state.originalData.filter((item) => {
+        // search by all fields
+        return Object.values(item).some((field) => {
+          if (typeof field === "string") {
+            return field.toLowerCase().includes(search.toLowerCase());
+          }
+          return false;
+        });
+      })
     },
     filteredUsers: (
       state,
@@ -231,5 +246,9 @@ export const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
-export const { usersCurrentPage, filteredUsers, resetFilter } =
-  usersSlice.actions;
+export const {
+  usersCurrentPage,
+  filteredUsers,
+  resetFilter,
+  searchUsers
+} = usersSlice.actions;
