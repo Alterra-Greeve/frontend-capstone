@@ -35,7 +35,7 @@ export const FilterInputField: React.FC<FilterInputFieldProps> = ({
 };
 
 interface FilterCheckboxProps<TFieldValues extends FieldValues> {
-  id: string;
+  id: string | boolean;
   label: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   field: ControllerRenderProps<TFieldValues, any>;
@@ -51,7 +51,7 @@ export const FilterInputCheckbox = <TFieldValues extends FieldValues>({
   };
 
   return (
-    <FormItem className="flex gap-3 items-center bg-neutral-100 p-2 rounded-lg text-neutral-900">
+    <FormItem className="flex gap-3 items-center p-2 bg-neutral-100 rounded-lg text-neutral-900">
       <FormControl>
         <Checkbox
           checked={field.value === id}
@@ -59,7 +59,9 @@ export const FilterInputCheckbox = <TFieldValues extends FieldValues>({
           className="border-2 border-primary-500"
         />
       </FormControl>
-      <FormLabel className="font-normal">{label}</FormLabel>
+      <FormLabel className="font-normal flex items-center p-0">
+        {label}
+      </FormLabel>
     </FormItem>
   );
 };

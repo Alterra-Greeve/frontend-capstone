@@ -28,13 +28,14 @@ const gender = [
 ] as const;
 
 const membership = [
-  { id: "iya", label: "Iya" },
-  { id: "tidak", label: "Tidak" },
+  { id: true, label: "Iya" },
+  { id: false, label: "Tidak" },
 ] as const;
 
 export default function UsersFilter() {
   const dispatch = useAppDispatch();
   const { filter } = useSelector((state: RootState) => state.users);
+  console.log(filter);
 
   const form = useForm<z.infer<typeof FilterUserSchema>>({
     resolver: zodResolver(FilterUserSchema),

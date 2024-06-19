@@ -1,27 +1,11 @@
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { useAppDispatch } from "@/lib/redux";
-import { signOut } from "@/lib/redux/api/auth";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Link, useLocation } from "react-router-dom";
 
 import logo from "@/assets/images/logo-landscape.png";
-import {
-  ArrowIcon,
-  ChallengesIcon,
-  DashboardIconCustom,
-  DataImpactIcon,
-  LogoutIcon,
-  ProductIcon,
-  UserIcon,
-} from "@/assets/icons";
-import { useState } from "react";
+import { ChallengesIcon, DashboardIconCustom, DataImpactIcon, ProductIcon, UserIcon } from "@/assets/icons";
+import { ButtonSignOut, NavItem } from "@/components/Sidebar/items";
+import DropdownNav from "@/components/Sidebar/DropdownNav";
 
-interface NavItemProps {
+export interface NavItemProps {
   link: string;
   icon: React.ReactNode;
   iconActive: React.ReactNode;
@@ -67,80 +51,9 @@ const navItems: NavItemProps[] = [
   },
 ];
 
-const NavItem = ({ link, icon, iconActive, label }: NavItemProps) => {
-  const location = useLocation();
-  const [isVisible, setIsVisible] = useState(false);
-  const isActive =
-    location.pathname === link ||
-    (link === "/dashboard" && location.pathname === "/dashboard") ||
-    (link === "/dashboard/data-impact" &&
-      (location.pathname === "/dashboard/data-impact/order" ||
-        location.pathname === "/dashboard/data-impact/challenge"));
-
-  return (
-    <NavLink
-      to={link}
-      className={() =>
-        isActive
-          ? "bg-[#498579] text-[#FAFAFA] rounded-md flex justify-start items-center gap-[10px] w-[200px] h-[56px] p-[16px] mx-[20px]"
-          : "bg-transparent rounded-md  hover:bg-[#498579] hover:text-white flex justify-start items-center gap-[10px] w-[200px] h-[56px] p-[16px] mx-[20px]"
-      }
-      onMouseEnter={() => setIsVisible(true)}
-      onMouseLeave={() => setIsVisible(false)}
-    >
-      {isVisible ? (
-        <div className="w-[24px] h-[24px]">{iconActive}</div>
-      ) : (
-        <div className="w-[24px] h-[24px]">{isActive ? iconActive : icon}</div>
-      )}
-      <h5 className="font-semibold">{label}</h5>
-      {label === "Data Impact" &&
-        (isVisible ? (
-          <div
-            className={`w-[24px] h-[24px] ${
-              isActive ? "rotate-90" : "rotate-90"
-            } ml-[10px]`}
-          >
-            <ArrowIcon color="#FAFAFA" />
-          </div>
-        ) : (
-          <div
-            className={`w-[24px] h-[24px] ${
-              isActive ? "rotate-90" : "rotate-90"
-            } ml-[10px]`}
-          >
-            {" "}
-            {isActive ? <ArrowIcon color="#FAFAFA" /> : <ArrowIcon />}
-          </div>
-        ))}
-    </NavLink>
-  );
-};
-
-const ButtonSignOut = () => {
-  const dispatch = useAppDispatch();
-
-  const handleLogout = () => {
-    dispatch(signOut());
-  };
-
-  const [isVisible, setIsVisible] = useState(false);
-  return (
-    <button
-      onMouseEnter={() => setIsVisible(true)}
-      onMouseLeave={() => setIsVisible(false)}
-      onClick={handleLogout}
-      className="bg-primary-50 rounded-md hover:bg-[#498579] hover:text-white flex justify-start gap-[10px] w-[200px] h-[56px] p-[16px] mx-[20px]"
-    >
-      <div className="w-[24px] h-[24px]">
-        {isVisible ? <LogoutIcon color="#FAFAFA" /> : <LogoutIcon />}
-      </div>
-      <h5 className="font-semibold">Log Out</h5>
-    </button>
-  );
-};
-
 export default function Sidebar() {
+  const location = useLocation();
+
   return (
     <div className="bg-primary-50 w-[240px] border-r border-neutral-200">
       <div className="sticky top-0  min-h-screen">
@@ -156,30 +69,7 @@ export default function Sidebar() {
             {navItems.slice(0, -1).map((item, index) => (
               <NavItem key={index} {...item} />
             ))}
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <NavItem {...navItems[5]} />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-primary-50">
-                <DropdownMenuItem>
-                  <NavItem
-                    link="/dashboard/data-impact/order"
-                    icon={<DataImpactIcon />}
-                    iconActive={<DataImpactIcon color="#FAFAFA" />}
-                    label="Order"
-                  />
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <NavItem
-                    link="/dashboard/data-impact/challenge"
-                    icon={<DataImpactIcon />}
-                    iconActive={<DataImpactIcon color="#FAFAFA" />}
-                    label="Challenge"
-                  />
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <DropdownNav isActive={location.pathname.includes("/dashboard/data-impact")} />
           </div>
         </div>
         <div className="absolute bottom-5">
@@ -187,5 +77,5 @@ export default function Sidebar() {
         </div>
       </div>
     </div>
-  );
+  )
 }

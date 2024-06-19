@@ -2,19 +2,24 @@ import { GreeveApi } from "@/lib/axios";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
-export const getUsers = createAsyncThunk("users/getUsers", async () => {
-  try {
-    const response = await GreeveApi.get("/admin/users");
-    if (response.status === 200) {
-      return response.data;
+export const getUsers = createAsyncThunk(
+  "users/getUsers",
+  async (usersPage?: string) => {
+    try {
+      const response = await GreeveApi.get(
+        `/admin/users?page=${usersPage || "1"}`
+      );
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        throw error.response ? error.response.status : error.message;
+      }
+      throw error;
     }
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      throw error.response ? error.response.status : error.message;
-    }
-    throw error;
   }
-});
+);
 
 export const deleteUser = createAsyncThunk(
   "users/deleteUser",
@@ -35,7 +40,8 @@ export const deleteUser = createAsyncThunk(
 //edit user function reducer
 export const editUser = createAsyncThunk(
   "users/editUsers",
-  async ({ userId, data }: { userId: any; data: any }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  async ({ userId, data }: { userId: string; data: any }) => {
     try {
       const response = await GreeveApi.put(`/admin/users/${userId}`, data);
       if (response.status == 200) {
@@ -52,22 +58,27 @@ export const editUser = createAsyncThunk(
 //edit user function reducer
 
 export interface UsersProps {
-  address: string;
-  avatar_url: string;
-  coin: number;
-  email: string;
-  exp: number;
-  gender: string;
   id: string;
   name: string;
-  password: string;
-  phone: string;
+  email: string;
   username: string;
+  password: string;
+  address: string;
+  gender: string;
+  phone: string;
+  coin: number;
+  exp: number;
+  membership: boolean;
+  avatar_url: string;
+  created_at: string;
+  updated_at: string;
 }
 export interface filterProps {
   name: string;
   username: string;
   gender: string;
+  membership: boolean | undefined;
+  search?: string;
 }
 
 interface InitialState {
@@ -86,7 +97,7 @@ interface InitialState {
 
 const initialState: InitialState = {
   data: [],
-  filter: { name: "", username: "", gender: "" },
+  filter: { name: "", username: "", gender: "", membership: undefined, search: "" },
   originalData: [],
   metadata: {
     current_page: 0,
@@ -114,15 +125,30 @@ export const usersSlice = createSlice({
         state.metadata.current_page = newPage;
       }
     },
+    searchUsers: (state, action: PayloadAction<string>) => {
+      const search = action.payload;
+      state.filter.search = search;
+
+      state.data = state.originalData.filter((item) => {
+        // search by all fields
+        return Object.values(item).some((field) => {
+          if (typeof field === "string") {
+            return field.toLowerCase().includes(search.toLowerCase());
+          }
+          return false;
+        });
+      })
+    },
     filteredUsers: (
       state,
       action: PayloadAction<{
         name?: string | undefined;
         username?: string | undefined;
         gender?: string | undefined;
+        membership?: boolean | undefined;
       }>
     ) => {
-      const { name, username, gender } = action.payload;
+      const { name, username, gender, membership } = action.payload;
 
       const lowercasedName = name?.toLowerCase() || "";
       const lowercasedUsername = username?.toLowerCase() || "";
@@ -132,6 +158,7 @@ export const usersSlice = createSlice({
         name: lowercasedName,
         username: lowercasedUsername,
         gender: lowercasedGender,
+        membership: membership,
       };
 
       state.data = state.originalData.filter((item) => {
@@ -144,8 +171,11 @@ export const usersSlice = createSlice({
         const isGenderMatch = lowercasedGender
           ? item.gender.toLowerCase() === lowercasedGender
           : true;
+        const isMembershipMatch = membership !== undefined
+          ? item.membership === membership
+          : true;
 
-        return isNameMatch && isUsernameMatch && isGenderMatch;
+        return isNameMatch && isUsernameMatch && isGenderMatch && isMembershipMatch;
       });
     },
     resetFilter: (state) => {
@@ -216,6 +246,9 @@ export const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
-export const { usersCurrentPage, filteredUsers, resetFilter } =
-  usersSlice.actions;
-
+export const {
+  usersCurrentPage,
+  filteredUsers,
+  resetFilter,
+  searchUsers
+} = usersSlice.actions;
