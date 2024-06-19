@@ -96,15 +96,13 @@ export default function TableProducts({ dataShow }: TableProductsProps) {
               <TableCell className="text-start">{item.stock}</TableCell>
               <TableCell className="text-start">{item.coin}</TableCell>
               <TableCell className="text-start">{item.description}</TableCell>
-              <TableCell className="text-start">
-                <div className="flex gap-1">
-                  {item.category.map((category) => (
-                    impacts.map((impact) => (
-                      impact.id === category &&
-                      <img key={impact.id} src={impact.icon_url} alt={impact.name} className="w-7" />
-                    ))
-                  ))}
-                </div>
+              <TableCell className="flex gap-1">
+                {item.category.map((category) => (
+                  impacts.map((impact) => (
+                    impact.id === category &&
+                    <img key={impact.id} src={impact.icon_url} alt={impact.name} className="w-7" />
+                  ))
+                ))}
               </TableCell>
               <TableCell className="text-start">{item.created_at}</TableCell>
               <TableCell className="text-start">{item.updated_at}</TableCell>

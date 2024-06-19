@@ -48,6 +48,39 @@ export const deleteProducts = createAsyncThunk(
   }
 );
 
+export const getProductById = createAsyncThunk(
+  "products/getProductById",
+  async (id: string) => {
+    try {
+      const response = await GreeveApi.get(`/products/${id}`);
+      if (response.status === 200) {
+        return response.data.data;
+      }
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+);
+
+export const updateProductById = createAsyncThunk(
+  "products/updateProductById",
+  async ({ id, data }: {
+    id: string;
+    data: Omit<ProductsProps, "product_id" | "created_at" | "updated_at">
+  }) => {
+    try {
+      const response = await GreeveApi.put(`/admin/products/${id}`, data);
+      if (response.status === 200) {
+        return response.data.data;
+      }
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+)
+
 export interface ProductsProps {
   product_id: string;
   name: string;
@@ -63,7 +96,7 @@ export interface ProductsProps {
 
 interface initialStateProps {
   data: ProductsProps[];
-  singleData: Omit<ProductsProps, "product_id" | "created_at" | "updated_at"> | null;
+  singleData: Omit<ProductsProps, "product_id" | "updated_at"> | null;
   originialData: ProductsProps[];
   imageUrl: string[],
   filteredData: {
@@ -154,7 +187,7 @@ export const productsSlice = createSlice({
     setNewProduct: (
       state,
       action: PayloadAction<Omit<ProductsProps,
-        "product_id" | "created_at" | "updated_at"
+        "product_id" | "updated_at"
       >>
     ) => {
       state.singleData = action.payload;
@@ -176,6 +209,19 @@ export const productsSlice = createSlice({
 
     builder.addCase(deleteProducts.fulfilled, (state, action) => {
       state.data = state.data.filter((product) => product.product_id !== action.payload);
+    })
+
+    builder.addCase(getProductById.pending, (state) => {
+      state.isLoading = true;
+    })
+    builder.addCase(getProductById.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.singleData = action.payload;
+      state.imageUrl = action.payload.image_url;
+    })
+    builder.addCase(getProductById.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message as string;
     })
   }
 });

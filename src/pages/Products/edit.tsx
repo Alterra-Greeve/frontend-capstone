@@ -1,23 +1,30 @@
 import { useEffect, useRef, useState } from "react";
-import { AddProductsHeader } from "@/components/products/header";
+import { EditProductsHeader } from "@/components/products/header";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Toaster } from "@/components/ui/toaster";
 import AdminLayout from "@/layouts/AdminLayout";
-import FormAddProduct from "@/components/products/add/form";
 import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { getAllDataImpact } from "@/lib/redux/api/impact";
 import Loading from "@/components/loading";
+import { clearTempImage, getProductById } from "@/lib/redux/api/products";
+import { useParams } from "react-router-dom";
+import FormEditProduct from "@/components/products/edit/form";
 import AddBigImageProduct from "@/components/products/image/BigImage";
 import ChildImage from "@/components/products/image/ChildImage";
-import { clearTempImage } from "@/lib/redux/api/products";
 
-export default function AddProductsPage() {
+export default function EditProductsPage() {
+  const { id } = useParams();
+
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((state: RootState) => state.impact);
+
+  const { isLoading: loadingImpacts } = useAppSelector((state: RootState) => state.impact);
+  const {
+    singleData: product,
+    isLoading: loadingProduct
+  } = useAppSelector((state: RootState) => state.products);
 
   const submitRef = useRef<HTMLButtonElement | null>(null);
-  const date = new Date().toISOString().split("T")[0];
 
   const [file, setFile] = useState<File[] | null>(null);
 
@@ -28,13 +35,17 @@ export default function AddProductsPage() {
   useEffect(() => {
     (async () => {
       dispatch(clearTempImage());
+      await dispatch(getProductById(id as string));
       await dispatch(getAllDataImpact());
     })();
 
     // eslint-disable-next-line
   }, []);
 
-  if (isLoading) {
+  if (
+    loadingImpacts ||
+    loadingProduct
+  ) {
     return (
       <AdminLayout>
         <Loading />
@@ -45,14 +56,14 @@ export default function AddProductsPage() {
   return (
     <AdminLayout>
       <section className="py-6">
-        <AddProductsHeader submitRef={submitRef} />
+        <EditProductsHeader submitRef={submitRef} />
 
         <hr className="my-6" />
 
         <div className="flex flex-col w-full px-6 gap-6">
           <div className="flex flex-col max-w-xs gap-2">
             <Label className="text-neutral-400">Create Data</Label>
-            <Input value={date} disabled className="bg-neutral-400 text-neutral-600 font-bold border-0" />
+            <Input value={product?.created_at} disabled className="bg-neutral-400 text-neutral-600 font-bold border-0" />
           </div>
 
           <div className="grid grid-cols-5 gap-10">
@@ -62,7 +73,7 @@ export default function AddProductsPage() {
             </div>
 
             <div className="col-span-3">
-              <FormAddProduct submitRef={submitRef} file={file} />
+              <FormEditProduct submitRef={submitRef} file={file} />
             </div>
           </div>
         </div>

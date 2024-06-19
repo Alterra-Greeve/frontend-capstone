@@ -12,6 +12,7 @@ import AddChallengePage from "@/pages/Challenges/add";
 import ForumPage from "@/pages/forums";
 import ForumDetail from "@/pages/forums/forum-detail";
 import AddProductsPage from "@/pages/Products/add";
+import EditProductsPage from "./pages/Products/edit";
 
 export default function App() {
   return (
@@ -29,7 +30,7 @@ export default function App() {
         <Route path="products">
           <Route index element={<ProductsPage />} />
           <Route path="add" element={<AddProductsPage />} />
-          {/* <Route path="edit/:id" element={<EditProducts />} /> */}
+          <Route path="edit/:id" element={<EditProductsPage />} />
         </Route>
 
         <Route path="challenges">
