@@ -4,7 +4,7 @@ import ExportIcon from "@/assets/icons/Export.svg";
 import PlusIcon from "@/assets/icons/plus.svg";
 import { Button } from "@/components/ui/button";
 import ChallengesProducts from "./filter";
-import { searchProducts } from "@/lib/redux/api/products";
+import { clearTempImage, searchProducts } from "@/lib/redux/api/products";
 import { useAppDispatch } from "@/lib/redux";
 
 import { useNavigate, useParams } from "react-router-dom";
@@ -100,6 +100,7 @@ export const EditProductsHeader = ({ submitRef }: { submitRef: React.RefObject<H
 }
 
 export const AddProductsHeader = ({ submitRef }: { submitRef: React.RefObject<HTMLButtonElement> }) => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [confirm, setConfirm] = useState<boolean>(false);
 
@@ -109,7 +110,7 @@ export const AddProductsHeader = ({ submitRef }: { submitRef: React.RefObject<HT
   const onSubmit = () => submitRef.current?.click()
 
   const onBack = () => {
-    // dispatch(clearSingleData());
+    dispatch(clearTempImage());
     navigate("../");
   }
 

@@ -148,6 +148,9 @@ export const productsSlice = createSlice({
     deleteTempImage: (state, action: PayloadAction<number>) => {
       state.imageUrl = state.imageUrl.filter((_, index) => index !== action.payload);
     },
+    clearTempImage: (state) => {
+      state.imageUrl = [];
+    },
     setNewProduct: (
       state,
       action: PayloadAction<Omit<ProductsProps,
@@ -182,5 +185,6 @@ export const {
   searchProducts,
   setTempImage,
   deleteTempImage,
-  setNewProduct
+  setNewProduct,
+  clearTempImage
 } = productsSlice.actions;
