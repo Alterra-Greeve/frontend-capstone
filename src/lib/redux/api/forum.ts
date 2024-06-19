@@ -1,5 +1,5 @@
 import { GreeveApi } from "@/lib/axios";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { AxiosError } from "axios";
 
 interface Author {
@@ -10,8 +10,14 @@ interface Author {
 }
 interface ForumMessage {
   id: string;
-  user_id: string;
   message: string;
+  user: {
+    id: string;
+    username: string;
+    name: string;
+    avatar_url: string;
+    email: string;
+  };
 }
 
 interface Discussion {
@@ -30,15 +36,25 @@ interface DiscussionDetail {
 
 interface ForumState {
   discussions: Discussion[];
+  originalDiscussions: Discussion[];
+  filteredDiscussions: {
+    search: string;
+  };
   discussionsDetail: DiscussionDetail;
   loading: boolean;
   error: string | null;
   status: boolean;
   message: string;
+  metadata: {
+    current_page: number;
+    total_page: number;
+  };
 }
 
 const initialState: ForumState = {
   discussions: [],
+  originalDiscussions: [],
+  filteredDiscussions: { search: "" },
   discussionsDetail: {
     id: "",
     title: "",
@@ -51,6 +67,10 @@ const initialState: ForumState = {
     },
     forum_messages: [],
   },
+  metadata: {
+    current_page: 0,
+    total_page: 0,
+  },
   loading: false,
   error: null,
   status: false,
@@ -59,9 +79,9 @@ const initialState: ForumState = {
 
 export const fetchDiscussions = createAsyncThunk(
   "forum/fetchDiscussions",
-  async () => {
+  async (forumPage?: number) => {
     try {
-      const response = await GreeveApi.get("/forums");
+      const response = await GreeveApi.get(`/forums?page=${forumPage || 1}`);
       if (response.status === 200) {
         return response.data;
       }
@@ -111,7 +131,19 @@ export const deleteForumById = createAsyncThunk(
 export const forumSlice = createSlice({
   name: "forum",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    searchForums: (state, action: PayloadAction<string>) => {
+      state.filteredDiscussions.search = action.payload;
+      // filter the discussions based on the search keyword, title, description, and author name
+      state.discussions = state.originalDiscussions.filter((discussion) => {
+        return (
+          discussion.title.toLowerCase().includes(action.payload.toLowerCase()) ||
+          discussion.description.toLowerCase().includes(action.payload.toLowerCase()) ||
+          discussion.author.name.toLowerCase().includes(action.payload.toLowerCase())
+        );
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchDiscussions.pending, (state) => {
@@ -119,9 +151,14 @@ export const forumSlice = createSlice({
       })
       .addCase(fetchDiscussions.fulfilled, (state, action) => {
         state.discussions = action.payload.data;
+        state.originalDiscussions = action.payload.data;
         state.loading = false;
-        state.status = true;
-        state.message = "Get Forum Success";
+        state.status = action.payload.status;
+        state.message = action.payload.message;
+        state.metadata = {
+          current_page: action.payload.metadata.current_page,
+          total_page: action.payload.metadata.total_page,
+        };
       })
       .addCase(fetchDiscussions.rejected, (state, action) => {
         state.error = action.payload as string | null;
@@ -165,4 +202,5 @@ export const forumSlice = createSlice({
 });
 
 export default forumSlice.reducer;
-export const {} = forumSlice.actions;
+
+export const { searchForums } = forumSlice.actions;

@@ -1,47 +1,76 @@
+import { useEffect, useState } from "react";
 import AdminLayout from "@/layouts/AdminLayout";
-import useFetch from "@/lib/hooks/useFetch";
-import SearchProducts from "./SearchProducts";
-import Pagination from "@/components/pagination";
-import Download from "@/assets/icons/Export.svg"
-import Plus from "@/assets/icons/plus.svg"
-import Button from "@/components/Button/Button";
-import TableProducts from "./TableProducts";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Modal from "./modal";
+import { HeaderProducts } from "@/components/products/header";
+import Loading from "@/components/loading";
+import TableProducts from "@/components/products/table";
+import Paging from "@/components/pagination";
+import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
+import { getAllDataImpact } from "@/lib/redux/api/impact";
+import { getAllProducts } from "@/lib/redux/api/products";
+import FilterItemsProduct from "@/components/products/filter/items";
+import NoData from "@/components/NoData";
+import { Toaster } from "@/components/ui/toaster";
+
+interface DataShowProps {
+  start: number;
+  end: number;
+}
 
 export default function ProductsPage() {
-  const { loading, error, data } = useFetch("products", { method: 'get' });
-  const [dataShow, setDataShow] = useState({})
-  const navigate = useNavigate()
-  if (loading) return <AdminLayout>Loading...</AdminLayout>;
-  if (error) return <AdminLayout>{error.message}</AdminLayout>;
-  return (
-    <>
+  const dispatch = useAppDispatch();
+
+  const { isLoading: loadingImpacts } = useAppSelector((state: RootState) => state.impact);
+  const {
+    data: products,
+    isLoading: loadingProducts
+  } = useAppSelector((state: RootState) => state.products);
+
+  const [dataShow, setDataShow] = useState<DataShowProps>({
+    start: 0,
+    end: 10
+  });
+
+  useEffect(() => {
+    (async () => {
+      await dispatch(getAllDataImpact());
+      await dispatch(getAllProducts());
+    })();
+
+    // eslint-disable-next-line
+  }, [])
+
+  if (loadingProducts || loadingImpacts) {
+    return (
       <AdminLayout>
-        <div className="bg-[#F5F5F5] flex flex-col gap-[16px] 
-        relative">
-          <div className="flex justify-between pt-[24px] mx-[24px] border-b-[0.5px] pb-[16px]">
-            <SearchProducts />
-            <div className="flex gap-[8px]">
-              <Button variant="secondary" className='p-[8px]' icon={<Download/>}>Export</Button>
-              <Button variant="primary" className='p-[8px]' icon={<Plus/>} onClick={() => navigate("add-products")}>Tambahkan Produk Baru</Button>
-          </div>
-          </div>
-          {/* <hr /> */}
-          <TableProducts data={data} dataShow={dataShow} />
-          <div className="mx-[24px]">
-            <Pagination
-              // @ts-expect-error data is type unknown
-              dataLength={data.data.length}
-              amouthDataDisplayed={10}
-              setDataShow={(event: { start: number; end: number }) => {
-                setDataShow({ Start: event.start, end: event.end });
-              }} />
-          </div>
-        </div>
+        <Loading />
       </AdminLayout>
-      <Modal/>
-    </>
+    )
+  }
+
+  return (
+    <AdminLayout>
+      <section className="p-6">
+        <HeaderProducts />
+        <FilterItemsProduct />
+
+        {products && products.length === 0
+          ? <NoData />
+          : (
+            <>
+              <TableProducts dataShow={dataShow} />
+              <Paging
+                dataLength={products.length}
+                amouthDataDisplayed={10}
+                className="my-4"
+                setDataShow={(event: { start: number; end: number }) => {
+                  setDataShow({ start: event.start, end: event.end });
+                }}
+              />
+            </>
+          )
+        }
+      </section>
+      <Toaster />
+    </AdminLayout>
   )
 }
