@@ -126,7 +126,7 @@ export default function ChallengesProducts() {
               <div className="flex items-center gap-3">
                 <FormField
                   control={form.control}
-                  name="harga_min"
+                  name="koin_min"
                   render={({ field }) => (
                     <Input
                       type="number"
@@ -138,7 +138,7 @@ export default function ChallengesProducts() {
                 />
                 <FormField
                   control={form.control}
-                  name="harga_max"
+                  name="koin_max"
                   render={({ field }) => (
                     <Input
                       type="number"
