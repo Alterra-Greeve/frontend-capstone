@@ -96,7 +96,7 @@ export default function TableProducts({ dataShow }: TableProductsProps) {
               <TableCell className="text-start">{item.stock}</TableCell>
               <TableCell className="text-start">{item.coin}</TableCell>
               <TableCell className="text-start">{item.description}</TableCell>
-              <TableCell className="flex gap-1">
+              <TableCell className="flex gap-1 px-0 flex-wrap">
                 {item.category.map((category) => (
                   impacts.map((impact) => (
                     impact.id === category &&
