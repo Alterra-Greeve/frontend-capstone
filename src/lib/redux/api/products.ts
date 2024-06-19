@@ -16,11 +16,28 @@ export const getAllProducts = createAsyncThunk(
   }
 );
 
+export const createProducts = createAsyncThunk(
+  "products/createProducts",
+  async (data: Omit<ProductsProps, "product_id" | "created_at" | "updated_at" | "categories"> & {
+    category: string[];
+  }) => {
+    try {
+      const response = await GreeveApi.post("/products", data);
+      if (response.status === 201) {
+        return response.data.data;
+      }
+    } catch (error) {
+      console.error(error);
+      return error;
+    }
+  }
+);
+
 export const deleteProducts = createAsyncThunk(
   "products/deleteProducts",
   async (id: string) => {
     try {
-      const response = await GreeveApi.delete(`/products/${id}`);
+      const response = await GreeveApi.delete(`/admin/products/${id}`);
       if (response.status === 200) {
         return id;
       }
@@ -46,7 +63,9 @@ export interface ProductsProps {
 
 interface initialStateProps {
   data: ProductsProps[];
+  singleData: Omit<ProductsProps, "product_id" | "created_at" | "updated_at"> | null;
   originialData: ProductsProps[];
+  imageUrl: string[],
   filteredData: {
     name?: string;
     harga_min?: number;
@@ -63,6 +82,8 @@ interface initialStateProps {
 
 const initialState: initialStateProps = {
   data: [],
+  singleData: null,
+  imageUrl: [],
   originialData: [],
   filteredData: {},
   isLoading: false,
@@ -121,6 +142,20 @@ export const productsSlice = createSlice({
         return isName
       });
     },
+    setTempImage: (state, action: PayloadAction<string>) => {
+      state.imageUrl.push(action.payload);
+    },
+    deleteTempImage: (state, action: PayloadAction<number>) => {
+      state.imageUrl = state.imageUrl.filter((_, index) => index !== action.payload);
+    },
+    setNewProduct: (
+      state,
+      action: PayloadAction<Omit<ProductsProps,
+        "product_id" | "created_at" | "updated_at"
+      >>
+    ) => {
+      state.singleData = action.payload;
+    }
   },
   extraReducers: builder => {
     builder.addCase(getAllProducts.pending, (state) => {
@@ -144,5 +179,8 @@ export const productsSlice = createSlice({
 
 export const {
   filteredProducts,
-  searchProducts
+  searchProducts,
+  setTempImage,
+  deleteTempImage,
+  setNewProduct
 } = productsSlice.actions;

@@ -9,6 +9,7 @@ import { getAllDataImpact } from "@/lib/redux/api/impact";
 import { getAllProducts } from "@/lib/redux/api/products";
 import FilterItemsProduct from "@/components/products/filter/items";
 import NoData from "@/components/NoData";
+import { Toaster } from "@/components/ui/toaster";
 
 interface DataShowProps {
   start: number;
@@ -69,6 +70,7 @@ export default function ProductsPage() {
           )
         }
       </section>
+      <Toaster />
     </AdminLayout>
   )
 }

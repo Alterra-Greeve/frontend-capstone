@@ -23,7 +23,7 @@ export default function DeleteProductsModal({ isOpen, onClose, id, onBackHref }:
   const { toast } = useToast();
 
   const onDelete = async () => {
-    const response = await dispatch(deleteProducts(id));
+    const response = await dispatch(deleteProducts(id as string));
 
     if (response.meta.requestStatus === "fulfilled") {
       toast({

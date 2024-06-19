@@ -1,8 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoutes from "@/pages/ProtectedRoutes";
 import LoginPage from "@/pages/auth/login";
-import AddProducts from "@/pages/Products/AddProducts";
-import EditProducts from "@/pages/Products/EditProducts";
 import DataImpactOrder from "@/pages/DataImpactOrder";
 import DataImpactChallenge from "@/pages/DataImpactChallenge";
 import UsersPage from "@/pages/Users/index";
@@ -12,7 +10,8 @@ import DashboardPage from "@/pages/Dashboard";
 import EditChallengePage from "@/pages/Challenges/edit";
 import AddChallengePage from "@/pages/Challenges/add";
 import ForumPage from "@/pages/forums";
-import ForumDetail from "./pages/forums/forum-detail";
+import ForumDetail from "@/pages/forums/forum-detail";
+import AddProductsPage from "@/pages/Products/add";
 
 export default function App() {
   return (
@@ -29,8 +28,8 @@ export default function App() {
 
         <Route path="products">
           <Route index element={<ProductsPage />} />
-          <Route path="add" element={<AddProducts />} />
-          <Route path="edit/:id" element={<EditProducts />} />
+          <Route path="add" element={<AddProductsPage />} />
+          {/* <Route path="edit/:id" element={<EditProducts />} /> */}
         </Route>
 
         <Route path="challenges">
