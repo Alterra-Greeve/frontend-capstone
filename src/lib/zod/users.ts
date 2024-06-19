@@ -3,7 +3,7 @@ import { z } from "zod";
 export const FilterUserSchema = z.object({
   name: z.string().optional(),
   username: z.string().optional(),
-  membership: z.string().optional(),
+  membership: z.boolean().optional(),
   gender: z.string().optional(),
 });
 

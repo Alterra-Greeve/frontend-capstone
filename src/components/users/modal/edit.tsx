@@ -127,32 +127,34 @@ export default function EditUserModal({
       trueAction: () => void;
       falseAction: () => void;
     }) => (
-      <DialogContent className="bg-neutral-50 flex flex-col items-center md:rounded-2xl">
-        <IllustrationDelete />
-        <DialogHeader className="items-center pt-6">
-          <h1 className="text-2xl font-bold text-neutral-900">{dialogHead}</h1>
-          <p className="text-neutral-900 text-lg mt-2 text-center">
-            {dialogBody}
-          </p>
-        </DialogHeader>
-        <DialogFooter className="px-5 pt-5">
-          <div className="w-full flex justify-center items-center gap-5">
-            <Button
-              className="min-w-full py-6 rounded-lg"
-              variant="outline_primary"
-              onClick={trueAction}
-            >
-              {trueChildren}
-            </Button>
-            <Button
-              className="min-w-full py-6 rounded-lg"
-              variant="primary"
-              onClick={falseAction}
-            >
-              {falseChildren}
-            </Button>
+      <DialogContent className="bg-neutral-50 flex flex-col items-center gap-8 md:rounded-2xl p-8">
+        <DialogHeader className="flex flex-col gap-8 items-center">
+          <IllustrationDelete />
+          <div className="flex flex-col items-center gap-3">
+            <h1 className="text-2xl font-bold leading-8 text-neutral-900">
+              {dialogHead}
+            </h1>
+            <p className="text-neutral-900 text-base leading-5 mt-2 text-center">
+              {dialogBody}
+            </p>
           </div>
-        </DialogFooter>
+        </DialogHeader>
+        <div className="w-full grid grid-cols-2 gap-x-6">
+          <Button
+            className="py-6 text-sm leading-6 font-medium rounded-lg col-span-1 "
+            variant="outline_primary"
+            onClick={trueAction}
+          >
+            {trueChildren}
+          </Button>
+          <Button
+            className="py-6 text-sm leading-6 font-medium rounded-lg col-span-1 border border-primary-600"
+            variant="primary"
+            onClick={falseAction}
+          >
+            {falseChildren}
+          </Button>
+        </div>
       </DialogContent>
     ),
     []
@@ -180,7 +182,7 @@ export default function EditUserModal({
             handleEditUsers();
             setTimeout(() => setAction(""), 200);
           }}
-          falseChildren="Iya"
+          falseChildren="Iya, Simpan"
           trueAction={() => {
             onClose();
             setAction("");
@@ -214,16 +216,16 @@ interface UserFormProps {
 
 function UserForm({ form, data, setAction, handleFormSubmit }: UserFormProps) {
   return (
-    <DialogContent className="max-w-2xl bg-neutral-50 p-10 py-8 md:rounded-2xl">
+    <DialogContent className="max-w-2xl bg-neutral-50 p-8 md:rounded-2xl">
       <DialogHeader>
         <img
           src={data?.avatar_url}
           alt="profile-image"
           className="rounded-full w-20 h-20"
         />
-        <div className="flex flex-col pt-4">
-          <h5 className="font-bold text-lg">{data?.name}</h5>
-          <p>{data?.email}</p>
+        <div className="flex flex-col gap-2 pt-4">
+          <h5 className="font-bold text-lg leading-5">{data?.name}</h5>
+          <p className="text-base leading-5 font-normal">{data?.email}</p>
         </div>
       </DialogHeader>
       <Form {...form}>
@@ -294,7 +296,7 @@ function UserForm({ form, data, setAction, handleFormSubmit }: UserFormProps) {
                               : false
                           }
                           value="laki-laki"
-                          className="border-2 border-primary-500 checked:bg-primary-500 checked:border-primary-500"
+                          className="radio-inner-circle"
                         />
                       </FormControl>
                       <FormLabel className="font-semibold">Laki-Laki</FormLabel>
@@ -302,7 +304,7 @@ function UserForm({ form, data, setAction, handleFormSubmit }: UserFormProps) {
                     <FormItem className="flex items-center space-x-3 space-y-0">
                       <FormControl>
                         <RadioGroupItem
-                          className="border-2 border-primary-500 checked:bg-primary-500 checked:border-primary-500"
+                          className="radio-inner-circle"
                           value="Perempuan"
                           checked={
                             field.value?.toLocaleLowerCase() == "perempuan"
@@ -376,16 +378,16 @@ function UserForm({ form, data, setAction, handleFormSubmit }: UserFormProps) {
               </FormItem>
             )}
           />
-          <DialogFooter className="pt-4">
+          <DialogFooter className="pt-4 space-x-2">
             <Button
               onClick={() => setAction("close")}
               variant="outline_primary"
-              className="px-12 rounded-lg"
+              className="py-2 rounded-[8px] w-[120px]"
               type="button"
             >
               Batal
             </Button>
-            <Button type="submit" className="px-12 rounded-lg">
+            <Button type="submit" className="py-2 rounded-[8px] w-[120px]">
               Simpan
             </Button>
           </DialogFooter>

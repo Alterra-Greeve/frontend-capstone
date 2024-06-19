@@ -17,6 +17,9 @@ export default function InputWithIcon({
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
+  const onFocus = () => setIsFocused(true);
+  const onBlur = () => setIsFocused(false);
+
   return (
     <FormControl>
       <div className="relative">
@@ -25,8 +28,8 @@ export default function InputWithIcon({
         </div>
 
         <Input
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onFocus={onFocus}
+          onBlur={onBlur}
           className={cn("pl-10 focus-visible:ring-transparent focus:border-neutral-900 transition-colors duration-300", className)}
           {...rest}
         />

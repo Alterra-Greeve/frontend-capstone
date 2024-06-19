@@ -4,12 +4,21 @@ import ExportIcon from "@/assets/icons/Export.svg";
 import SearchBar from "@/components/SearchBar/SearchBar";
 
 import UsersFilter from "@/components/users/filter";
+import { useAppDispatch } from "@/lib/redux";
+import { searchUsers } from "@/lib/redux/api/users";
 
 export default function Header() {
+  const dispatch = useAppDispatch();
+
+  const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    dispatch(searchUsers(value));
+  }
+
   return (
     <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
       <div className="flex gap-4 items-center">
-        <SearchBar onChange={(e) => console.log(e)} />
+        <SearchBar placeholder="Cari User..." onChange={onSearch} />
         <UsersFilter />
       </div>
       <div className="flex gap-[10px] items-center ps-[18px] py-1 ">

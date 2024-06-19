@@ -1,21 +1,24 @@
+import { useEffect, useState } from "react";
+import { Toaster } from "@/components/ui/toaster";
+import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
+import { fetchDiscussions } from "@/lib/redux/api/forum";
+
 import ForumTable from "@/components/forum/table";
 import Loading from "@/components/loading";
-import { fetchDiscussions } from "@/lib/redux/api/forum";
-import { useEffect, useState } from "react";
 import AdminLayout from "@/layouts/AdminLayout";
-import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import ForumHeader from "@/components/forum/header";
 import ForumPagination from "@/components/forum/forumPagination";
-import { Toaster } from "@/components/ui/toaster";
+import NoData from "@/components/NoData";
 
-const ForumPage = () => {
-  const { loading } = useAppSelector((state: RootState) => state.forum);
-  const [page, setPage] = useState<number>(1);
+export default function ForumPage() {
   const dispatch = useAppDispatch();
+  const { discussions, loading } = useAppSelector((state: RootState) => state.forum);
+
+  const [page, setPage] = useState<number>(1);
 
   useEffect(() => {
     (async () => {
-      await dispatch(fetchDiscussions(page.toString()));
+      await dispatch(fetchDiscussions(page));
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -26,19 +29,24 @@ const ForumPage = () => {
       <AdminLayout>
         <Loading />
       </AdminLayout>
-    );
+    )
   }
 
   return (
     <AdminLayout>
       <section className="p-6">
         <ForumHeader />
-        <ForumTable />
-        <ForumPagination setPage={(e) => setPage(e)} className="my-4" />
+        {discussions && discussions.length === 0
+          ? <NoData />
+          : (
+            <>
+              <ForumTable />
+              <ForumPagination setPage={(e) => setPage(e)} className="my-4" />
+            </>
+          )
+        }
       </section>
       <Toaster />
     </AdminLayout>
-  );
-};
-
-export default ForumPage;
+  )
+}

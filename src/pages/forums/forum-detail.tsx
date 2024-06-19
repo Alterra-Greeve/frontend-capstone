@@ -1,18 +1,13 @@
 import AdminLayout from "@/layouts/AdminLayout";
 import ArrowLeft from "@/assets/icons/Arrow - Left.svg";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/lib/redux";
+import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { useEffect, useState } from "react";
 import { deleteForumById, fetchDiscussionById } from "@/lib/redux/api/forum";
 import Loading from "@/components/loading";
 
 import MoreIcon from "@/assets/icons/More.svg";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
 import Button from "@/components/Button/Button";
 import { useToast } from "@/components/ui/use-toast";
@@ -21,25 +16,26 @@ import CrossCircle from "@/assets/icons/crossCircle";
 import DeleteDialog from "@/components/forum/deleteDialog";
 
 const ForumDetail = () => {
-  const { forum_id } = useParams();
+  const { id } = useParams();
   const navigate = useNavigate();
-  const { discussionsDetail, loading, error } = useAppSelector(
-    (state) => state.forum
-  );
-  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
-  const { toast } = useToast();
 
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (forum_id) {
-      dispatch(fetchDiscussionById(forum_id));
-    }
-  }, [forum_id]);
+  const { toast } = useToast();
 
-  async function handleDelete() {
-    if (forum_id) {
+  const { discussionsDetail, loading, error } = useAppSelector((state: RootState) => state.forum);
+  const [isOpenDelete, setIsOpenDelete] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchDiscussionById(id));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
+
+  const handleDelete = async () => {
+    if (id) {
       setIsOpenDelete(false);
-      await dispatch(deleteForumById(forum_id));
+      await dispatch(deleteForumById(id));
       toast({
         icon: error ? <CrossCircle /> : <CheckCircle />,
         variant: error ? "destructive" : "default",
@@ -100,8 +96,8 @@ const ForumDetail = () => {
                       {item.user.username !== " "
                         ? item.user.username
                         : item.user.name !== " "
-                        ? item.user.name
-                        : "Undefined"}
+                          ? item.user.name
+                          : "Undefined"}
                     </h5>
                     <p className="text-neutral-500 text-sm font-medium">
                       {item.user.email}

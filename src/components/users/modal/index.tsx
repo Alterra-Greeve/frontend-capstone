@@ -1,5 +1,10 @@
 import { UsersProps } from "@/lib/redux/api/users";
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import DefaultProfile from "@/assets/images/default-user.png";
 
@@ -26,12 +31,19 @@ const DialogBody = ({ data }: { data: UsersProps | undefined }) => (
     <div className="grid grid-cols-3 gap-6">
       <UserDetail label="No.Telp" value={data?.phone || "-"} />
       <UserDetail label="Alamat" value={data?.address || "-"} />
-      <UserDetail label="Akun Terbuat Tanggal" value={"-"} />
+      <UserDetail
+        label="Akun Terbuat Tanggal"
+        value={data?.created_at || "-"}
+      />
     </div>
   </section>
 );
 
-export default function DetailUserModal({ isOpen, onClose, data }: DetailUserModalProps) {
+export default function DetailUserModal({
+  isOpen,
+  onClose,
+  data,
+}: DetailUserModalProps) {
   return (
     <Dialog open={isOpen}>
       <DialogContent className="max-w-3xl bg-neutral-50 p-10 py-8 md:rounded-2xl">
@@ -43,9 +55,7 @@ export default function DetailUserModal({ isOpen, onClose, data }: DetailUserMod
               className="rounded-full"
             />
           </div>
-          <h1 className="text-2xl leading-8 font-bold">
-            {data?.name || "-"}
-          </h1>
+          <h1 className="text-2xl leading-8 font-bold">{data?.name || "-"}</h1>
         </DialogHeader>
         <DialogBody data={data} />
         <DialogFooter>
@@ -57,5 +67,5 @@ export default function DetailUserModal({ isOpen, onClose, data }: DetailUserMod
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }
