@@ -11,8 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ProductSchema } from "@/lib/zod/products";
 import { setNewProduct } from "@/lib/redux/api/products";
-import ModalConfirmAddProduct from "./ModalConfirm";
-// import ModalConfirmAdd from "./ModalConfirm";
+import ModalConfirmAddProduct from "@/components/products/add/ModalConfirm";
 
 interface FormAddProductProps {
   submitRef: React.RefObject<HTMLButtonElement>;
