@@ -55,7 +55,7 @@ export default function AddProductsPage() {
             <Input value={date} disabled className="text-neutral-500 text-[12px] font-[500] bg-neutral-300 rounded-[7px] border-0 p-[8px]" />
           </div>
 
-          <div className="grid grid-cols-5 gap-10">
+          <div className="grid grid-cols-5 gap-[10px]">
             <div className="col-span-2 relative bg-white h-fit p-[4px] rounded-xl flex flex-col gap-[5px]">
               <AddBigImageProduct onSaveFile={onSaveFile} />
               <ChildImage onSaveFile={onSaveFile} />
