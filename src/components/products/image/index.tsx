@@ -33,10 +33,10 @@ interface ShowImageProps {
 }
 
 export const ShowBigImage = ({ image, title, onDelete }: ShowImageProps) => (
-  <div className="bg-neutral-50 p-1 border-1 border border-[#17171712] rounded-xl w-full h-96">
+  <div className="bg-neutral-50 border-1 border border-[#17171712] rounded-xl w-full h-96">
     <img src={image} alt={title} className="w-full h-96 object-cover rounded-xl" />
     <span
-      className='absolute top-2 right-2 cursor-pointer bg-white p-0 rounded-2xl'
+      className='absolute top-[5px] right-[5px] cursor-pointer rounded-2xl'
       onClick={onDelete}
     >
       <CloseIconBig />
@@ -45,10 +45,10 @@ export const ShowBigImage = ({ image, title, onDelete }: ShowImageProps) => (
 )
 
 export const ShowChildImage = ({ image, title, onDelete }: ShowImageProps) => (
-  <div className="relative bg-neutral-50 p-1 border-1 border border-[#17171712] rounded-xl max-w-32 max-h-24">
+  <div className="relative bg-neutral-50 border-1 border border-[#17171712] rounded-xl max-w-32 max-h-24">
     <img src={image} alt={title} className="w-full object-cover rounded-xl" />
     <span
-      className='absolute top-2 right-2 cursor-pointer bg-white p-0 rounded-2xl'
+      className='absolute top-[0.5px] right-[1px] cursor-pointer rounded-2xl'
       onClick={onDelete}
     >
       <CloseIconSmall />

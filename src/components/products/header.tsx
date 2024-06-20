@@ -115,25 +115,24 @@ export const AddProductsHeader = ({ submitRef }: { submitRef: React.RefObject<HT
   }
 
   return (
-    <div className="flex items-center justify-between px-6">
+    <div className="flex items-center justify-between">
       <ConfirmLeaveModal
         isOpen={confirm}
         onClose={onCloseConfirm}
         onBack={onBack}
       />
 
-      <div className="flex gap-3 cursor-pointer hover:underline" onClick={onConfirm}>
+      <div className="flex gap-[4px] items-center cursor-pointer" onClick={onConfirm}>
         <ArrowLeft />
-        <span>
+        <span className="text-[14px] font-[500]">
           Add Product
         </span>
       </div>
 
-      <div className="flex items-center gap-3">
-        <Button onClick={onSubmit}>
-          Simpan Data
-        </Button>
-      </div>
+      
+      <Button onClick={onSubmit} className="text-[14px] font-[500]">
+        Simpan Data
+      </Button>
     </div>
   )
 }

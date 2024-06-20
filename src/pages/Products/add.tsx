@@ -44,19 +44,19 @@ export default function AddProductsPage() {
 
   return (
     <AdminLayout>
-      <section className="py-6">
+      <section className="flex flex-col gap-[16px] bg-primary-50 m-[24px]">
         <AddProductsHeader submitRef={submitRef} />
 
-        <hr className="my-6" />
+        <hr/>
 
-        <div className="flex flex-col w-full px-6 gap-6">
-          <div className="flex flex-col max-w-xs gap-2">
-            <Label className="text-neutral-400">Create Data</Label>
-            <Input value={date} disabled className="bg-neutral-400 text-neutral-600 font-bold border-0" />
+        <div className="flex flex-col w-full gap-[16px]">
+          <div className="flex flex-col w-[328px]">
+            <Label className="text-[12px] font-[600] text-neutral-400">Create Data</Label>
+            <Input value={date} disabled className="text-neutral-500 text-[12px] font-[500] bg-neutral-300 rounded-[7px] border-0 p-[8px]" />
           </div>
 
           <div className="grid grid-cols-5 gap-10">
-            <div className="col-span-2 relative bg-white h-fit p-1 rounded-xl flex flex-col gap-3">
+            <div className="col-span-2 relative bg-white h-fit p-[4px] rounded-xl flex flex-col gap-[5px]">
               <AddBigImageProduct onSaveFile={onSaveFile} />
               <ChildImage onSaveFile={onSaveFile} />
             </div>
