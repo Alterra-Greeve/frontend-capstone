@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import FilterIcon from "@/assets/icons/Filter.svg";
+import FilterOutline from "@/assets/icons/FilterOutline.svg";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -37,7 +38,7 @@ export default function ChallengesProducts() {
         className="hover:bg-neutral-300 min-w-6 rounded-md transitiona-all duration-300"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <FilterIcon />
+        {!isOpen ? <FilterOutline /> : <FilterIcon />}
       </PopoverTrigger>
       <PopoverContent className="w-sm absolute left-6 -top-10 text-neutral-900 p-3 rounded-xl">
         <FormProvider {...form}>
