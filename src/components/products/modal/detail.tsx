@@ -70,7 +70,7 @@ export default function DetailModalProduct({ isOpen, onClose, id }: DetailModalP
               {product?.category.map((category) => (
                 impacts.map((impact) => (
                   impact.id === category &&
-                  <img key={impact.id} src={impact.icon_url} alt={impact.name} />
+                  <img key={impact.id} src={impact.icon_url} alt={impact.name} className="w-[32px]"/>
                 ))
               ))}
             </div>
