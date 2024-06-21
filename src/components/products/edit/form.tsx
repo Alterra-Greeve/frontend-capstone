@@ -52,7 +52,7 @@ export default function FormEditProduct({ submitRef, file }: FormEditProductProp
       <ModalConfirmEditProduct isOpen={isOpen} onClose={onClose} file={file} />
 
       <form
-        className="flex flex-col gap-[8px] w-[587px]"
+        className="flex flex-col gap-[8px] w-full"
         onSubmit={form.handleSubmit(data => onSubmit(data))}
       >
         <FormField

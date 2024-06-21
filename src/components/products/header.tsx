@@ -25,7 +25,7 @@ export const HeaderProducts = () => {
   }
 
   return (
-    <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
+    <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-[16px]">
       <div className="flex gap-4 items-center">
         <SearchBar onChange={onSearch} />
         <ChallengesProducts />
