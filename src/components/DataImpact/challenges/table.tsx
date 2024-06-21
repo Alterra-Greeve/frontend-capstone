@@ -26,9 +26,9 @@ interface TableImpactChallengeProps {
 
 export default function TableImpactChallenge({ data, dataShow }: TableImpactChallengeProps) {
   const displayedData = data.slice(dataShow.start - 1, dataShow.end);
-
+  console.log(displayedData)
   return (
-    <div className="mt-4 bg-primary-100 rounded-t-[8px] border-[1px] border-neutral-300">
+    <div className="mt-[16px] bg-primary-100 rounded-[8px] border-[1px] border-neutral-300">
       <Table>
         <TableHeader>
           <TableRow>
@@ -42,11 +42,11 @@ export default function TableImpactChallenge({ data, dataShow }: TableImpactChal
         <TableBody>
           {displayedData.map((item, index) => (
             <TableRow className={index % 2 === 0 ? 'bg-neutral-50' : 'bg-neutral-200'} key={index}>
-              <TableCell className="text-start">{index + 1}</TableCell>
-              <TableCell className="text-start">{item.username}</TableCell>
-              <TableCell className="text-start">{item.challenge_name}</TableCell>
-              <TableCell className="text-start">Tingkat Kesulitan</TableCell>
-              <TableCell className="text-start">
+              <TableCell className="text-start w-[16px]">{index + 1}</TableCell>
+              <TableCell className="text-start w-[20%]">{item.username}</TableCell>
+              <TableCell className="text-start w-[20%]">{item.challenge_name}</TableCell>
+              <TableCell className="text-start w-[20%]">{item.difficulty}</TableCell>
+              <TableCell className="text-start w-[20%]">
                 <div className="flex gap-[4px]">
                   {item.helps?.map((cat) =>
                     <>
@@ -58,8 +58,8 @@ export default function TableImpactChallenge({ data, dataShow }: TableImpactChal
                   )}
                 </div>
               </TableCell>
-              <TableCell className="text-start">EXP</TableCell>
-              <TableCell className="text-start">{item.impact_point}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.exp}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.impact_point}</TableCell>
             </TableRow>
           ))}
         </TableBody>

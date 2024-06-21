@@ -61,7 +61,7 @@ export default function TableProducts({ dataShow }: TableProductsProps) {
   }
 
   return (
-    <div className="mt-[16px] bg-primary-100 rounded-xl border-[1px] border-neutral-300">
+    <div className="mt-[16px] bg-primary-100 rounded-[8px] border-[1px] border-neutral-300">
       <DetailModalProduct
         isOpen={showDetailModal}
         onClose={onCloseDetail}
