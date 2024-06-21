@@ -183,7 +183,7 @@ export default function ChallengesProducts() {
                               />
                             </FormControl>
                             <FormLabel className="font-normal">
-                              <img src={item.icon_url} />
+                              <img src={item.icon_url} className="w-[36px]"/>
                             </FormLabel>
                           </FormItem>
                         )}
