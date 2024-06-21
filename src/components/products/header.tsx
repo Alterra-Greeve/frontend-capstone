@@ -25,7 +25,7 @@ export const HeaderProducts = () => {
   }
 
   return (
-    <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-4">
+    <div className="flex justify-between items-center border-b-[0.3px] border-neutral-300 pb-[16px]">
       <div className="flex gap-4 items-center">
         <SearchBar onChange={onSearch} />
         <ChallengesProducts />
@@ -82,7 +82,7 @@ export const EditProductsHeader = ({ submitRef }: { submitRef: React.RefObject<H
 
       <div className="flex gap-[4px] items-center cursor-pointer" onClick={onConfirm}>
         <ArrowLeft />
-        <span>
+        <span className="text-[14px] font-[500]">
           Informasi Produk
         </span>
       </div>
@@ -130,7 +130,7 @@ export const AddProductsHeader = ({ submitRef }: { submitRef: React.RefObject<HT
       </div>
 
       
-      <Button onClick={onSubmit} className="text-[14px] font-[500] rounded-[8px]">
+      <Button onClick={onSubmit} className="text-[14px] font-[500] p-[8px] rounded-[8px]">
         Simpan Data
       </Button>
     </div>

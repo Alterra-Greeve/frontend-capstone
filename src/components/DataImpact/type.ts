@@ -8,6 +8,8 @@ export interface DataImpactProps {
   username: string;
   challenge_name: string;
   email: string;
+  difficulty: string;
+  exp: number;
   impact_point: number;
   helps: DataImpactHelpsProps[];
 }

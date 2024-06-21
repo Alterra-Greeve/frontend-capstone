@@ -42,7 +42,7 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
       <ModalConfirmAddProduct isOpen={isOpen} onClose={onClose} file={file} />
 
       <form
-        className="flex flex-col gap-[8px] w-[587px]"
+        className="flex flex-col gap-[8px] w-full"
         onSubmit={form.handleSubmit(data => onSubmit(data))}
       >
         <FormField
