@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useAppDispatch } from "@/lib/redux";
+import { useAppDispatch, useAppSelector } from "@/lib/redux";
 import { editUser, getUsers, UsersProps } from "@/lib/redux/api/users";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, useEffect, useState } from "react";
@@ -84,6 +84,7 @@ export default function EditUserModal({
   }, [data, form]);
 
   const dispatch = useAppDispatch();
+  const { metadata } = useAppSelector((state) => state.users);
 
   const handleFormSubmit = useCallback(
     (formData: z.infer<typeof formSchema>) => {
@@ -101,8 +102,8 @@ export default function EditUserModal({
   const handleEditUsers = useCallback(async () => {
     if (data?.id && userEdited) {
       try {
-        await dispatch(editUser({ userId: data.id, data: userEdited }));
-        await dispatch(getUsers());
+        await dispatch(editUser({ userId: data.id.toString(), data: userEdited }));
+        await dispatch(getUsers(metadata.current_page.toString()));
         onClose(); // Close the modal on successful edit
       } catch (error) {
         console.error("Failed to edit user:", error);

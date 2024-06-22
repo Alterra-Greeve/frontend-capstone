@@ -3,17 +3,22 @@ import SearchFocus from '@/assets/icons/SearchFocus.svg'
 import { useState } from 'react'
 
 export default function SearchBar({ ...rest }: React.InputHTMLAttributes<HTMLInputElement>) {
-  const [result, setResult] = useState<string>("")
+  const [placeHolder, setPlaceHolder] = useState("Cari data produk")
   const [isFocus, setIsFocus] = useState<boolean>(false)
 
   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     const { value } = e.target
-    setResult(value)
     setIsFocus(true)
-    if (!result) onBlur()
+    if (!value) onBlur()
   }
-  const onFocus = () => setIsFocus(true);
-  const onBlur = () => setIsFocus(false);
+  const onFocus = () => {
+    setPlaceHolder("")
+    setIsFocus(true);
+  }
+  const onBlur = () => {
+    setPlaceHolder("Cari data produk")
+    setIsFocus(false);
+  }
 
   return (
     <div
@@ -24,6 +29,7 @@ export default function SearchBar({ ...rest }: React.InputHTMLAttributes<HTMLInp
       </div>
       <input
         type="text"
+        placeholder={placeHolder}
         className="w-[280px] h-[24px] bg-transparent outline-none"
         onFocus={onFocus}
         onBlur={handleInput}

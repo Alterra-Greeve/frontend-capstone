@@ -1,7 +1,7 @@
 import AdminLayout from "@/layouts/AdminLayout";
 
 import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
-import { getUsers } from "@/lib/redux/api/users";
+import { filteredUsers, getUsers } from "@/lib/redux/api/users";
 import { useEffect, useState } from "react";
 import TableProducts from "@/components/users/table";
 import Header from "@/components/users/header";
@@ -25,6 +25,14 @@ export default function UsersPage() {
   useEffect(() => {
     (async () => {
       await dispatch(getUsers(JSON.stringify(page)));
+      await dispatch(
+        filteredUsers({
+          name: "",
+          username: "",
+          gender: "",
+          membership: undefined,
+        })
+      );
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -51,7 +59,7 @@ export default function UsersPage() {
 
   return (
     <AdminLayout>
-      <div className="p-6">
+      <div className="p-6 relative overflow-hidden">
         <Header />
         <FilterItem />
 

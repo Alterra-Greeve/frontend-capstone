@@ -49,7 +49,7 @@ export default function ProductsPage() {
 
   return (
     <AdminLayout>
-      <section className="p-6">
+      <section className="p-[24px]">
         <HeaderProducts />
         <FilterItemsProduct />
 
@@ -61,7 +61,7 @@ export default function ProductsPage() {
               <Paging
                 dataLength={products.length}
                 amouthDataDisplayed={10}
-                className="my-4"
+                className="mt-[16px]"
                 setDataShow={(event: { start: number; end: number }) => {
                   setDataShow({ start: event.start, end: event.end });
                 }}

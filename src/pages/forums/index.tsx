@@ -12,7 +12,9 @@ import NoData from "@/components/NoData";
 
 export default function ForumPage() {
   const dispatch = useAppDispatch();
-  const { discussions, loading } = useAppSelector((state: RootState) => state.forum);
+  const { discussions, loading } = useAppSelector(
+    (state: RootState) => state.forum
+  );
 
   const [page, setPage] = useState<number>(1);
 
@@ -29,24 +31,23 @@ export default function ForumPage() {
       <AdminLayout>
         <Loading />
       </AdminLayout>
-    )
+    );
   }
 
   return (
     <AdminLayout>
-      <section className="p-6">
+      <section className="p-6 relative">
         <ForumHeader />
-        {discussions && discussions.length === 0
-          ? <NoData />
-          : (
-            <>
-              <ForumTable />
-              <ForumPagination setPage={(e) => setPage(e)} className="my-4" />
-            </>
-          )
-        }
+        {discussions && discussions.length === 0 ? (
+          <NoData />
+        ) : (
+          <>
+            <ForumTable />
+            <ForumPagination setPage={(e) => setPage(e)} className="my-4" />
+          </>
+        )}
+        <Toaster />
       </section>
-      <Toaster />
     </AdminLayout>
-  )
+  );
 }

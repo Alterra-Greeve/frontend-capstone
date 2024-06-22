@@ -42,7 +42,7 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
       <ModalConfirmAddProduct isOpen={isOpen} onClose={onClose} file={file} />
 
       <form
-        className="flex flex-col gap-5"
+        className="flex flex-col gap-[8px] w-full"
         onSubmit={form.handleSubmit(data => onSubmit(data))}
       >
         <FormField
@@ -53,7 +53,6 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
               <FormLabel>Nama Product</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Masukkan Nama Produk..."
                   className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
                   {...field}
                 />
@@ -65,7 +64,7 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
           )}
         />
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-[10px] text-[12px] font-[600] text-neutral-800">
           <FormField
             control={form.control}
             name="price"
@@ -74,7 +73,6 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
                 <FormLabel>Harga</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Masukkan jumlah Harga"
                     className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
                     type="number"
                     {...field}
@@ -95,7 +93,6 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
                 <FormLabel>Stok</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Masukkan jumlah Stok"
                     className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
                     type="number"
                     {...field}
@@ -116,7 +113,6 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
                 <FormLabel>Koin</FormLabel>
                 <FormControl>
                   <Input
-                    placeholder="Masukkan jumlah koin"
                     className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
                     type="number"
                     {...field}
@@ -138,8 +134,7 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
               <FormLabel>Deskripsi</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="Masukkan deskripsi products..."
-                  className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent min-h-44"
+                  className="text-[12px] font-[600] text-neutral-800 rounded-[7px] p-[8px] resize-none border-[0.5px] border-solid  min-h-[101px] border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
                   {...field}
                 />
               </FormControl>
@@ -166,7 +161,7 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
                   control={form.control}
                   name="category"
                   render={({ field }) => (
-                    <FormItem className="flex gap-3 items-center p-2 rounded-lg text-neutral-900">
+                    <FormItem className="flex gap-[16px] items-center py-[4px] px-[8px] rounded-lg text-neutral-900">
                       <FormControl>
                         <Checkbox
                           checked={(field?.value ?? []).includes(item.id)}
@@ -177,12 +172,12 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
                               form.setValue("category", (field.value ?? []).filter((v) => v !== item.id));
                             }
                           }}
-                          className="border-2 border-primary-500 w-5 h-5 checked:bg-white bg-white"
+                          className="border-2 border-primary-500 w-5 h-5 checked:bg-white bg-white ml-[4px]"
                         />
                       </FormControl>
                       <div className="flex items-center gap-3">
-                        <img src={item.icon_url} alt={item.name} />
-                        <FormLabel className="font-normal text-md">
+                        <img src={item.icon_url} alt={item.name} className="w-[36px] h-[36px]"/>
+                        <FormLabel className="text-neutral-900 text-[16px] font-[500]">
                           {item.name}
                         </FormLabel>
                       </div>

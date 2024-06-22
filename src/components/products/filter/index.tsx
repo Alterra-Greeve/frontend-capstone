@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import FilterIcon from "@/assets/icons/Filter.svg";
+import FilterOutline from "@/assets/icons/FilterOutline.svg";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -37,19 +38,19 @@ export default function ChallengesProducts() {
         className="hover:bg-neutral-300 min-w-6 rounded-md transitiona-all duration-300"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <FilterIcon />
+        {!isOpen ? <FilterOutline /> : <FilterIcon />}
       </PopoverTrigger>
-      <PopoverContent className="w-sm absolute left-6 -top-10 text-neutral-900 p-3 rounded-xl">
+      <PopoverContent className="w-sm absolute left-6 -top-10 text-neutral-900 p-[12px] rounded-[8px]">
         <FormProvider {...form}>
           <form
-            className="grid gap-3"
+            className="grid gap-[4px]"
             onSubmit={form.handleSubmit((data) => onSubmit(data))}
           >
-            <FormItem className="border border-neutral-200 p-3 rounded-lg">
-              <FormLabel className="text-base text-neutral-900 font-extrabold leading-5">
+            <FormItem className="border-[0.5px] border-neutral-200 p-[12px] rounded-[8px]">
+              <FormLabel className="text-base text-neutral-900 font-extrabold leading-5 ">
                 Harga
               </FormLabel>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-[4px]">
                 <FormField
                   control={form.control}
                   name="harga_min"
@@ -82,11 +83,11 @@ export default function ChallengesProducts() {
               </div>
             </FormItem>
 
-            <FormItem className="border border-neutral-200 p-3 rounded-lg">
+            <FormItem className="border-[0.5px] border-neutral-200 p-[12px] rounded-[8px]">
               <FormLabel className="text-base text-neutral-900 font-extrabold leading-5">
                 Stok
               </FormLabel>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-[4px]">
                 <FormField
                   control={form.control}
                   name="stok_min"
@@ -119,11 +120,11 @@ export default function ChallengesProducts() {
               </div>
             </FormItem>
 
-            <FormItem className="border border-neutral-200 p-3 rounded-lg">
+            <FormItem className="border-[0.5px] border-neutral-200 p-[12px] rounded-[8px]">
               <FormLabel className="text-base text-neutral-900 font-extrabold leading-5">
                 Koin
               </FormLabel>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-[4px]">
                 <FormField
                   control={form.control}
                   name="koin_min"
@@ -155,17 +156,17 @@ export default function ChallengesProducts() {
               control={form.control}
               name="category"
               render={() => (
-                <FormItem className="border border-neutral-200 p-3 rounded-lg">
+                <FormItem className="border-[0.5px] border-neutral-200 p-[12px] rounded-[8px]">
                   <FormLabel className="text-base text-neutral-900 font-extrabold leading-5">
                     Membantu
                   </FormLabel>
-                  <div className="grid grid-cols-2">
+                  <div className="grid grid-cols-2 gap-y-[12px] gap-x-[20px] place-items-center">
                     {impacts.map((item, index) => (
                       <FormField key={index}
                         control={form.control}
                         name="category"
                         render={({ field }) => (
-                          <FormItem className="flex gap-3 items-center p-2 rounded-lg text-neutral-900">
+                          <FormItem className="flex gap-[12px] items-center py-[4px] px-[8px] rounded-lg text-neutral-900">
                             <FormControl>
                               <Checkbox
                                 checked={(field?.value ?? []).includes(item.id)}
@@ -178,11 +179,11 @@ export default function ChallengesProducts() {
                                     form.setValue("category", currentValue.filter((v) => v !== item.id));
                                   }
                                 }}
-                                className="border-2 border-primary-500"
+                                className="border-2 border-primary-500 m-[4px]"
                               />
                             </FormControl>
                             <FormLabel className="font-normal">
-                              <img src={item.icon_url} />
+                              <img src={item.icon_url} className="w-[36px]"/>
                             </FormLabel>
                           </FormItem>
                         )}
@@ -193,7 +194,7 @@ export default function ChallengesProducts() {
               )}
             />
 
-            <div className="mt-5 flex w-full">
+            <div className="mt-[16px] flex w-full">
               <Button type="submit" className="w-full">
                 Simpan
               </Button>

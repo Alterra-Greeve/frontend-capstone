@@ -38,9 +38,9 @@ const ForumPagination = ({
             </div>
           </button>
           <div className="w-[78px] rounded-[8px] border-[0.5px] border-neutral-400 px-3 py-2 flex gap-1 justify-center text-base leading-5 font-extrabold">
-            <p className="text-primary-500">{metadata.current_page}</p>
+            <p className="text-primary-500">{String(metadata.current_page).padStart(2, '0')}</p>
             <p className="text-primary-200">/</p>
-            <p className="text-primary-200">{metadata.total_page}</p>
+            <p className="text-primary-200">{String(metadata.total_page).padStart(2, '0')}</p>
           </div>
           <button
             className={`min-w-6 ${

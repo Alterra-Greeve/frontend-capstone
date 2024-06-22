@@ -69,8 +69,20 @@
   @layer base {
     * {
       @apply border-border;
+      font-family: "Nunito", sans-serif; /* Added font-family */
     }
     body {
       @apply bg-background text-foreground;
+    }
+  }
+
+  @layer base {
+    @font-face {
+      font-family: "Nunito";
+      src: url('path/to/Nunito-Regular.woff2') format('woff2'), /* Modern Browsers */
+           url('path/to/Nunito-Regular.woff') format('woff'); /* Older Browsers */
+      font-weight: 400;
+      font-style: normal;
+      font-optical-sizing: auto;
     }
   }
