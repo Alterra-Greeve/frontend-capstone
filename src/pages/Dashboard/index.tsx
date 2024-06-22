@@ -36,7 +36,7 @@ export default function DashboardPage() {
             <DataStatistic data={data.data} />
             <NewProductTable data={data.data.new_products} />
           </section>
-          <Chart />
+          <Chart dataMonthlyImpact={data.data.monthly_impact} />
         </div>
       </div>
     </AdminLayout>
