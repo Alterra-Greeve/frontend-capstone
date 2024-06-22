@@ -5,13 +5,12 @@ import { z } from "zod";
 
 import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
-import { Input } from "@/components/ui/input";
 
 import { Checkbox } from "@/components/ui/checkbox";
 import { ProductSchema } from "@/lib/zod/products";
 import { setNewProduct } from "@/lib/redux/api/products";
 import ModalConfirmAddProduct from "@/components/products/add/ModalConfirm";
+import { InputWithError, TextAreaWithError } from "@/components/Input/Input";
 
 interface FormAddProductProps {
   submitRef: React.RefObject<HTMLButtonElement>;
@@ -51,15 +50,11 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
           render={({ field }) => (
             <FormItem>
               <FormLabel>Nama Product</FormLabel>
-              <FormControl>
-                <Input
-                  className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage>
-                {form.formState.errors.name?.message}
-              </FormMessage>
+              <InputWithError
+                namespace="name"
+                errors={form.formState.errors}
+                {...field}
+              />
             </FormItem>
           )}
         />
@@ -71,16 +66,13 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Harga</FormLabel>
-                <FormControl>
-                  <Input
-                    className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
-                    type="number"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage>
-                  {form.formState.errors.price?.message}
-                </FormMessage>
+                <InputWithError
+                  type="number"
+                  min={0}
+                  namespace="price"
+                  errors={form.formState.errors}
+                  {...field}
+                />
               </FormItem>
             )}
           />
@@ -91,16 +83,13 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Stok</FormLabel>
-                <FormControl>
-                  <Input
-                    className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
-                    type="number"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage>
-                  {form.formState.errors.price?.message}
-                </FormMessage>
+                <InputWithError
+                  namespace="stock"
+                  min={0}
+                  errors={form.formState.errors}
+                  type="number"
+                  {...field}
+                />
               </FormItem>
             )}
           />
@@ -111,16 +100,13 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
             render={({ field }) => (
               <FormItem className="w-full">
                 <FormLabel>Koin</FormLabel>
-                <FormControl>
-                  <Input
-                    className="border border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
-                    type="number"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage>
-                  {form.formState.errors.coin?.message}
-                </FormMessage>
+                <InputWithError
+                  namespace="coin"
+                  min={0}
+                  errors={form.formState.errors}
+                  type="number"
+                  {...field}
+                />
               </FormItem>
             )}
           />
@@ -132,15 +118,11 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
           render={({ field }) => (
             <FormItem>
               <FormLabel>Deskripsi</FormLabel>
-              <FormControl>
-                <Textarea
-                  className="text-[12px] font-[600] text-neutral-800 rounded-[7px] p-[8px] resize-none border-[0.5px] border-solid  min-h-[101px] border-neutral-400 focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage>
-                {form.formState.errors.description?.message}
-              </FormMessage>
+              <TextAreaWithError
+                namespace="description"
+                errors={form.formState.errors}
+                {...field}
+              />
             </FormItem>
           )}
         />
@@ -176,7 +158,7 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
                         />
                       </FormControl>
                       <div className="flex items-center gap-3">
-                        <img src={item.icon_url} alt={item.name} className="w-[36px] h-[36px]"/>
+                        <img src={item.icon_url} alt={item.name} className="w-[36px] h-[36px]" />
                         <FormLabel className="text-neutral-900 text-[16px] font-[500]">
                           {item.name}
                         </FormLabel>

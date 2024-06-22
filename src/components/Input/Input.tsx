@@ -1,47 +1,89 @@
-// import React, { useState } from "react"
-// import DangerIcon from '@/assets/icons/DangerSquare.svg'
+import type { FieldErrors, FieldValues } from 'react-hook-form';
+import { Input } from '@/components/ui/input';
+import { FormControl, FormMessage } from '@/components/ui/form';
+import { Textarea } from '@/components/ui/textarea';
 
-// type InputProps = {
-//   style: string;
-//   isEmpty?: boolean;
-// };
+import DangerIcon from '@/assets/icons/DangerSquare.svg'
+interface InputProps<FormData extends FieldValues>
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
+  className?: string;
+  namespace: keyof FormData;
+  errors: FieldErrors<FormData>;
+}
 
-// export default function Input({ style, isEmpty, ...rest }: InputProps) {
-//   const [result, setResult] = useState("")
-//   const [isFocus, setIsFocus] = useState(false)
+interface TextAreaProps<FormData extends FieldValues>
+  extends React.DetailedHTMLProps<
+    React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+    HTMLTextAreaElement
+  > {
+  className?: string;
+  namespace: keyof FormData;
+  errors: FieldErrors<FormData>;
+}
 
-//   function handleInput(e: React.ChangeEvent<HTMLInputElement>) {
-//     const { value } = e.target
-//     setResult(value)
-//     setIsFocus(true)
-//     if (!result) {
-//       handleBlur()
-//     }
-//   }
+export const InputWithError = <FormData extends FieldValues>({
+  className,
+  namespace,
+  errors,
+  ...rest
+}: InputProps<FormData>) => {
+  const error = errors?.[namespace]?.message as string | undefined;
 
-//   function handleBlur() {
-//     setIsFocus(false)
-//   }
+  return (
+    <div className="relative">
+      <FormControl>
+        <Input
+          className={`border bg-transparent ring-0 ring-transparent focus-visible:ring-transparent
+            ${error
+              ? "border-danger-500 focus-visible:border-danger-800"
+              : "border-neutral-400 focus-visible:border-neutral-800"
+            } ${className}`}
+          {...rest}
+        />
+      </FormControl>
+      <FormMessage>
+        {error && error}
+      </FormMessage>
+      {error && (
+        <span className="absolute right-[6px] top-[6px] w-[24px] h-[24px]">
+          <DangerIcon />
+        </span>
+      )}
+    </div>
+  );
+}
 
-//   const onBlur = () => setIsFocus(false)
-//   const onFocus = () => setIsFocus(true)
+export const TextAreaWithError = <FormData extends FieldValues>({
+  className,
+  namespace,
+  errors,
+  ...rest
+}: TextAreaProps<FormData>) => {
+  const error = errors?.[namespace]?.message as string | undefined;
 
-//   return (
-//     <div className="relative">
-//       <input className={isEmpty && !value || isEmpty && !value.length ?
-//         `rounded-[7px] p-[8px] border-[0.5px] border-solid border-danger-500 outline-none ${style}`
-//         :
-//         `rounded-[7px] p-[8px] border-[0.5px] border-solid ${isFocus ? 'border-neutral-800' : 'border-neutral-400'} outline-none ${style}`}
-//         onFocus={onFocus}
-//         onBlur={onBlur}
-//         onChange={handleInput}
-//         {...rest}
-//       />
-//       {isEmpty && !value || isEmpty && !value.length ?
-//         <span className="absolute right-[6px] top-[6px] w-[24px] h-[24px]">
-//           <DangerIcon />
-//         </span>
-//         : <></>}
-//     </div>
-//   )
-// }
+  return (
+    <div className="relative">
+      <FormControl>
+        <Textarea
+          className={`text-[12px] font-[600] text-neutral-800 rounded-[7px] p-[8px] resize-none min-h-[15vh] focus-visible:border-neutral-800 bg-transparent ring-0 ring-transparent focus-visible:ring-transparent
+            ${error
+              ? "border-danger-500 focus-visible:border-danger-800"
+              : "border-neutral-400 focus-visible:border-neutral-800"
+            } ${className}`}
+          {...rest}
+        />
+      </FormControl>
+      <FormMessage>
+        {error && error}
+      </FormMessage>
+      {error && (
+        <span className="absolute right-[6px] top-[6px] w-[24px] h-[24px]">
+          <DangerIcon />
+        </span>
+      )}
+    </div>
+  );
+}
