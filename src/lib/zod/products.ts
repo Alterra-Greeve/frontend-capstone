@@ -12,31 +12,40 @@ export const FilterProductSchema = z.object({
 
 export const ProductSchema = z.object({
   name: z.string({
-    required_error: "Masukkan nama produk"
+    required_error: "Masukkan nama produk",
+    message: "Masukkan nama produk"
   }).min(1, {
     message: "Masukkan nama produk"
   }),
   price: z.coerce.number({
-    required_error: "Masukkan jumlah harga"
+    required_error: "Masukkan jumlah harga",
+    message: "Masukkan jumlah harga",
+    invalid_type_error: "Masukkan hanya angka"
   }).min(1, {
     message: "Masukkan jumlah harga"
   }),
   stock: z.coerce.number({
-    required_error: "Masukkan jumlah stok"
+    required_error: "Masukkan jumlah stok",
+    message: "Masukkan jumlah stok",
+    invalid_type_error: "Masukkan hanya angka"
   }).min(1, {
     message: "Masukkan jumlah stok"
   }),
   coin: z.coerce.number({
-    required_error: "Masukkan jumlah koin"
+    required_error: "Masukkan jumlah koin",
+    message: "Masukkan jumlah koin",
+    invalid_type_error: "Masukkan hanya angka"
   }).min(1, {
     message: "Masukkan jumlah koin"
   }),
   description: z.string({
-    required_error: "Masukkan isi deskripsi"
+    required_error: "Masukkan isi deskripsi",
+    message: "Masukkan isi deskripsi"
   }).min(1, {
     message: "Masukkan isi deskripsi"
   }),
   category: z.array(z.string({
-    required_error: "Kategori produk wajib diisi"
+    required_error: "Kategori produk wajib diisi",
+    message: "Kategori produk wajib diisi"
   }))
 });
