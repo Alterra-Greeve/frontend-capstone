@@ -90,12 +90,12 @@ export default function TableProducts({ dataShow }: TableProductsProps) {
               <TableCell className="text-start w-[10%]">
                 <img src={item.image_url[0]} className="w-[24px] h-[24px] rounded-[24px]"></img>
               </TableCell>
-              <TableCell className="text-start w-[12%]">{item.name.length < 15 ? item.name : `${item.name.substring(0, 15)}...`}</TableCell>
-              <TableCell className="text-start w-[12%]">{item.price}</TableCell>
-              <TableCell className="text-start w-[12%]">{item.stock}</TableCell>
-              <TableCell className="text-start w-[12%]">{item.coin}</TableCell>
-              <TableCell className="text-start w-[12%]">{item.description.length < 14 ? item.description : `${item.description.substring(0, 14)}...`}</TableCell>
-              <TableCell className="flex gap-[4px] w-[114px]">
+              <TableCell className="text-start w-[10%]">{item.name.length < 15 ? item.name : `${item.name.substring(0, 15)}...`}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.price}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.stock}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.coin}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.description.length < 14 ? item.description : `${item.description.substring(0, 14)}...`}</TableCell>
+              <TableCell className="flex gap-[4px] w-[140px]">
                 {item.category.map((category) => (
                   impacts.map((impact) => (
                     impact.id === category &&
