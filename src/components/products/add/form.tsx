@@ -172,7 +172,7 @@ export default function FormAddProduct({ submitRef, file }: FormAddProductProps)
                               form.setValue("category", (field.value ?? []).filter((v) => v !== item.id));
                             }
                           }}
-                          className="border-2 border-primary-500 w-5 h-5 checked:bg-white bg-white ml-[4px]"
+                          className="border-2 border-primary-500 w-[16px] h-[16px] checked:bg-white bg-white ml-[4px]"
                         />
                       </FormControl>
                       <div className="flex items-center gap-3">

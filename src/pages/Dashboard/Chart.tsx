@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -9,7 +11,6 @@ import {
   ChartOptions,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
-import { faker } from "@faker-js/faker";
 import { Button } from "@/components/ui/button";
 import ArrowDown from "../../assets/icons/Arrow-Right.svg";
 import {
@@ -19,7 +20,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -79,25 +80,25 @@ const data = {
   datasets: [
     {
       label: "Hemat Uang",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 400 })),
+      data: [] as number[],
       borderColor: "#8E8B3F",
       backgroundColor: "#8E8B3F",
     },
     {
       label: "Mengurangi Limbah",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 400 })),
+      data: [] as number[],
       borderColor: "#F1ED87",
       backgroundColor: "#F1ED87",
     },
     {
-      label: "Mengurangi Limbah",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 400 })),
+      label: "Perluas Wawasan",
+      data: [] as number[],
       borderColor: "#0B2923",
       backgroundColor: "#0B2923",
     },
     {
-      label: "Mengurangi Limbah",
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 400 })),
+      label: "Mengurangi Pemanasan Global",
+      data: [] as number[],
       borderColor: "#498579",
       backgroundColor: "#498579",
     },
@@ -108,14 +109,50 @@ interface yearItemProps {
   label: number;
 }
 
-const yearItem: yearItemProps[] = [
-  { label: 2024 },
-  { label: 2023 },
-  { label: 2022 },
-  { label: 2021 },
-];
+const yearItem: yearItemProps[] = [{ label: 2024 }];
 
-const Chart = () => {
+const Chart = ({ dataMonthlyImpact }: any) => {
+  const [chartData, setChartData] = useState(data);
+  useEffect(() => {
+    const MPG: number[] = [];
+    const HU: number[] = [];
+    const ML: number[] = [];
+    const PW: number[] = [];
+    dataMonthlyImpact.forEach((element: { point: any[] }) => {
+      MPG.push(element.point[0].point);
+    });
+    dataMonthlyImpact.forEach((element: { point: any[] }) => {
+      HU.push(element.point[1].point);
+    });
+    dataMonthlyImpact.forEach((element: { point: any[] }) => {
+      ML.push(element.point[2].point);
+    });
+    dataMonthlyImpact.forEach((element: { point: any[] }) => {
+      PW.push(element.point[3].point);
+    });
+    setChartData({
+      labels: labels,
+      datasets: [
+        {
+          ...chartData.datasets[0],
+          data: HU, // Data dari API
+        },
+        {
+          ...chartData.datasets[1],
+          data: ML, // Data dari API
+        },
+        {
+          ...chartData.datasets[2],
+          data: PW, // Data dari API
+        },
+        {
+          ...chartData.datasets[3],
+          data: MPG, // Data dari API
+        },
+      ],
+    });
+  }, []);
+
   const [year, yearSet] = useState(2024);
 
   const handleYearStatiticClick = (year: number) => {
@@ -129,12 +166,12 @@ const Chart = () => {
     setIsOpen(!isOpen);
   };
 
-  // console.log(isOpen);
+  console.log(dataMonthlyImpact);
 
   return (
     <section className="bg-neutral-50 w-full h-auto mt-[16px] p-[20px] relative">
       <div>
-        <Bar options={options} data={data} height={80} />
+        <Bar options={options} data={chartData} height={80} />
       </div>
       <DropdownMenu>
         <DropdownMenuTrigger className="bg-neutral-50 absolute top-12 right-5">
