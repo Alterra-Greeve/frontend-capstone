@@ -66,11 +66,11 @@ export default function DetailModalProduct({ isOpen, onClose, id }: DetailModalP
 
           <div className="flex items-center gap-5">
             <h1 className="text-xl text-neutral-900 font-medium">Membantu</h1>
-            <div className="flex gap-3 items-center">
+            <div className="flex gap-[8px] items-center">
               {product?.category.map((category) => (
                 impacts.map((impact) => (
                   impact.id === category &&
-                  <img key={impact.id} src={impact.icon_url} alt={impact.name} className="w-[32px]"/>
+                  <img key={impact.id} src={impact.icon_url} alt={impact.name} className="w-[40px]"/>
                 ))
               ))}
             </div>
