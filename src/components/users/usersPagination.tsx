@@ -1,5 +1,6 @@
 import { useAppSelector } from "@/lib/redux";
 import ArrowRight from "@/assets/icons/Arrow - Right Circle.svg";
+import { useEffect } from "react";
 
 const UsersPagination = ({
   className,
@@ -8,7 +9,13 @@ const UsersPagination = ({
   className: string;
   setPage: (e: number) => void;
 }) => {
-  const { metadata, data } = useAppSelector((state) => state.users);
+  const { metadata, data, isError } = useAppSelector((state) => state.users);
+
+  useEffect(() => {
+    if (isError) {
+      setPage(1);
+    }
+  }, [metadata.current_page]);
 
   return (
     <section className={`w-full ${className}`}>
@@ -39,9 +46,13 @@ const UsersPagination = ({
             </div>
           </button>
           <div className="w-[78px] rounded-[8px] border-[0.5px] border-neutral-400 px-3 py-2 flex gap-1 justify-center text-base leading-5 font-extrabold">
-            <p className="text-primary-500">{String(metadata.current_page).padStart(2, '0')}</p>
+            <p className="text-primary-500">
+              {String(metadata.current_page).padStart(2, "0")}
+            </p>
             <p className="text-primary-200">/</p>
-            <p className="text-primary-200">{String(metadata.total_page).padStart(2, '0')}</p>
+            <p className="text-primary-200">
+              {String(metadata.total_page).padStart(2, "0")}
+            </p>
           </div>
           <button
             className={`min-w-6 ${
