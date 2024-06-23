@@ -69,17 +69,17 @@ const FAQSection = () => {
         alt="ornamen5"
       />
       <div className="mb-[32px]">
-        <h3 className="text-neutral-900 text-[36px] font-extrabold">
+        <h3 className="text-neutral-900 text-center text-[36px] font-extrabold">
           Frequently Asked Question
         </h3>
       </div>
       <Accordion type="single" collapsible className="container max-w-[695px]">
         {accordionItem.map((item, index) => (
           <AccordionItem key={index} value={`item-${index}`}>
-            <AccordionTrigger className="text-neutral-900 text-[18px] font-medium">
+            <AccordionTrigger className="text-neutral-900 text-start text-[18px] font-medium">
               {item.question}
             </AccordionTrigger>
-            <AccordionContent className="text-neutral-600 text-[16px] font-normal">
+            <AccordionContent className="text-neutral-600 text-start text-[16px] font-normal">
               {item.answer}
             </AccordionContent>
           </AccordionItem>

@@ -19,7 +19,7 @@ const partnerItem: PartnerItemProps[] = [
 const PartnersSection = () => {
   return (
     <section className="bg-transparent py-[68px] flex flex-col gap-[32px]">
-      <div className="flex flex-row justify-center items-center gap-[69px]">
+      <div className="flex flex-wrap md:flex-row justify-center items-center gap-[69px]">
         {partnerItem.map((item, index) => (
           <img key={index} src={item.image} alt="" />
         ))}

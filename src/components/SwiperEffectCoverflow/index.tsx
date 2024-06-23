@@ -19,11 +19,18 @@ interface ItemSwiperProps {
 
 const ItemSwiper = ({ image, role, name, link }: ItemSwiperProps) => {
   return (
-    <div className="w-full h-full flex flex-col justify-end items-center bg-no-repeat" style={{ backgroundImage: `url(${image})`, backgroundSize: "cover" }}>
-      <div className="w-full flex justify-between items-center bg-[#171717] bg-opacity-60 px-[33px] py-[28px]">
+    <div
+      className="w-full h-full flex flex-col justify-end items-center bg-no-repeat"
+      style={{ backgroundImage: `url(${image})`, backgroundSize: "cover" }}
+    >
+      <div className="w-full flex justify-center max-md:gap-[10px] md:justify-between items-center bg-[#171717] bg-opacity-60 px-[5px] md:px-[33px] py-[px] md:py-[28px]">
         <div>
-          <p className="text-neutral-50 text-[28px] font-normal">{role}</p>
-          <p className="text-neutral-50 text-[32px] font-bold">{name}</p>
+          <p className="text-neutral-50 text-[16px] md:text-[28px] font-normal">
+            {role}
+          </p>
+          <p className="text-neutral-50 text-[12px] md:text-[32px] font-bold">
+            {name}
+          </p>
         </div>
         <Link to={link}>
           <img src={linkedin} alt="linkedin" />
@@ -35,7 +42,7 @@ const ItemSwiper = ({ image, role, name, link }: ItemSwiperProps) => {
 
 export default function SwiperEffectCoverflow({ item }: any) {
   return (
-    <div className="container">
+    <div className="md:container">
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
@@ -58,7 +65,12 @@ export default function SwiperEffectCoverflow({ item }: any) {
       >
         {item.map((item: ItemSwiperProps, index: Key | null | undefined) => (
           <SwiperSlide key={index}>
-            <ItemSwiper image={item.image} role={item.role} name={item.name} link={item.link} />
+            <ItemSwiper
+              image={item.image}
+              role={item.role}
+              name={item.name}
+              link={item.link}
+            />
           </SwiperSlide>
         ))}
       </Swiper>
