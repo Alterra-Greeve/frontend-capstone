@@ -42,7 +42,7 @@ const ItemSwiper = ({ image, role, name, link }: ItemSwiperProps) => {
 
 export default function SwiperEffectCoverflow({ item }: any) {
   return (
-    <div className="md:container">
+    <div className="container">
       <Swiper
         effect={"coverflow"}
         grabCursor={true}
