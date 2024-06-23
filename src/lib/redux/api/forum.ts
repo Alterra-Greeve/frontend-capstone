@@ -79,9 +79,9 @@ const initialState: ForumState = {
 
 export const fetchDiscussions = createAsyncThunk(
   "forum/fetchDiscussions",
-  async (forumPage?: number) => {
+  async () => {
     try {
-      const response = await GreeveApi.get(`/forums?page=${forumPage || 1}`);
+      const response = await GreeveApi.get(`/forums`);
       if (response.status === 200) {
         return response.data;
       }
