@@ -12,6 +12,7 @@ import DeleteChallengeModal from "@/components/challenges/modal/delete";
 import { useAppDispatch } from "@/lib/redux";
 import { clearSingleData, searchChallenges } from "@/lib/redux/api/challenges";
 import ConfirmLeaveModal from "@/components/modals/ConfirmLeave";
+import AiChallengeModal from "./modal/ai";
 
 export const ChallengesHeader = () => {
   const dispatch = useAppDispatch();
@@ -102,9 +103,13 @@ export const AddChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<H
   const dispatch = useAppDispatch();
 
   const [open, setOpen] = useState<boolean>(false);
+  const [showAi, setShowAi] = useState<boolean>(false);
 
   const onOpen = () => setOpen(true)
   const onClose = () => setOpen(false)
+
+  const onShowAi = () => setShowAi(true)
+  const onCloseAi = () => setShowAi(false)
 
   const onSubmit = () => submitRef.current?.click()
 
@@ -121,6 +126,8 @@ export const AddChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<H
         onBack={onBack}
       />
 
+      <AiChallengeModal isOpen={showAi} onClose={onCloseAi} />
+
       <div className="flex gap-3 cursor-pointer hover:underline" onClick={onOpen}>
         <ArrowLeft />
         <span>
@@ -129,6 +136,9 @@ export const AddChallengeHeader = ({ submitRef }: { submitRef: React.RefObject<H
       </div>
 
       <div className="flex items-center gap-3">
+        <Button variant={"outline_primary"} onClick={onShowAi}>
+          Tanya AI untuk Saran
+        </Button>
         <Button onClick={onSubmit}>
           Simpan Data
         </Button>
