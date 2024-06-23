@@ -48,7 +48,7 @@ const Paging = ({
   useEffect(() => {
     setPagingLength(handlePagingLength());
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dataLength]);
 
   return (
     <section className={`w-full ${className}`}>

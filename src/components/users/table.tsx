@@ -37,8 +37,12 @@ const tableHeader: string[] = [
   "Membership",
   "",
 ];
+interface page {
+  start :number 
+  end : number
+}
 
-export default function TableProducts() {
+export default function TableProducts({page} : {page : page}) {
   const { data } = useAppSelector((state: RootState) => state.users);
 
   const [userId, setUserId] = useState<string | null>(null);
@@ -125,7 +129,7 @@ export default function TableProducts() {
           </TableHeader>
 
           <TableBody className="bg-neutral-50">
-            {data?.map((item, index) => (
+            {data?.slice(page.start-1, page.end).map((item, index) => (
               <TableRow
                 key={index}
                 className={`text-start text-xs leading-6 font-normal text-neutral-900 ${index % 2 !== 0 ? "bg-neutral-200 " : ""

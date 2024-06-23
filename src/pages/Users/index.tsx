@@ -1,5 +1,4 @@
 import AdminLayout from "@/layouts/AdminLayout";
-
 import { RootState, useAppDispatch, useAppSelector } from "@/lib/redux";
 import { filteredUsers, getUsers } from "@/lib/redux/api/users";
 import { useEffect, useState } from "react";
@@ -11,20 +10,23 @@ import { useToast } from "@/components/ui/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import CheckCircle from "@/assets/icons/checkCircle";
 import CrossCircle from "@/assets/icons/crossCircle";
-import UsersPagination from "@/components/users/usersPagination";
 import NoData from "@/components/NoData";
+import Paging from "@/components/pagination";
 
 export default function UsersPage() {
   const dispatch = useAppDispatch();
   const { data, isLoading, message, isError } = useAppSelector(
     (state: RootState) => state.users
   );
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<{ start: number; end: number }>({
+    start: 1,
+    end: 10,
+  });
   const { toast } = useToast();
 
   useEffect(() => {
     (async () => {
-      await dispatch(getUsers(JSON.stringify(page)));
+      await dispatch(getUsers());
       await dispatch(
         filteredUsers({
           name: "",
@@ -36,7 +38,7 @@ export default function UsersPage() {
     })();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, []);
 
   useEffect(() => {
     if (message !== "") {
@@ -63,21 +65,22 @@ export default function UsersPage() {
         <Header />
         <FilterItem />
 
-        {data && data.length === 0
-          ? <NoData />
-          : (
-            <>
-              <TableProducts />
-              <UsersPagination
-                className={"my-4"}
-                setPage={(e: number) => setPage(e)}
-              />
-            </>
-          )
-        }
+        {data && data.length === 0 ? (
+          <NoData />
+        ) : (
+          <>
+            <TableProducts page={page} />
+            <Paging
+              dataLength={data.length}
+              amouthDataDisplayed={10}
+              className="my-4"
+              setDataShow={(e) => setPage(e)}
+            />
+          </>
+        )}
 
         <Toaster />
       </div>
     </AdminLayout>
-  )
+  );
 }
