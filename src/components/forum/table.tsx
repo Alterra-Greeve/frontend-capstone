@@ -1,8 +1,20 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/lib/redux";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useToast } from "@/components/ui/use-toast";
 import { deleteForumById } from "@/lib/redux/api/forum";
 import DeleteDialog from "./deleteDialog";
@@ -12,11 +24,16 @@ import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
 import MoreIcon from "@/assets/icons/More.svg";
 import CheckCircle from "@/assets/icons/checkCircle";
 import CrossCircle from "@/assets/icons/crossCircle";
-import DefaultUser from "@/assets/images/default-user.png"
+import DefaultUser from "@/assets/images/default-user.png";
 
 const headers = ["No", "Title", "Description", "Author"] as const;
 
-export default function ForumTable() {
+interface page {
+  start: number;
+  end: number;
+}
+
+export default function ForumTable({ page }: { page: page }) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -30,7 +47,7 @@ export default function ForumTable() {
   const onOpen = (id: string) => {
     setForumId(id);
     setIsOpenDelete(true);
-  }
+  };
   const onClose = () => setIsOpenDelete(false);
 
   const handleDelete = async () => {
@@ -44,7 +61,7 @@ export default function ForumTable() {
         description: "Forum deleted !",
       });
     }
-  }
+  };
 
   return (
     <div className="mt-4 bg-primary-100 rounded-t-[8px] border-[1px] border-neutral-300 overflow-auto max-h-[65vh]">
@@ -58,7 +75,8 @@ export default function ForumTable() {
         <TableHeader>
           <TableRow className="text-start py-[10px]">
             {headers.map((header, index) => (
-              <TableHead key={index}
+              <TableHead
+                key={index}
                 className="text-sm leading-5 text-black font-normal px-3 py-2"
               >
                 {header}
@@ -69,12 +87,17 @@ export default function ForumTable() {
 
         <TableBody className="bg-neutral-50">
           {discussions?.map((item, index) => (
-            <TableRow key={index}
-              className={`${index % 2 !== 0 ? "bg-neutral-200" : ""} text-start text-xs leading-6 font-normal text-neutral-900 `}
+            <TableRow
+              key={index}
+              className={`${
+                index % 2 !== 0 ? "bg-neutral-200" : ""
+              } text-start text-xs leading-6 font-normal text-neutral-900 `}
             >
               <TableCell className="p-3 text-start">{index + 1}</TableCell>
               <TableCell className="p-3 text-start">{item.title}</TableCell>
-              <TableCell className="p-3 text-start">{item.description}</TableCell>
+              <TableCell className="p-3 text-start">
+                {item.description}
+              </TableCell>
               <TableCell className="p-3 text-start">
                 <div className="flex items-center gap-2">
                   <div className="w-6 h-6 rounded-full bg-slate-300 border border-black">
@@ -87,7 +110,6 @@ export default function ForumTable() {
                 </div>
               </TableCell>
               <TableCell className="w-6 text-center">
-
                 <DropdownMenu>
                   <DropdownMenuTrigger className="hover:bg-neutral-300 rounded-lg p-2">
                     <MoreIcon />
@@ -109,12 +131,11 @@ export default function ForumTable() {
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
-
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
     </div>
-  )
+  );
 }

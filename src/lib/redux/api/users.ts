@@ -4,10 +4,10 @@ import { AxiosError } from "axios";
 
 export const getUsers = createAsyncThunk(
   "users/getUsers",
-  async (usersPage?: string) => {
+  async () => {
     try {
       const response = await GreeveApi.get(
-        `/admin/users?page=${usersPage || "1"}`
+        `/admin/users`
       );
       if (response.status === 200) {
         return response.data;
