@@ -241,7 +241,7 @@ const MeetOurBrainSection = () => {
       : "text-primary-600";
 
   return (
-    <section className="bg-[#FFFFFF] w-full h-auto py-[60px] px-[64px] flex flex-col justify-center items-center gap-[48px]">
+    <section className="bg-[#FFFFFF] w-full h-auto py-[60px] md:px-[64px] flex flex-col justify-center items-center gap-[48px]">
       <div>
         <h3 className="text-neutral-900 text-[32px] md:text-[60px] text-center font-semibold">
           Meet Our Brains
