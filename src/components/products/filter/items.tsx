@@ -9,11 +9,11 @@ interface FilterOptionProps {
 }
 
 const FilterOption: React.FC<FilterOptionProps> = ({ label, onAction, value }) => (
-  <div className="flex items-center gap-1 bg-white p-0 pe-2 rounded-xl">
-    <div className="flex items-center px-[20px] text-base leading-5 bg-secondary-500 rounded-[8px] font-normal text-neutral-900 h-full">
+  <div className="flex gap-[4px] bg-neutral-50 rounded-[8px] items-center">
+    <div className="flex items-center py-[5px] px-[10px] text-neutral-900 text-[16px] font-[400] rounded-[8px] bg-secondary-500 h-full">
       {label}
     </div>
-    <div className="flex gap-2 py-2 px-2">
+    <div className="flex gap-[4px] items-center py-[3px] px-[4px]">
       {Array.isArray(value) ? (
         value.map((item, index) => (
           <div key={index} className="flex items-center gap-1 text-xs text-neutral-500 leading-5">
@@ -21,14 +21,14 @@ const FilterOption: React.FC<FilterOptionProps> = ({ label, onAction, value }) =
           </div>
         ))
       ) : (
-        <div className="flex items-center gap-1 text-xs text-neutral-500 leading-5">
+        <div className="text-neutral-500 font-[400] text-[12px]">
           {value}
         </div>
       )}
+      <button onClick={onAction}>
+        <CloseIcon />
+      </button>
     </div>
-    <button onClick={onAction}>
-      <CloseIcon />
-    </button>
   </div>
 );
 
@@ -100,7 +100,7 @@ export default function FilterItemsProduct() {
       key: "category",
       label: "Kategori",
       value: filteredData.category?.map((category) => (
-        <img src={impacts.find((impact) => impact.id === category)?.icon_url} className="w-8" />
+        <img src={impacts.find((impact) => impact.id === category)?.icon_url} className="w-[24px]" />
       ))
     },
     {
@@ -111,7 +111,7 @@ export default function FilterItemsProduct() {
   ];
 
   return (
-    <section className="mt-4 flex gap-3">
+    <section className="mt-[16px] flex gap-[12px]">
       {filters.map(({ key, label, value }) => (
         value !== undefined && value !== "" && (
           <FilterOption

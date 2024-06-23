@@ -2,9 +2,9 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 import MoreIcon from "@/assets/icons/More.svg";
-import DeleteIcon from "@/assets/icons/Iconly/Union-1.svg";
-import ShowProfileIcon from "@/assets/icons/Iconly/Show.svg";
-import EditIcon from "@/assets/icons/Iconly/Union.svg";
+import DeleteIcon from '@/assets/icons/deleteProduct.svg';
+import ShowProfileIcon from '@/assets/icons/detailsProduct.svg';
+import EditIcon from '@/assets/icons/editProduct.svg';
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DetailModalProduct from "./modal/detail";
@@ -29,7 +29,6 @@ const headers = [
   "Helps",
   "Create Date",
   "Update Date",
-  ""
 ] as const;
 
 export default function TableProducts({ dataShow }: TableProductsProps) {
@@ -62,7 +61,7 @@ export default function TableProducts({ dataShow }: TableProductsProps) {
   }
 
   return (
-    <div className="mt-4 bg-primary-100 rounded-xl border-[1px] border-neutral-300">
+    <div className="mt-[16px] bg-primary-100 rounded-[8px] border-[1px] border-neutral-300">
       <DetailModalProduct
         isOpen={showDetailModal}
         onClose={onCloseDetail}
@@ -77,7 +76,7 @@ export default function TableProducts({ dataShow }: TableProductsProps) {
         <TableHeader>
           <TableRow>
             {headers.map((header, index) => (
-              <TableHead key={index} className="text-sm leading-5 text-black font-normal px-3 py-2 whitespace-nowrap">
+              <TableHead key={index} className="text-[12px] text-neutral-900 font-normal  whitespace-nowrap">
                 {header}
               </TableHead>
             ))}
@@ -86,49 +85,49 @@ export default function TableProducts({ dataShow }: TableProductsProps) {
 
         <TableBody>
           {displayedData.map((item, index) => (
-            <TableRow className={index % 2 === 0 ? 'bg-neutral-50' : 'bg-neutral-200'} key={index}>
-              <TableCell className="text-start">{item.product_id}</TableCell>
-              <TableCell className="text-start">
+            <TableRow className={`${index % 2 === 0 ? 'bg-neutral-50 ' : 'bg-neutral-200'} text-[12px] text-neutral-900 font-normal`} key={index}>
+              <TableCell className="text-start w-[10%]">{item.product_id.split('-')[0]}</TableCell>
+              <TableCell className="text-start w-[10%]">
                 <img src={item.image_url[0]} className="w-[24px] h-[24px] rounded-[24px]"></img>
               </TableCell>
-              <TableCell className="text-start">{item.name}</TableCell>
-              <TableCell className="text-start">{item.price}</TableCell>
-              <TableCell className="text-start">{item.stock}</TableCell>
-              <TableCell className="text-start">{item.coin}</TableCell>
-              <TableCell className="text-start">{item.description}</TableCell>
-              <TableCell className="flex gap-1">
+              <TableCell className="text-start w-[10%]">{item.name.length < 15 ? item.name : `${item.name.substring(0, 15)}...`}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.price}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.stock}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.coin}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.description.length < 14 ? item.description : `${item.description.substring(0, 14)}...`}</TableCell>
+              <TableCell className="flex gap-[4px] w-[140px]">
                 {item.category.map((category) => (
                   impacts.map((impact) => (
                     impact.id === category &&
-                    <img key={impact.id} src={impact.icon_url} alt={impact.name} className="w-7" />
+                    <img key={impact.id} src={impact.icon_url} alt={impact.name} className="w-[24px]" />
                   ))
                 ))}
               </TableCell>
-              <TableCell className="text-start">{item.created_at}</TableCell>
-              <TableCell className="text-start">{item.updated_at}</TableCell>
+              <TableCell className="text-start w-[10%]">{item.created_at}</TableCell>
 
-              <TableCell>
+              <TableCell className="flex items-center text-start gap-[12px] w-[10%]">
+                <div>{item.updated_at}</div>
                 <DropdownMenu>
-                  <DropdownMenuTrigger className="hover:bg-neutral-300 rounded-lg p-2">
+                  <DropdownMenuTrigger className="hover:bg-primary-100 transition duration-200 rounded-[8px] p-2">
                     <MoreIcon />
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-white rounded-lg absolute right-5 w-36 -top-7 p-3 text-neutral-900 flex flex-col  gap-1 shadow-md">
+                  <DropdownMenuContent className="absolute right-4 -top-9 p-0 text-neutral-900 shadow-md rounded-[8px] bg-neutral-50 min-w-[0px] flex flex-col">
                     <DropdownMenuItem
-                      className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer"
+                      className="rounded-b-none flex gap-[8px] py-[8px] px-[16px] focus:bg-primary-200 cursor-pointer text-[14px] font-[700] text-neutral-900"
                       onClick={() => navigate(`/dashboard/products/edit/${item.product_id}`)}
                     >
                       <EditIcon />
                       Edit
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer"
+                      className="rounded-none flex gap-[8px] py-[8px] px-[16px] focus:bg-primary-200 cursor-pointer text-[14px] font-[700] text-neutral-900"
                       onClick={() => onShowDetail(item.product_id)}
                     >
                       <ShowProfileIcon />
                       Lihat
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      className="text-sm font-bold flex gap-2 p-2 hover:bg-neutral-100 hover:rounded-md outline-none cursor-pointer"
+                      className="rounded-t-none flex gap-[8px] py-[8px] px-[16px] focus:bg-primary-200 cursor-pointer text-[14px] font-[700] text-neutral-900"
                       onClick={() => onShowDelete(item.product_id)}
                     >
                       <DeleteIcon />

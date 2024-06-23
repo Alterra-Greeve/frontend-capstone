@@ -10,30 +10,32 @@ export default function ChildImage({ onSaveFile }: { onSaveFile: (file: File) =>
 
   return (
     imageUrl.length > 0 ? (
-      <div className="flex gap-2">
+      <div className="grid grid-cols-5 w-full gap-[4px]">
         {imageUrl.map((image, index) => (
           index !== 0 && (
-            <ShowChildImage key={index}
-              image={image}
-              title="Product Image"
-              onDelete={() => onDelete(index)}
-            />
+            <div className="col-span-1">
+              <ShowChildImage key={index}
+                image={image}
+                title="Product Image"
+                onDelete={() => onDelete(index)}
+              />
+            </div>
           )
         ))}
 
         {imageUrl.length < 6 && (
-          <div className="flex items-center gap-2 w-full">
-            {Array.from({ length: 6 - imageUrl.length }).map((_, index) => (
-              <SelectChildImage key={index}
+          Array.from({ length: 6 - imageUrl.length }).map((_, index) => (
+            <div key={index} className="col-span-1">
+              <SelectChildImage
                 onSaveFile={onSaveFile}
                 disabled={index + imageUrl.length !== imageUrl.length}
               />
-            ))}
-          </div>
+            </div>
+          ))
         )}
       </div>
     ) : (
-      <div className="flex items-center gap-2 w-full">
+      <div className="flex items-center gap-[4px] w-full">
         {Array.from({ length: 5 }).map((_, index) => (
           <SelectChildImage key={index}
             onSaveFile={onSaveFile}

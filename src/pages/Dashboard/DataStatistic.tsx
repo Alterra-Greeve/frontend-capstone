@@ -86,7 +86,9 @@ const DataStatistic = ({ data }: any) => {
               <User />
             </div>
             <div className="flex flex-col">
-              <p className="text-primary-500 font-bold">45</p>
+              <p className="text-primary-500 font-bold">
+                {data.total_membership}
+              </p>
               <p className="text-[12px] text-[#1C6758]">Pengguna Membership</p>
             </div>
           </div>
