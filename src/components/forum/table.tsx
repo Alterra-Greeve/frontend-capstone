@@ -86,7 +86,7 @@ export default function ForumTable({ page }: { page: page }) {
         </TableHeader>
 
         <TableBody className="bg-neutral-50">
-          {discussions?.map((item, index) => (
+          {discussions?.slice(page.start-1, page.end).map((item, index) => (
             <TableRow
               key={index}
               className={`${
