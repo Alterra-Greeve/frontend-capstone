@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
+import { Carousel, CarouselContent } from "@/components/ui/carousel";
+
 interface PaketItemProps {
   name: string;
   price: string;
@@ -65,7 +67,7 @@ const PaketCard = ({
     }
   };
   return (
-    <Card className="w-[352px] shadow-lg border-0">
+    <Card className="w-[275px] md:w-[352px] shadow-lg border-0">
       <CardHeader className="flex flex-col gap-[17px]">
         <CardTitle className="text-neutral-600 text-[28px] font-medium">
           {name}
@@ -118,20 +120,27 @@ const PaketCard = ({
 
 const PaketSection = () => {
   return (
-    <section className="flex flex-col items-center gap-[35px] px-[64px] py-[80px]">
+    <section className="flex flex-col items-center gap-[35px] px-[20px] md:px-[64px] py-[80px]">
       <div className="flex flex-col justify-center items-center">
-        <h3 className="text-neutral-900 text-[60px] font-semibold">
+        <h3 className="text-neutral-900 text-[32px] md:text-[60px] font-semibold">
           Paket dan Harga
         </h3>
-        <p className="text-neutral-600 text-[25px] font-normal">
+        <p className="text-neutral-600 text-[20px] md:text-[25px] font-normal">
           Kredit Tanpa Batas! Bayar tahunan dan hemat.
         </p>
       </div>
-      <div className="flex gap-[48px] justify-between">
+      <div className="hidden md:flex flex-row gap-[48px] justify-between">
         {paketItem.map((item, index) => (
           <PaketCard key={index} {...item} />
         ))}
       </div>
+      <Carousel className="w-full max-w-xs md:hidden">
+        <CarouselContent>
+          {paketItem.map((item, index) => (
+            <PaketCard key={index} {...item} />
+          ))}
+        </CarouselContent>
+      </Carousel>
     </section>
   );
 };

@@ -2,6 +2,13 @@
 import SwiperEffectCoverflow from "@/components/SwiperEffectCoverflow";
 import { useState } from "react";
 import robiul from "../../assets/images/profil.jpg";
+import Krisna from "../../assets/images/Rectangle 59.png";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../components/ui/dropdown";
 
 interface MenuItemProps {
   label: string;
@@ -24,48 +31,54 @@ interface ItemSwiperProps {
 }
 
 const itemCorouselUIUX: ItemSwiperProps[] = [
-  { image: robiul, role: "UI/UX", name: "Arya Adi Guna", link: "/" },
+  {
+    image:
+      "https://storage.googleapis.com/alterra-greeve/greeve/9b5919a6-3f27-4204-8d91-ee91ef35765cftArya.jpeg",
+    role: "UI/UX",
+    name: "Arya Adi Guna",
+    link: "https://www.linkedin.com/in/arya-adi-guna-a1271216a/",
+  },
   {
     image:
       "https://storage.googleapis.com/alterra-greeve/greeve/77a00f96-abce-48ce-ae6c-f4d0f26c056dFoto_Imam.jpg",
     role: "UI/UX",
     name: "Imam Zuhdi Muzakkiy",
-    link: "/",
+    link: "http://www.linkedin.com/in/imamzuhdim",
   },
   {
     image:
       "https://storage.googleapis.com/alterra-greeve/greeve/1e7360a4-877f-4920-89e4-818436c7c303fotoprofesional.jpg",
     role: "UI/UX",
     name: "Farhan Maulana",
-    link: "/",
+    link: "http://www.linkedin.com/in/farhan-maulana-24622322b",
   },
   {
     image:
       "https://storage.googleapis.com/alterra-greeve/greeve/f3b467ac-d236-4af1-8f4c-dfce226bc22dFoto%20Jovanka%20Siginendra.jpg",
     role: "UI/UX",
     name: "Jovanka Siginendra",
-    link: "/",
+    link: "https://www.linkedin.com/in/jovanka-siginendra/",
   },
   {
     image:
       "https://storage.googleapis.com/alterra-greeve/greeve/d2084779-3dd3-4e9a-b916-f98b9d99085dIMG_20220212_214033.jpg",
     role: "UI/UX",
     name: "Afrizal Dwi Muharam",
-    link: "/",
+    link: "http://www.linkedin.com/in/afrizal-dwi-muharam",
   },
   {
     image:
       "https://storage.googleapis.com/alterra-greeve/greeve/862f0072-38b9-4bab-a9ba-439044334e6aselfie-time-1717679054600.jpg.jpg",
     role: "UI/UX",
     name: "Ulya Nur Chamidah",
-    link: "/",
+    link: "https://www.linkedin.com/in/ulya-nur-chamidah-ba30b0221?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app",
   },
   {
     image:
       "https://storage.googleapis.com/alterra-greeve/greeve/479e11d2-721c-4571-84c2-54422ee32670Alif%20Ainul.jpg",
     role: "UI/UX",
     name: "Alif Ainul",
-    link: "/",
+    link: "https://www.linkedin.com/in/alifainul/",
   },
 ];
 
@@ -75,18 +88,36 @@ const itemCorouselFlutter: ItemSwiperProps[] = [
       "https://storage.googleapis.com/alterra-greeve/greeve/cb75b1aa-f2f7-4dd6-8529-88282870297c1716606970420.jpeg",
     role: "Flutter",
     name: "La Ode Naubill Huda Ashara",
-    link: "/",
+    link: "https://www.linkedin.com/in/la-ode-naubill-huda-ashara-495660260/",
   },
-  { image: robiul, role: "Flutter", name: "Levian Dandra", link: "/" },
-  { image: robiul, role: "Flutter", name: "Muhamad Ivan Fadillah", link: "/" },
+  {
+    image:
+      "https://storage.googleapis.com/alterra-greeve/greeve/ee52d24a-46ee-42f8-bda9-b9daf7aa21cdLevian%20Dandra.png",
+    role: "Flutter",
+    name: "Levian Dandra",
+    link: "https://www.linkedin.com/in/77leviann//",
+  },
+  {
+    image:
+      "https://storage.googleapis.com/alterra-greeve/greeve/326e96d3-36e1-4440-a09b-d1bb870155d7IMG_20211124_154314.jpg",
+    role: "Flutter",
+    name: "Muhamad Ivan Fadillah",
+    link: "https://www.linkedin.com/in/ivantendou/",
+  },
   {
     image:
       "https://storage.googleapis.com/alterra-greeve/greeve/933b0c24-6575-4772-8b75-e3eafa90466b_DSC3385.JPG",
     role: "Flutter",
     name: "M. Arif",
-    link: "/",
+    link: "https://www.linkedin.com/in/m-arif-b74614221/",
   },
-  { image: robiul, role: "Flutter", name: "Aisyah Gasna Aulia", link: "/" },
+  {
+    image:
+      "https://storage.googleapis.com/alterra-greeve/greeve/013e3d47-8519-4164-9aa3-863aa5f10f15aisyah%20hasna.jpg",
+    role: "Flutter",
+    name: "Aisyah Gasna Aulia",
+    link: "http://www.linkedin.com/in/asyhasnaa",
+  },
 ];
 
 const itemCorouselGolang: ItemSwiperProps[] = [
@@ -95,14 +126,14 @@ const itemCorouselGolang: ItemSwiperProps[] = [
       "https://storage.googleapis.com/alterra-greeve/greeve/76bed02a-7615-42eb-8b89-c78a3087eaabBlueBackground.png",
     role: "Golang",
     name: "Nur Faid Prasetyo",
-    link: "/",
+    link: "https://www.linkedin.com/in/kzquandary/",
   },
   {
     image:
       "https://storage.googleapis.com/alterra-greeve/greeve/75b648ea-25e4-4578-ba50-98a449bf0878Chandra.jpg",
     role: "Golang",
     name: "Chandra Wahyu Rafialdi",
-    link: "/",
+    link: "https://www.linkedin.com/in/chandra-wahyu-r-8875b3297/",
   },
 ];
 
@@ -122,10 +153,11 @@ const itemCorouselQA: ItemSwiperProps[] = [
     link: "/",
   },
   {
-    image: robiul,
+    image:
+      "https://storage.googleapis.com/alterra-greeve/greeve/71787ba2-de39-41a2-b013-e037b3803b16IMG_0265.jpg",
     role: "Quality Engineer",
     name: "Bintang Hari Pratama",
-    link: "/",
+    link: "https://www.linkedin.com/in/bintang-hari-pratama-89446994/",
   },
 ];
 
@@ -135,14 +167,14 @@ const itemCorouselDA: ItemSwiperProps[] = [
       "https://storage.googleapis.com/alterra-greeve/greeve/b2151de3-f241-4b9e-9a75-3ae9785ae9efAdhira%20Riyanti%20Amanda%20Pas%20Foto%202x3.png",
     role: "Data Engineer",
     name: "Adhira Riyanti Amanda",
-    link: "/",
+    link: "https://www.linkedin.com/in/adhira-riyanti-amanda/",
   },
   {
     image:
       "https://storage.googleapis.com/alterra-greeve/greeve/af8f1b67-0086-4418-9fe9-6dbc4a4dbcef1642749840178.jpeg",
     role: "Data Engineer",
     name: "Muhammad Dzikri Rizaldi",
-    link: "/",
+    link: "https://www.linkedin.com/in/dzikririzaldi/",
   },
   {
     image:
@@ -166,11 +198,16 @@ const itemCorouselReact: ItemSwiperProps[] = [
       "https://storage.googleapis.com/alterra-greeve/greeve/76ffd6c1-cccc-48e2-a1f3-132aee9cf7a4IMG_0058.JPG",
     role: "React",
     name: "Yosan Okta Odhianto",
-    link: "/",
+    link: "https://www.linkedin.com/in/yosan-okta-18b23a266/",
   },
-  { image: robiul, role: "React", name: "Robiul Awal", link: "/" },
   {
     image: robiul,
+    role: "React",
+    name: "Robiul Awal",
+    link: "https://www.linkedin.com/in/robiul-awal11/",
+  },
+  {
+    image: Krisna,
     role: "React",
     name: "Anak Agung Made Krisna Astrawan",
     link: "/",
@@ -206,12 +243,12 @@ const MeetOurBrainSection = () => {
   return (
     <section className="bg-[#FFFFFF] w-full h-auto py-[60px] px-[64px] flex flex-col justify-center items-center gap-[48px]">
       <div>
-        <h3 className="text-neutral-900 text-[60px] font-semibold">
+        <h3 className="text-neutral-900 text-[32px] md:text-[60px] text-center font-semibold">
           Meet Our Brains
         </h3>
       </div>
       <div>
-        <div className="flex gap-[28px] bg-neutral-50 rounded-[56px] p-[10px] shadow-lg ">
+        <div className="hidden lg:flex gap-[28px] bg-neutral-50 rounded-[56px] p-[10px] shadow-lg ">
           {menuItems.map((item, index) => (
             <div
               key={index}
@@ -226,6 +263,24 @@ const MeetOurBrainSection = () => {
             </div>
           ))}
         </div>
+        <DropdownMenu>
+          <DropdownMenuTrigger className="lg:hidden text-neutral-50 bg-primary-500 rounded-[50px] cursor-pointer py-[12px] px-[32px]">
+            Role
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            {menuItems.map((item, index) => (
+              <DropdownMenuItem
+                className={`${tabAppointmentClass(
+                  `tab${index}`
+                )} hover:text-neutral-50 hover:bg-primary-500 rounded-[50px] cursor-pointer py-[12px] px-[32px]`}
+                onClick={() => handleTabAppointmentClick(`tab${index}`)}
+                key={index}
+              >
+                {item.label}
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       {tabItem.map(
         (item, index) =>

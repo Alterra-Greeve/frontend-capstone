@@ -54,16 +54,16 @@ const GetInTouchSection = () => {
   return (
     <section className="bg-[#FFFFFF] py-[60px] w-auto flex flex-col justify-center items-center gap-[40px]">
       <div className="flex flex-col justify-center items-center">
-        <h3 className="text-neutral-900 text-[40px] font-bold text-center">
+        <h3 className="text-neutral-900 text-[20px] md:text-[40px] font-bold text-center">
           Get in touch
         </h3>
-        <p className="text-neutral-600 text-[24px] font-medium text-center max-w-[1027px]">
+        <p className="text-neutral-600 text-[16px] md:text-[24px] font-medium text-center max-w-[1027px]">
           Butuh bantuan? Punya pertanyaan? Ingin berkolaborasi? Jangan ragu
           untuk menghubungi kami! Tim kami siap membantu Anda dengan segala
           kebutuhan Anda.
         </p>
       </div>
-      <div className="flex flex-col justify-center items-center gap-[32px] py-[28px] px-[40px] w-[618px] h-[467px] bg-transparent mx-[32px]">
+      <div className="flex flex-col max-md:mt-24 justify-center items-center gap-[32px] py-[28px] px-[40px] w-[318px] md:w-[618px] h-[167px] md:h-[467px] bg-transparent mx-[32px]">
         <p className="text-neutral-900 text-[16px] font-semibold">
           Hubungi Kami
         </p>

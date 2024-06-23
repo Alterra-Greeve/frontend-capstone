@@ -39,11 +39,11 @@ const scrollToSection = (id: string) => {
 
 export default function Footer() {
   return (
-    <footer className="py-[24px] px-[64px] sticky top-0 bg-primary-500 w-full h-auto flex flex-row justify-between">
-      <Link className="flex justify-center items-center" to={"/"}>
+    <footer className="py-[24px] px-[64px] sticky top-0 bg-primary-500 w-full h-auto flex flex-wrap lg:flex-row justify-between">
+      <Link className="flex justify-center items-center mb-5" to={"/"}>
         <img src={logo} alt="logo" />
       </Link>
-      <div className="flex justify-end items-center gap-[23px]">
+      <div className="flex flex-col md:flex-row justify-end items-start md:items-center gap-[23px]">
         {navItems.map((item, index) => (
           <NavLink
             key={index}
@@ -56,7 +56,7 @@ export default function Footer() {
           </NavLink>
         ))}
       </div>
-      <div className="flex justify-end items-center gap-[10px]">
+      <div className="flex justify-end items-center gap-[10px] max-sm:mt-5">
         {socialItems.map((item, index) => (
           <Link
             to={item.link}

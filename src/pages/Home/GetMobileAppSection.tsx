@@ -17,17 +17,17 @@ const GetMobileAppSection = () => {
   return (
     <section
       id="Download"
-      className="relative bg-primary-50 pt-[48px] pb-[882px] h-[1177px] flex flex-col justify-center items-center gap-[35px]"
+      className="relative bg-primary-50 pt-[48px] pb-[882px] h-[1177px] mt-24 flex flex-col justify-center items-center gap-[35px]"
     >
-      <div className="flex flex-col justify-center items-center">
-        <h3 className="text-neutral-900 text-[60px] font-semibold text-center">
+      <div className="flex flex-col justify-center max-md:mt-40 items-center">
+        <h3 className="text-neutral-900 text-[32px] md:text-[60px] font-semibold text-center">
           Get The Greeve Mobile App
         </h3>
-        <p className="text-neutral-600 text-[25px] font-normal text-center max-w-[588px]">
+        <p className="text-neutral-600 text-[20px] md:text-[25px] font-normal text-center max-w-[588px]">
           Mari wujudkan masa depan yang lebih hijau dan berkelanjutan!
         </p>
       </div>
-      <div className="flex flex-row justify-center items-center gap-[12px]">
+      <div className="flex flex-col lg:flex-row justify-center items-center gap-[12px]">
         <Link to={"/"}>
           <Button className="w-[309px] h-[100px] bg-[#000] hover:bg-primary-600 p-[20px] rounded-[10px] ">
             <img
@@ -63,7 +63,7 @@ const GetMobileAppSection = () => {
           </Button>
         </Link>
       </div>
-      <div className="absolute z-50 bottom-[250px] w-[250px] h-auto left-64 bg-[#FFF] rounded-[10px] shadow-md p-[15px] flex flex-col gap-[10px]">
+      <div className="absolute max-md:hidden z-50 bottom-[250px] w-[250px] h-auto left-64 bg-[#FFF] rounded-[10px] shadow-md p-[15px] flex flex-col gap-[10px]">
         <div className="flex gap-[6px] items-center">
           <img className="w-[24px] h-[24px]" src={user} alt="user" />
           <h5 className="text-neutral-900 text-[20px] font-normal">
@@ -93,21 +93,25 @@ const GetMobileAppSection = () => {
           </div>
         </div>
       </div>
-      <img className="absolute bottom-0" src={getApp} alt="get mobile app" />
+      <img
+        className="absolute bottom-0 h-[300px] w-auto md:h-auto"
+        src={getApp}
+        alt="get mobile app"
+      />
       <Helps
         image={helps1}
         name="Less Global Warming"
-        className="absolute bottom-[500px] right-[230px]"
+        className="absolute bottom-[500px] right-[80px] md:right-[230px]"
       />
       <Helps
         image={helps2}
         name="Save Money"
-        className="absolute bottom-[750px] right-40"
+        className="absolute bottom-[250px] md:bottom-[750px] right-40"
       />
       <Helps
         image={helps3}
         name="Expand Your Main"
-        className="absolute bottom-[630px] right-[350px]"
+        className="absolute bottom-[630px] right-[80px] lg:right-[350px]"
       />
       <Helps
         image={helps4}
