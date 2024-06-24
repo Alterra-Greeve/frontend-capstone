@@ -15,7 +15,7 @@ const FeaturesSection = () => {
       <div className="flex flex-col xl:flex-row justify-between gap-[42px]">
         <div className="relative w-[300px] lg:w-[635px] h-[775px] lg:h-[1075px] rounded-[30px] bg-primary-50">
           <h5 className="text-neutral-900 text-[40px] font-medium mt-[70px] ml-[40px] mr-[18px]">
-            Geeve Shop
+            Greeve Shop
           </h5>
           <p className="text-neutral-700 text-[20px] md:text-[25px] font-normal opacity-50 mt-[26px] ml-[40px] mr-[32px]">
             Temukan berbagai macam produk dari berbagai kategori yang ramah
@@ -34,7 +34,7 @@ const FeaturesSection = () => {
         </div>
         <div className="relative w-[300px] lg:w-[635px] h-[775px] lg:h-[1075px] rounded-[30px] bg-primary-50">
           <h5 className="text-neutral-900 text-[40px] font-medium mt-[70px] ml-[40px] mr-[18px]">
-            Geeve Challenge
+            Greeve Challenge
           </h5>
           <p className="text-neutral-700 text-[20px] md:text-[25px] font-normal opacity-50 mt-[26px] ml-[40px] mr-[32px]">
             Bersama Greeve Challenge, kita wujudkan masa depan yang lebih hijau!
